@@ -10,6 +10,7 @@ type MagneticLinkProps = {
   className?: string;
   arrow?: boolean;
   onClick?: () => void;
+  onMouseEnter?: () => void;
 };
 
 export default function MagneticLink({
@@ -18,6 +19,7 @@ export default function MagneticLink({
   className,
   arrow = false,
   onClick,
+  onMouseEnter,
 }: MagneticLinkProps) {
   const ref = useRef<HTMLAnchorElement>(null);
   const arrowRef = useRef<HTMLSpanElement>(null);
@@ -66,6 +68,7 @@ export default function MagneticLink({
         ref={ref}
         href={href}
         onClick={onClick}
+        onMouseEnter={onMouseEnter}
         onMouseMove={handleMove}
         onMouseLeave={handleLeave}
         className={sharedClassName}
@@ -80,6 +83,7 @@ export default function MagneticLink({
       ref={ref}
       href={href}
       onClick={onClick}
+      onMouseEnter={onMouseEnter}
       onMouseMove={handleMove}
       onMouseLeave={handleLeave}
       className={sharedClassName}

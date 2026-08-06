@@ -62,7 +62,7 @@ export default function Hero({ stats }: { stats: StatItem[] }) {
           <div className="mb-7 flex items-center gap-3.5">
             <span className="h-[2px] w-[34px] bg-signal-red" />
             <span className="font-mono-label text-[11.5px] tracking-[0.26em] opacity-55">
-              AULMO ELECTRIC INTERNATIONAL <br></br><span className="text-signal-yellow"><b>SPECIALIZED IN SWITCHES</b></span>
+              AULMO ELECTRIC COMPANY <br></br><span className="text-signal-yellow"><b>SPECIALIZED IN SWITCHES</b></span>
             </span>
           </div>
           <h1 className="m-0 text-[clamp(38px,min(6.6vw,8.4vh),108px)] leading-[0.95] font-extrabold tracking-[-0.035em] uppercase [font-stretch:116%]">
@@ -75,7 +75,7 @@ export default function Hero({ stats }: { stats: StatItem[] }) {
             />
           </h1>
           <Reveal delay={200} as="p" className="mt-7 max-w-[42ch] text-pretty text-[15px] leading-[1.66] opacity-70">
-            Switches, sockets and control panels built to a single 86&nbsp;mm module — glass,
+            Switches, sockets and control panels built to a single 86&nbsp;mm module like glass,
             wood, antique bronze and high-gloss finishes for contemporary architecture.
           </Reveal>
           <div className="mt-8 flex flex-wrap gap-3">

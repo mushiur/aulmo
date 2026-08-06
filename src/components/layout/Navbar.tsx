@@ -89,7 +89,12 @@ export default function Navbar({ series, featured }: NavbarProps) {
             : "border-transparent bg-transparent",
         )}
       >
-        <Link href="/" onClick={scrollToTop} className="flex-none">
+        <Link
+          href="/"
+          onClick={scrollToTop}
+          onMouseEnter={() => setMegaOpen(false)}
+          className="flex-none"
+        >
           <Image
             src="/brand/aulmo-logo.png"
             alt="AULMO"
@@ -106,13 +111,17 @@ export default function Navbar({ series, featured }: NavbarProps) {
             isLight ? "border-charcoal/14 bg-paper-bright/50" : "border-paper/14 bg-ink-raised/40",
           )}
         >
-          <Link href="/" onClick={scrollToTop}>Home</Link>
-          <Link href="/about">About Us</Link>
+          <NavLink href="/" onClick={scrollToTop} onMouseEnter={() => setMegaOpen(false)}>
+            Home
+          </NavLink>
+          <NavLink href="/about" onMouseEnter={() => setMegaOpen(false)}>
+            About Us
+          </NavLink>
           <button
             type="button"
             onClick={() => setMegaOpen((v) => !v)}
             onMouseEnter={() => setMegaOpen(true)}
-            className="flex items-center gap-2 bg-transparent p-0"
+            className="flex items-center gap-2 bg-transparent p-0 opacity-80 transition-opacity duration-300 hover:opacity-100"
           >
             Products
             <span
@@ -122,17 +131,19 @@ export default function Navbar({ series, featured }: NavbarProps) {
               )}
             />
           </button>
-          <Link href="/certificate">Certificate</Link>
-          <Link href="/contact">Contact</Link>
+          <NavLink href="/certificate" onMouseEnter={() => setMegaOpen(false)}>
+            Certificate
+          </NavLink>
+          <NavLink href="/contact" onMouseEnter={() => setMegaOpen(false)}>
+            Contact
+          </NavLink>
         </nav>
 
         <div className="flex flex-none items-center gap-4 md:gap-5">
-          <span className="hidden font-mono-label text-[9.5px] tracking-[0.18em] opacity-50 min-[1121px]:inline">
-            EN — INT
-          </span>
           <MagneticLink
             href="tel:+8801720310552"
             arrow
+            onMouseEnter={() => setMegaOpen(false)}
             className={clsx(
               "rounded-full border px-5 py-3.5 font-mono-label text-[10px] font-bold tracking-[0.18em] uppercase backdrop-blur-xl transition-colors duration-[400ms] hover:border-signal-red hover:bg-signal-red hover:text-paper-bright",
               isLight ? "border-charcoal/24 bg-paper-bright/50" : "border-paper/26 bg-ink-raised/40",
@@ -154,6 +165,30 @@ export default function Navbar({ series, featured }: NavbarProps) {
         <MegaMenu series={series} featured={featured} onClose={() => setMegaOpen(false)} />
       )}
     </>
+  );
+}
+
+function NavLink({
+  href,
+  onClick,
+  onMouseEnter,
+  children,
+}: {
+  href: string;
+  onClick?: () => void;
+  onMouseEnter?: () => void;
+  children: string;
+}) {
+  return (
+    <Link
+      href={href}
+      onClick={onClick}
+      onMouseEnter={onMouseEnter}
+      className="group relative opacity-80 transition-opacity duration-300 hover:opacity-100"
+    >
+      {children}
+      <span className="absolute -bottom-1 left-0 h-px w-full origin-left scale-x-0 bg-current transition-transform duration-300 ease-[cubic-bezier(.2,.7,.2,1)] group-hover:scale-x-100" />
+    </Link>
   );
 }
 

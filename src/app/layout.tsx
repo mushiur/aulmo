@@ -4,6 +4,7 @@ import "./globals.css";
 import Loader from "@/components/ui/Loader";
 import CustomCursor from "@/components/ui/CustomCursor";
 import ScrollProgress from "@/components/ui/ScrollProgress";
+import PageTransition from "@/components/ui/PageTransition";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import { getProductHierarchy, getFeaturedSubSeries } from "@/lib/products";
@@ -46,7 +47,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <ScrollProgress />
         <CustomCursor />
         <Navbar series={series} featured={featured} />
-        {children}
+        <PageTransition>{children}</PageTransition>
         <Footer series={series} />
       </body>
     </html>
