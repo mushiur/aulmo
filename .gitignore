@@ -39,3 +39,16 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# editor / OS
+.vscode/
+.idea/
+Thumbs.db
+
+# Claude Code local settings (machine-specific permissions, not shared)
+.claude/settings.local.json
+
+# raw pre-migration asset dump — fully migrated into public/products/ and
+# friends already (see CLAUDE.md); kept on disk for reference pending a
+# future confirmed deletion, but not committed to avoid repo bloat
+/Image/
