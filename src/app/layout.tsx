@@ -7,6 +7,7 @@ import ScrollProgress from "@/components/ui/ScrollProgress";
 import PageTransition from "@/components/ui/PageTransition";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import ChatWidget from "@/components/ui/ChatWidget";
 import { getProductHierarchy, getFeaturedSubSeries } from "@/lib/products";
 
 const archivo = Archivo({
@@ -49,6 +50,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <Navbar series={series} featured={featured} />
         <PageTransition>{children}</PageTransition>
         <Footer series={series} />
+        <ChatWidget />
       </body>
     </html>
   );

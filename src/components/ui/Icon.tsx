@@ -192,3 +192,12 @@ export function DragIcon(props: IconProps) {
     </svg>
   );
 }
+
+export function ChatIcon(props: IconProps) {
+  return (
+    <svg {...strokeBase} {...props}>
+      <path d="M4 5.5h16v11H12l-4 4v-4H4z" />
+      <path d="M8 10h8M8 13h5" />
+    </svg>
+  );
+}
