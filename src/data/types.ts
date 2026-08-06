@@ -49,6 +49,10 @@ export type ProductSeries = {
   description: string;
   image?: ImageRef;
   imagePosition?: string;
+  /** Overrides `image` on the /products overview card only — lets that
+   *  thumbnail use a different real photo than the series detail page's
+   *  hero banner. Falls back to `image` when absent. */
+  cardImage?: ImageRef;
   /** One-word theme for the series page's hero (e.g. "DESIGN", "SECURE") —
    *  client-supplied marketing direction, distinct from `tagline`. */
   theme?: string;

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import clsx from "clsx";
 import Breadcrumb from "@/components/ui/Breadcrumb";
 import SeriesSubCard from "@/components/products/SeriesSubCard";
 import { getSeriesBySlug, getSeriesParams, getCoverImage } from "@/lib/products";
@@ -45,7 +46,11 @@ export default async function SeriesPage({
     <main className="relative min-h-screen bg-paper-bright text-charcoal">
       {/* Hero */}
       <section data-theme="light" className="relative grid grid-cols-1 md:grid-cols-2">
-        <div className="flex flex-col justify-center px-6 py-[14vh] md:px-[4.5vw] md:py-[16vh]">
+        <div className="relative flex flex-col justify-center overflow-hidden px-6 py-[14vh] md:px-[4.5vw] md:py-[16vh]">
+          <div
+            aria-hidden
+            className="pointer-events-none absolute -top-[15%] -left-[15%] h-[46vh] w-[46vh] rounded-full bg-gradient-to-br from-signal-red/16 via-signal-yellow/8 to-transparent blur-[100px]"
+          />
           <Breadcrumb
             items={[
               { label: "Home", href: "/" },
@@ -89,8 +94,23 @@ export default async function SeriesPage({
       </section>
 
       {/* Sub-series — a single centered showcase at 1 item, an even grid otherwise */}
-      <section data-theme="light" className="relative px-6 py-[8vh] md:px-[4.5vw] md:py-[9vh]">
-        <div className={subSeries.length === 1 ? "mx-auto max-w-[720px]" : gridCols}>
+      <section
+        data-theme="light"
+        className="relative overflow-hidden px-6 py-[8vh] md:px-[4.5vw] md:py-[9vh]"
+      >
+        {subSeries.length === 1 && (
+          <div
+            aria-hidden
+            className="pointer-events-none absolute top-1/2 left-1/2 h-[55vh] w-[55vh] -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-to-tr from-signal-yellow/10 via-signal-red/8 to-transparent blur-[100px]"
+          />
+        )}
+        <div
+          className={
+            subSeries.length === 1
+              ? "relative mx-auto max-w-[720px]"
+              : clsx("relative", gridCols)
+          }
+        >
           {subSeries.map((sub) => (
             <SeriesSubCard
               key={sub.slug}

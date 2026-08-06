@@ -263,6 +263,13 @@ patterns, so all stay unchecked.
         each, centered showcase) with no per-series branching in the
         template — adding or removing a sub-series just changes which count
         branch renders.
+      - **Pass 4**: client asked whether a color gradient vibe would feel
+        more premium. Prototyped on D-series only first (a soft ambient
+        radial glow blending the existing `signal-red`/`signal-yellow`
+        tokens — no new hex values — blurred and low-opacity, sitting behind
+        the hero and, for single-sub-series pages, behind the centered
+        showcase card). Approved, then rolled out to all five series pages
+        and to the `/products` overview header for consistency.
       - **Removed the generic 5-icon feature strip and the dark "explore
         everything" grid tile** — both read as filler once the client shared
         `public/Product page/information.txt` with real per-series marketing

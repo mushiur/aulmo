@@ -35,6 +35,10 @@ export const productHierarchy: ProductSeries[] = [
       alt: "AULMO L Series switch in black, gold and white finishes",
     },
     imagePosition: "50% 68%",
+    cardImage: {
+      src: "/products/l-series/l50/black/hero.jpg",
+      alt: "AULMO L Series switch, ink black",
+    },
     subSeries: [
       {
         code: "L50",
