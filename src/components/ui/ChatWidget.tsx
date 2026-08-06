@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import { CHAT_INTRO, CHAT_QA, type ChatQA } from "@/data/chat";
-import { ChatIcon } from "@/components/ui/Icon";
 
 export default function ChatWidget() {
   const [open, setOpen] = useState(false);
@@ -86,7 +86,7 @@ export default function ChatWidget() {
                   <button
                     type="button"
                     onClick={() => setLog([])}
-                    className="font-mono-label text-[10px] tracking-[0.16em] opacity-50 transition-opacity hover:opacity-80"
+                    className="rounded-full border border-charcoal/25 px-4 py-2 font-mono-label text-[10px] font-bold tracking-[0.16em] transition-colors duration-300 hover:border-charcoal/60 hover:bg-charcoal hover:text-paper"
                   >
                     RESTART
                   </button>
@@ -110,9 +110,9 @@ export default function ChatWidget() {
           type="button"
           aria-label={open ? "Close chat" : "Open chat"}
           onClick={() => setOpen((v) => !v)}
-          className="relative flex h-14 w-14 items-center justify-center rounded-full bg-charcoal text-paper-bright shadow-[0_16px_40px_-12px_rgba(20,20,18,0.5)] ring-1 ring-paper/15 transition-[transform,background-color] duration-300 hover:scale-[1.08] hover:bg-signal-red active:scale-[0.96]"
+          className="relative flex h-14 w-14 items-center justify-center rounded-full bg-charcoal shadow-[0_16px_40px_-12px_rgba(20,20,18,0.5)] ring-1 ring-paper/15 transition-transform duration-300 hover:scale-[1.08] active:scale-[0.96]"
         >
-          <ChatIcon className="h-6 w-6" />
+          <Image src="/chat-bot/chatbot.png" alt="" width={36} height={36} className="h-9 w-9" />
         </button>
       </div>
     </div>

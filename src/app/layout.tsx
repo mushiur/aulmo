@@ -28,7 +28,7 @@ const SITE_NAME = "Aulmo Bangladesh";
 
 export const metadata: Metadata = {
   title: {
-    default: `${SITE_NAME} — A Century of Specialized Switches`,
+    default: `${SITE_NAME} `,
     template: `%s — ${SITE_NAME}`,
   },
   description:
