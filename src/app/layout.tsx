@@ -9,6 +9,7 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import ChatWidget from "@/components/ui/ChatWidget";
 import { getProductHierarchy, getFeaturedSubSeries } from "@/lib/products";
+import { SITE_NAME, SITE_URL } from "@/lib/seo";
 
 const archivo = Archivo({
   variable: "--font-archivo",
@@ -24,15 +25,75 @@ const plexMono = IBM_Plex_Mono({
   display: "swap",
 });
 
-const SITE_NAME = "Aulmo Bangladesh";
+const SITE_TITLE = `${SITE_NAME} — Switches, Sockets & Control Panels`;
+const SITE_DESCRIPTION =
+  "AULMO Electric International (AULMO BD): switches, sockets and control panels built to a single 86mm module — glass, wood, antique bronze and high-gloss finishes for contemporary architecture. Showroom in Dhaka, Bangladesh.";
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: {
-    default: `${SITE_NAME} `,
+    default: SITE_TITLE,
     template: `%s — ${SITE_NAME}`,
   },
-  description:
-    "AULMO Electric International: switches, sockets and control panels built to a single 86mm module — glass, wood, antique bronze and high-gloss finishes for contemporary architecture.",
+  description: SITE_DESCRIPTION,
+  keywords: [
+    "AULMO",
+    "AULMO BD",
+    "AULMO Bangladesh",
+    "AULMO Electric",
+    "AULMO Electric International",
+    "switches Bangladesh",
+    "sockets Bangladesh",
+    "electrical switches Dhaka",
+  ],
+  alternates: {
+    canonical: "/",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: SITE_URL,
+    siteName: SITE_NAME,
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
+    images: [
+      {
+        url: "/marketing/products-overview-banner.png",
+        width: 1823,
+        height: 863,
+        alt: "AULMO switch and socket range",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
+    images: ["/marketing/products-overview-banner.png"],
+  },
+};
+
+const LOCAL_BUSINESS_SCHEMA = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  name: "AULMO Electric International",
+  alternateName: ["AULMO BD", "AULMO Bangladesh", "AULMO Electric Bangladesh"],
+  url: SITE_URL,
+  logo: `${SITE_URL}/brand/aulmo-logo.png`,
+  image: `${SITE_URL}/marketing/products-overview-banner.png`,
+  telephone: "+8801720310552",
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "Khaza Electric Market, 153 Nawabpur Rd",
+    addressLocality: "Dhaka",
+    postalCode: "1100",
+    addressCountry: "BD",
+  },
+  sameAs: ["https://www.facebook.com/aulmoepbd2020/"],
 };
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
@@ -44,6 +105,10 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       className={`${archivo.variable} ${plexMono.variable} h-full`}
     >
       <body className="min-h-full bg-ink text-paper">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(LOCAL_BUSINESS_SCHEMA) }}
+        />
         <Loader />
         <ScrollProgress />
         <CustomCursor />
