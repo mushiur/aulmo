@@ -167,3 +167,28 @@ export function ApertureIcon(props: IconProps) {
     </svg>
   );
 }
+
+export function ChevronLeftIcon(props: IconProps) {
+  return (
+    <svg {...strokeBase} {...props}>
+      <path d="M15 5 8 12l7 7" />
+    </svg>
+  );
+}
+
+export function ChevronRightIcon(props: IconProps) {
+  return (
+    <svg {...strokeBase} {...props}>
+      <path d="M9 5l7 7-7 7" />
+    </svg>
+  );
+}
+
+export function DragIcon(props: IconProps) {
+  return (
+    <svg {...strokeBase} {...props}>
+      <path d="M3 12h5M3 12l3-3M3 12l3 3" />
+      <path d="M21 12h-5M21 12l-3-3M21 12l-3 3" />
+    </svg>
+  );
+}

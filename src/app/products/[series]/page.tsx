@@ -42,56 +42,98 @@ export default async function SeriesPage({
         ? "grid grid-cols-1 gap-4 sm:grid-cols-2"
         : "grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3";
 
+  const breadcrumbItems = [
+    { label: "Home", href: "/" },
+    { label: "Products", href: "/products" },
+    { label: series.name },
+  ];
+
   return (
     <main className="relative min-h-screen bg-paper-bright text-charcoal">
       {/* Hero */}
-      <section data-theme="light" className="relative grid grid-cols-1 md:grid-cols-2">
-        <div className="relative flex flex-col justify-center overflow-hidden px-6 py-[14vh] md:px-[4.5vw] md:py-[16vh]">
-          <div
-            aria-hidden
-            className="pointer-events-none absolute -top-[15%] -left-[15%] h-[46vh] w-[46vh] rounded-full bg-gradient-to-br from-signal-red/16 via-signal-yellow/8 to-transparent blur-[100px]"
-          />
-          <Breadcrumb
-            items={[
-              { label: "Home", href: "/" },
-              { label: "Products", href: "/products" },
-              { label: series.name },
-            ]}
-          />
-          {series.theme && (
-            <div className="mt-6 flex items-center gap-3.5">
-              <span className="font-mono-label text-[9.5px] tracking-[0.24em] text-signal-red">
-                {series.theme}
-              </span>
-              <span className="h-px w-[60px] bg-current/20" />
-            </div>
-          )}
-          <h1 className="m-0 mt-6 text-[clamp(38px,6vw,84px)] leading-[0.92] font-extrabold tracking-[-0.04em] uppercase [font-stretch:114%]">
-            {series.name}
-          </h1>
-          {series.quote && (
-            <p className="m-0 mt-4 max-w-[36ch] text-pretty text-[19px] leading-[1.35] font-semibold tracking-[-0.01em]">
-              &ldquo;{series.quote}&rdquo;
-            </p>
-          )}
-          <p className="m-0 mt-5 max-w-[46ch] text-pretty text-[14px] leading-[1.68] opacity-60">
-            {series.description}
-          </p>
-        </div>
-        <div className="relative min-h-[42vh] overflow-hidden bg-bone-deep md:min-h-0">
+      {series.heroStyle === "banner" ? (
+        <section
+          data-theme="dark"
+          className="relative flex min-h-[48vh] items-end overflow-hidden bg-ink text-paper sm:min-h-[56vh] md:min-h-[74vh]"
+        >
           {series.image && (
             <Image
               src={series.image.src}
               alt={series.image.alt}
               fill
-              sizes="(min-width: 768px) 50vw, 100vw"
+              sizes="100vw"
               style={{ objectPosition: series.imagePosition ?? "50% 50%" }}
               className="object-cover"
               priority
             />
           )}
-        </div>
-      </section>
+          <div className="absolute inset-0 bg-gradient-to-t from-ink/92 via-ink/45 to-ink/10" />
+          <div className="relative w-full px-6 pt-[10vh] pb-[6vh] md:px-[4.5vw] md:pt-[18vh] md:pb-[10vh]">
+            <Breadcrumb items={breadcrumbItems} />
+            {series.theme && (
+              <div className="mt-6 flex items-center gap-3.5">
+                <span className="font-mono-label text-[9.5px] tracking-[0.24em] opacity-60">
+                  {series.theme}
+                </span>
+                <span className="h-px w-[60px] bg-current/20" />
+              </div>
+            )}
+            <h1 className="m-0 mt-6 text-[clamp(36px,6.4vw,96px)] leading-[0.9] font-extrabold tracking-[-0.045em] uppercase [font-stretch:114%]">
+              {series.name}
+            </h1>
+            {series.quote && (
+              <p className="m-0 mt-6 max-w-[36ch] text-pretty text-[19px] leading-[1.35] font-semibold tracking-[-0.01em]">
+                &ldquo;{series.quote}&rdquo;
+              </p>
+            )}
+            <p className="m-0 mt-4 max-w-[46ch] text-pretty text-[14px] leading-[1.68] opacity-75">
+              {series.description}
+            </p>
+          </div>
+        </section>
+      ) : (
+        <section data-theme="light" className="relative grid grid-cols-1 md:grid-cols-2">
+          <div className="relative flex flex-col justify-center overflow-hidden px-6 py-[14vh] md:px-[4.5vw] md:py-[16vh]">
+            <div
+              aria-hidden
+              className="pointer-events-none absolute -top-[15%] -left-[15%] h-[46vh] w-[46vh] rounded-full bg-gradient-to-br from-signal-red/16 via-signal-yellow/8 to-transparent blur-[100px]"
+            />
+            <Breadcrumb items={breadcrumbItems} />
+            {series.theme && (
+              <div className="mt-6 flex items-center gap-3.5">
+                <span className="font-mono-label text-[9.5px] tracking-[0.24em] text-signal-red">
+                  {series.theme}
+                </span>
+                <span className="h-px w-[60px] bg-current/20" />
+              </div>
+            )}
+            <h1 className="m-0 mt-6 text-[clamp(38px,6vw,84px)] leading-[0.92] font-extrabold tracking-[-0.04em] uppercase [font-stretch:114%]">
+              {series.name}
+            </h1>
+            {series.quote && (
+              <p className="m-0 mt-4 max-w-[36ch] text-pretty text-[19px] leading-[1.35] font-semibold tracking-[-0.01em]">
+                &ldquo;{series.quote}&rdquo;
+              </p>
+            )}
+            <p className="m-0 mt-5 max-w-[46ch] text-pretty text-[14px] leading-[1.68] opacity-60">
+              {series.description}
+            </p>
+          </div>
+          <div className="relative min-h-[42vh] overflow-hidden bg-bone-deep md:min-h-0">
+            {series.image && (
+              <Image
+                src={series.image.src}
+                alt={series.image.alt}
+                fill
+                sizes="(min-width: 768px) 50vw, 100vw"
+                style={{ objectPosition: series.imagePosition ?? "50% 50%" }}
+                className="object-cover"
+                priority
+              />
+            )}
+          </div>
+        </section>
+      )}
 
       {/* Sub-series — a single centered showcase at 1 item, an even grid otherwise */}
       <section

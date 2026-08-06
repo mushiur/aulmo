@@ -31,10 +31,10 @@ export const productHierarchy: ProductSeries[] = [
     description:
       "One mechanism across five sub-series, finished in pearl white, water-ink black, carbon gray, matte silver or matte gold to match any interior.",
     image: {
-      src: "/products/l-series/three-finishes-banner.png",
-      alt: "AULMO L Series switch in black, gold and white finishes",
+      src: "/products/l-series/banner.png",
+      alt: "AULMO L Series switch lineup across six finishes",
     },
-    imagePosition: "50% 68%",
+    heroStyle: "banner",
     cardImage: {
       src: "/products/l-series/l50/black/hero.jpg",
       alt: "AULMO L Series switch, ink black",
@@ -46,12 +46,42 @@ export const productHierarchy: ProductSeries[] = [
         name: "L50 Series",
         description: "One-gang architectural switch with a flat stilt-board face.",
         spec: "86 × 90 mm module",
+        parameters: [
+          { label: "Color", value: "White / Gray / Gold / Black" },
+          { label: "Material (panel)", value: "PC" },
+          { label: "Size", value: "86 × 90 mm" },
+          { label: "Max. Current", value: "16A" },
+          { label: "Max. Voltage", value: "250V" },
+        ],
         variants: [
           {
             code: "black",
             name: "Ink Black",
             swatch: "#17171A",
-            hero: { src: "/products/l-series/l50/black/hero.jpg", alt: "AULMO L50 Series switch, ink black" },
+            hero: {
+              src: "/products/l-series/l50/black/hero.jpg",
+              alt: "AULMO L50 Series switch, ink black",
+              label: "Front",
+            },
+            gallery: [
+              {
+                src: "/products/l-series/l50/black/detail.jpg",
+                alt: "AULMO L50 Series switch detail, ink black",
+                label: "Detail",
+              },
+              {
+                src: "/products/l-series/l50/black/architecture.png",
+                alt: "AULMO L50 Series dimension diagram, 86 x 90 mm",
+                fit: "contain",
+                label: "Dimensions",
+              },
+              {
+                src: "/products/l-series/l50/black/profiling-diagram.png",
+                alt: "AULMO L50 Series exploded switch profiling diagram",
+                fit: "contain",
+                label: "Exploded View",
+              },
+            ],
           },
           {
             code: "gold",

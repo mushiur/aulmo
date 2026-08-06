@@ -1,6 +1,15 @@
 export type ImageRef = {
   src: string;
   alt: string;
+  /** "cover" (default) full-bleeds photography, cropping to fill the box.
+   *  "contain" shows the whole image uncropped — use for diagrams/line-art
+   *  (dimension drawings, exploded views) where cropping would cut off
+   *  labels or measurements. */
+  fit?: "cover" | "contain";
+  /** Short caption shown under this image's thumbnail in the product
+   *  gallery (e.g. "Front", "Detail", "Dimensions"). Optional — thumbnails
+   *  without a label just show no caption. */
+  label?: string;
 };
 
 /**
@@ -39,6 +48,8 @@ export type ProductSubSeries = {
   variants?: ProductVariant[];
   /** Real configurations/SKUs this line ships as, sourced from actual catalog sheets — not photographed individually, so shown as text, not images. */
   configurations?: string[];
+  /** Real product-parameter sheet (color range, material, ratings), client-supplied verbatim — rendered as a label/value table on the sub-series detail page. */
+  parameters?: { label: string; value: string }[];
 };
 
 export type ProductSeries = {
@@ -53,6 +64,13 @@ export type ProductSeries = {
    *  thumbnail use a different real photo than the series detail page's
    *  hero banner. Falls back to `image` when absent. */
   cardImage?: ImageRef;
+  /** Series-page hero layout. "split" (default) is the text/image side-by-side
+   *  hero. "banner" is a full-bleed photo with text overlaid — only use this
+   *  when `image` is a genuine landscape shot; forcing a portrait photo into
+   *  a full-bleed banner reintroduces the upscale-blur problem this was built
+   *  to avoid. Switch a series to "banner" once it has real landscape hero
+   *  photography, not before. */
+  heroStyle?: "split" | "banner";
   /** One-word theme for the series page's hero (e.g. "DESIGN", "SECURE") —
    *  client-supplied marketing direction, distinct from `tagline`. */
   theme?: string;
