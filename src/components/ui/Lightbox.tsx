@@ -1,12 +1,14 @@
 "use client";
 
-import { useEffect, type ReactNode } from "react";
+import { useEffect, useRef, type PointerEvent, type ReactNode } from "react";
+
+const SWIPE_THRESHOLD = 50;
 
 /**
  * Shared full-screen viewer chrome (backdrop, close/prev/next, keyboard nav,
- * counter) — the image/caption content is supplied as children so this
- * works for both product photos and certificate scans without forcing one
- * layout on both.
+ * counter, touch swipe) — the image/caption content is supplied as children
+ * so this works for both product photos and certificate scans without
+ * forcing one layout on both.
  */
 export default function Lightbox({
   count,
@@ -25,6 +27,9 @@ export default function Lightbox({
   caption?: ReactNode;
   children: ReactNode;
 }) {
+  const dragStartX = useRef<number | null>(null);
+  const wasSwipe = useRef(false);
+
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
@@ -35,10 +40,43 @@ export default function Lightbox({
     return () => window.removeEventListener("keydown", onKey);
   }, [onClose, onNext, onPrev]);
 
+  // Swipe-to-navigate on touch, layered on top of the existing tap-to-close
+  // backdrop behavior: a real swipe (delta past the threshold) advances the
+  // image and must NOT also close the lightbox once the pointer lifts, so
+  // the resulting click is swallowed via `wasSwipe` rather than relying on
+  // onClick alone.
+  const onPointerDown = (e: PointerEvent<HTMLDivElement>) => {
+    dragStartX.current = e.clientX;
+    wasSwipe.current = false;
+  };
+
+  const onPointerUp = (e: PointerEvent<HTMLDivElement>) => {
+    if (dragStartX.current === null) return;
+    const delta = e.clientX - dragStartX.current;
+    dragStartX.current = null;
+    if (delta < -SWIPE_THRESHOLD) {
+      wasSwipe.current = true;
+      onNext();
+    } else if (delta > SWIPE_THRESHOLD) {
+      wasSwipe.current = true;
+      onPrev();
+    }
+  };
+
+  const handleBackdropClick = () => {
+    if (wasSwipe.current) {
+      wasSwipe.current = false;
+      return;
+    }
+    onClose();
+  };
+
   return (
     <div
-      className="fixed inset-0 z-[300] flex items-center justify-center bg-ink/95 p-6 backdrop-blur-sm"
-      onClick={onClose}
+      className="fixed inset-0 z-[300] flex touch-pan-y items-center justify-center bg-ink/95 p-6 backdrop-blur-sm select-none"
+      onClick={handleBackdropClick}
+      onPointerDown={onPointerDown}
+      onPointerUp={onPointerUp}
     >
       <button
         type="button"

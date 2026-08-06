@@ -60,7 +60,7 @@ export default function InteractiveProductView({ series }: { series: ProductSeri
             <MagneticLink
               href={`/products/${series.slug}/${product?.slug}`}
               arrow
-              className="border border-charcoal/24 px-5 py-3.5 font-mono-label text-[10px] font-bold tracking-[0.18em] uppercase transition-colors duration-300 hover:border-charcoal/65"
+              className="bg-charcoal px-5 py-3.5 font-mono-label text-[10px] font-bold tracking-[0.18em] text-paper uppercase transition-colors duration-300 hover:bg-signal-red"
             >
               View {product?.name}
             </MagneticLink>

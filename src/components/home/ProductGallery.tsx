@@ -3,13 +3,12 @@
 import { useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { AnimatePresence, motion } from "framer-motion";
 import clsx from "clsx";
 import SectionEyebrow from "@/components/ui/SectionEyebrow";
 import Lightbox from "@/components/ui/Lightbox";
 import { ExpandIcon } from "@/components/ui/Icon";
-import type { ProductSeries, ProductVariant } from "@/data/types";
-
-type FilterKey = "ALL" | "L" | "D" | "M";
+import type { ProductSeries } from "@/data/types";
 
 type Slide = {
   key: string;
@@ -18,61 +17,91 @@ type Slide = {
   seriesSlug: string;
   subSeriesSlug: string;
   subSeriesName: string;
-  variant: ProductVariant;
+  // Sub-series with a finish selector carry a variant name (e.g. "Ink
+  // Black"); sub-series with just a plain `image` (K/S today) don't, so this
+  // is omitted rather than faked.
+  variantName?: string;
 };
 
 function buildSlides(series: ProductSeries): Slide[] {
   const slides: Slide[] = [];
   for (const sub of series.subSeries) {
-    if (!sub.variants || sub.variants.length === 0) continue;
-    for (const variant of sub.variants) {
+    if (sub.variants && sub.variants.length > 0) {
+      for (const variant of sub.variants) {
+        slides.push({
+          key: `${sub.slug}-${variant.code}`,
+          src: variant.hero.src,
+          alt: variant.hero.alt,
+          seriesSlug: series.slug,
+          subSeriesSlug: sub.slug,
+          subSeriesName: sub.name,
+          variantName: variant.name,
+        });
+      }
+    } else if (sub.image) {
       slides.push({
-        key: `${sub.slug}-${variant.code}`,
-        src: variant.hero.src,
-        alt: variant.hero.alt,
+        key: sub.slug,
+        src: sub.image.src,
+        alt: sub.image.alt,
         seriesSlug: series.slug,
         subSeriesSlug: sub.slug,
         subSeriesName: sub.name,
-        variant,
       });
     }
   }
   return slides;
 }
 
-const FILTERS: { key: FilterKey; label: string }[] = [
-  { key: "ALL", label: "ALL" },
-  { key: "L", label: "L SERIES" },
-  { key: "D", label: "D SERIES" },
-  { key: "M", label: "M SERIES" },
-];
-
 const CARDS_PER_PAGE = 2;
 
-export default function ProductGallery({
-  lSeries,
-  dSeries,
-  mSeries,
-}: {
-  lSeries: ProductSeries;
-  dSeries: ProductSeries;
-  mSeries: ProductSeries;
-}) {
-  const [filter, setFilter] = useState<FilterKey>("ALL");
+export default function ProductGallery({ series }: { series: ProductSeries[] }) {
+  // Data-driven on purpose: adding, removing or renaming a series in
+  // product-hierarchy.ts changes what shows here automatically — no edits
+  // needed in this file. A series only earns a filter pill once it has real
+  // variant photography (buildSlides returns something for it), so K/S stay
+  // out of the showcase until they get real photos, without an allow-list.
+  const showcaseSeries = useMemo(() => series.filter((s) => buildSlides(s).length > 0), [series]);
+
+  const FILTERS = useMemo(
+    () => [{ slug: "ALL", label: "ALL" }, ...showcaseSeries.map((s) => ({ slug: s.slug, label: s.name.toUpperCase() }))],
+    [showcaseSeries],
+  );
+
+  const [filter, setFilter] = useState("ALL");
+  const [subFilter, setSubFilter] = useState<string | null>(null);
   const [page, setPage] = useState(0);
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
   const trackRef = useRef<HTMLDivElement>(null);
 
+  const activeSeries = useMemo(
+    () => (filter === "ALL" ? null : showcaseSeries.find((s) => s.slug === filter) ?? null),
+    [filter, showcaseSeries],
+  );
+
+  // Only offer a sub-series drill-down once one specific series is picked —
+  // with "ALL" selected, sub-series names from several different series
+  // would just clutter the row rather than help anyone narrow things down.
+  const availableSubSeries = activeSeries
+    ? activeSeries.subSeries.filter((sub) => (sub.variants && sub.variants.length > 0) || sub.image)
+    : [];
+
   const slides = useMemo(() => {
-    if (filter === "ALL") return [lSeries, dSeries, mSeries].flatMap(buildSlides);
-    const bySeries: Record<"L" | "D" | "M", ProductSeries> = { L: lSeries, D: dSeries, M: mSeries };
-    return buildSlides(bySeries[filter]);
-  }, [filter, lSeries, dSeries, mSeries]);
+    if (!activeSeries) return showcaseSeries.flatMap(buildSlides);
+    const all = buildSlides(activeSeries);
+    return subFilter ? all.filter((s) => s.subSeriesSlug === subFilter) : all;
+  }, [activeSeries, subFilter, showcaseSeries]);
 
   const pageCount = Math.max(1, Math.ceil(slides.length / CARDS_PER_PAGE));
 
-  const selectFilter = (key: FilterKey) => {
-    setFilter(key);
+  const selectFilter = (slug: string) => {
+    setFilter(slug);
+    setSubFilter(null);
+    setPage(0);
+    trackRef.current?.scrollTo({ left: 0 });
+  };
+
+  const selectSubFilter = (slug: string | null) => {
+    setSubFilter(slug);
     setPage(0);
     trackRef.current?.scrollTo({ left: 0 });
   };
@@ -96,6 +125,8 @@ export default function ProductGallery({
 
   const lightboxSlide = lightboxIndex !== null ? slides[lightboxIndex] : null;
 
+  if (showcaseSeries.length === 0) return null;
+
   return (
     <section
       id="series"
@@ -114,12 +145,12 @@ export default function ProductGallery({
         <div className="flex flex-wrap gap-2">
           {FILTERS.map((f) => (
             <button
-              key={f.key}
+              key={f.slug}
               type="button"
-              onClick={() => selectFilter(f.key)}
+              onClick={() => selectFilter(f.slug)}
               className={clsx(
                 "rounded-full border px-5 py-2.5 font-mono-label text-[10px] font-bold tracking-[0.16em] uppercase transition-colors duration-300",
-                filter === f.key
+                filter === f.slug
                   ? "border-charcoal bg-charcoal text-paper-bright"
                   : "border-charcoal/20 hover:border-charcoal/50",
               )}
@@ -129,6 +160,49 @@ export default function ProductGallery({
           ))}
         </div>
       </div>
+
+      <AnimatePresence initial={false}>
+        {availableSubSeries.length > 0 && (
+          <motion.div
+            key={filter}
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
+            className="overflow-hidden"
+          >
+            <div className="mt-5 flex flex-wrap gap-2 md:justify-end">
+              <button
+                type="button"
+                onClick={() => selectSubFilter(null)}
+                className={clsx(
+                  "rounded-full border px-4 py-2 font-mono-label text-[9.5px] font-bold tracking-[0.14em] uppercase transition-colors duration-300",
+                  subFilter === null
+                    ? "border-signal-red bg-signal-red text-charcoal"
+                    : "border-charcoal/15 opacity-60 hover:border-charcoal/40 hover:opacity-100",
+                )}
+              >
+                ALL {FILTERS.find((f) => f.slug === filter)?.label}
+              </button>
+              {availableSubSeries.map((sub) => (
+                <button
+                  key={sub.slug}
+                  type="button"
+                  onClick={() => selectSubFilter(sub.slug)}
+                  className={clsx(
+                    "rounded-full border px-4 py-2 font-mono-label text-[9.5px] font-bold tracking-[0.14em] uppercase transition-colors duration-300",
+                    subFilter === sub.slug
+                      ? "border-signal-red bg-signal-red text-charcoal"
+                      : "border-charcoal/15 opacity-60 hover:border-charcoal/40 hover:opacity-100",
+                  )}
+                >
+                  {sub.name}
+                </button>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <div className="relative mt-10 md:mt-[7vh]">
         <button
@@ -150,7 +224,7 @@ export default function ProductGallery({
               key={s.key}
               type="button"
               onClick={() => setLightboxIndex(i)}
-              aria-label={`Expand ${s.subSeriesName} ${s.variant.name}`}
+              aria-label={`Expand ${s.subSeriesName}${s.variantName ? ` ${s.variantName}` : ""}`}
               className="group relative w-[44vw] flex-none snap-start text-left sm:w-[210px]"
             >
               <span className="relative block aspect-[3/4] w-full overflow-hidden rounded-[16px] bg-bone-deep">
@@ -166,9 +240,11 @@ export default function ProductGallery({
                 </span>
               </span>
               <span className="mt-3 block text-[13px] font-bold tracking-[-0.01em]">{s.subSeriesName}</span>
-              <span className="mt-0.5 block font-mono-label text-[9px] tracking-[0.16em] opacity-50">
-                {s.variant.name.toUpperCase()}
-              </span>
+              {s.variantName && (
+                <span className="mt-0.5 block font-mono-label text-[9px] tracking-[0.16em] opacity-50">
+                  {s.variantName.toUpperCase()}
+                </span>
+              )}
             </button>
           ))}
         </div>
@@ -197,9 +273,13 @@ export default function ProductGallery({
         </div>
       )}
 
-      <div className="mt-[6vh] flex justify-end md:mt-[7vh]">
-        <Link href="/products" className="font-mono-label text-[10px] tracking-[0.18em] text-signal-red">
-          EXPLORE ALL PRODUCTS →
+      <div className="mt-[6vh] flex justify-center md:mt-[7vh] md:justify-end">
+        <Link
+          href="/products"
+          className="inline-flex items-center gap-2.5 rounded-full border border-charcoal/24 px-6 py-3.5 font-mono-label text-[10px] font-bold tracking-[0.18em] text-charcoal uppercase transition-colors duration-300 hover:border-charcoal/65 hover:bg-charcoal hover:text-paper-bright"
+        >
+          EXPLORE ALL PRODUCTS
+          <span>→</span>
         </Link>
       </div>
 
@@ -210,7 +290,11 @@ export default function ProductGallery({
           onNext={() => setLightboxIndex((i) => (i === null ? i : (i + 1) % slides.length))}
           onPrev={() => setLightboxIndex((i) => (i === null ? i : (i - 1 + slides.length) % slides.length))}
           onClose={() => setLightboxIndex(null)}
-          caption={`${lightboxSlide.subSeriesName} — ${lightboxSlide.variant.name}`}
+          caption={
+            lightboxSlide.variantName
+              ? `${lightboxSlide.subSeriesName} — ${lightboxSlide.variantName}`
+              : lightboxSlide.subSeriesName
+          }
         >
           <div className="relative h-[75vh] w-full max-w-[1100px]" onClick={(e) => e.stopPropagation()}>
             <Image src={lightboxSlide.src} alt={lightboxSlide.alt} fill sizes="90vw" className="object-contain" />

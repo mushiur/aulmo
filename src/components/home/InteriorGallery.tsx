@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import clsx from "clsx";
 import SectionEyebrow from "@/components/ui/SectionEyebrow";
+import Lightbox from "@/components/ui/Lightbox";
 
 const ROOMS = [
   {
@@ -37,6 +38,9 @@ const MAX_VISIBLE_OFFSET = 2;
 
 export default function InteriorGallery() {
   const [active, setActive] = useState(0);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
+  const [dragOffset, setDragOffset] = useState(0);
   const stageRef = useRef<HTMLDivElement>(null);
   const drag = useRef<{ startX: number; active: boolean } | null>(null);
 
@@ -53,18 +57,61 @@ export default function InteriorGallery() {
     return () => window.removeEventListener("keydown", onKey);
   });
 
+  // Pointer handlers live on the stage itself (not the individual 3D-transformed
+  // cards) so the drag hit area is the whole section regardless of where any one
+  // card's rotated/scaled visual bounds actually are — touching anywhere on the
+  // stage and swiping works, not just a precise spot on the active card.
   const onPointerDown = (e: React.PointerEvent) => {
     drag.current = { startX: e.clientX, active: true };
-    (e.target as HTMLElement).setPointerCapture(e.pointerId);
+    setIsDragging(true);
+    (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
   };
-  const onPointerUp = (e: React.PointerEvent) => {
+
+  const onPointerMove = (e: React.PointerEvent) => {
     if (!drag.current?.active) return;
+    setDragOffset(e.clientX - drag.current.startX);
+  };
+
+  const endDrag = (e: React.PointerEvent) => {
+    if (!drag.current?.active) {
+      setIsDragging(false);
+      setDragOffset(0);
+      return;
+    }
     const delta = e.clientX - drag.current.startX;
     drag.current = null;
+    setIsDragging(false);
+    setDragOffset(0);
     const width = stageRef.current?.clientWidth ?? 1;
-    if (delta < -width * 0.08) next();
-    else if (delta > width * 0.08) prev();
+
+    if (delta < -width * 0.08) {
+      next();
+      return;
+    }
+    if (delta > width * 0.08) {
+      prev();
+      return;
+    }
+
+    // Not a swipe — treat it as a tap. Pointer capture (set below, needed for
+    // reliable drag tracking) retargets every pointer event to the stage, which
+    // on several mobile browsers also suppresses the native "click" event the
+    // tapped button would normally fire — so the tap is resolved here directly
+    // instead of depending on that click ever arriving.
+    const target = (e.target as HTMLElement).closest("[data-room-index]");
+    if (!target) return;
+    const i = Number(target.getAttribute("data-room-index"));
+    if (i === active) setLightboxOpen(true);
+    else goTo(i);
   };
+
+  const cancelDrag = () => {
+    drag.current = null;
+    setIsDragging(false);
+    setDragOffset(0);
+  };
+
+  const activeRoom = ROOMS[active];
 
   return (
     <section data-theme="dark" className="relative overflow-hidden bg-ink px-6 py-[10vh] text-paper md:px-[5vw] md:py-[12vh]">
@@ -75,16 +122,14 @@ export default function InteriorGallery() {
             Designed to belong.
           </h2>
         </div>
-        {/* <Reveal as="p" className="m-0 max-w-[32ch] text-pretty text-[13.5px] leading-[1.65] opacity-55">
-          Drag, swipe or use the arrows — five real rooms, one finish language.
-        </Reveal> */}
       </div>
 
       <div
         ref={stageRef}
         onPointerDown={onPointerDown}
-        onPointerUp={onPointerUp}
-        onPointerCancel={() => (drag.current = null)}
+        onPointerMove={onPointerMove}
+        onPointerUp={endDrag}
+        onPointerCancel={cancelDrag}
         className="relative mt-12 h-[46vh] min-h-[280px] w-full touch-pan-y overflow-hidden select-none [perspective:1400px] sm:h-[52vh] md:mt-[8vh] md:h-[64vh] md:min-h-[420px]"
       >
         {ROOMS.map((room, i) => {
@@ -104,12 +149,16 @@ export default function InteriorGallery() {
             <button
               key={room.src}
               type="button"
-              aria-label={`Show ${room.label}`}
+              data-room-index={i}
+              aria-label={isActive ? `Enlarge ${room.label}` : `Show ${room.label}`}
               aria-current={isActive}
-              onClick={() => goTo(i)}
-              className="absolute top-1/2 left-1/2 aspect-[3/2] w-[76%] max-w-[620px] cursor-pointer rounded-[18px] bg-ink-raised shadow-[0_40px_80px_-30px_rgba(0,0,0,0.6)] transition-[transform,opacity] duration-500 ease-[cubic-bezier(.2,.7,.2,1)] sm:w-[58%] md:w-[46%]"
+              onClick={() => (isActive ? setLightboxOpen(true) : goTo(i))}
+              className={clsx(
+                "absolute top-1/2 left-1/2 aspect-[3/2] w-[78%] max-w-[620px] touch-pan-y cursor-pointer rounded-[18px] bg-ink-raised shadow-[0_40px_80px_-30px_rgba(0,0,0,0.6)] sm:w-[58%] md:w-[46%]",
+                isDragging ? "transition-none" : "transition-[transform,opacity] duration-500 ease-[cubic-bezier(.2,.7,.2,1)]",
+              )}
               style={{
-                transform: `translate(-50%, -50%) translateX(${offset * 52}%) translateZ(${-abs * 110}px) rotateY(${offset * -28}deg) scale(${isActive ? 1 : 0.82})`,
+                transform: `translate(-50%, -50%) translateX(calc(${offset * 52}% + ${dragOffset}px)) translateZ(${-abs * 110}px) rotateY(${offset * -28}deg) scale(${isActive ? 1 : 0.82})`,
                 opacity: hidden ? 0 : isActive ? 1 : 0.45 - (abs - 1) * 0.15,
                 zIndex: 10 - abs,
                 pointerEvents: hidden ? "none" : "auto",
@@ -137,7 +186,7 @@ export default function InteriorGallery() {
         })}
       </div>
 
-      <div className="mt-8 flex items-center justify-center gap-6">
+      <div className="mt-8 hidden items-center justify-center gap-6 sm:flex">
         <button
           type="button"
           aria-label="Previous room"
@@ -169,6 +218,21 @@ export default function InteriorGallery() {
           ›
         </button>
       </div>
+
+      {lightboxOpen && (
+        <Lightbox
+          count={ROOMS.length}
+          activeIndex={active}
+          onNext={next}
+          onPrev={prev}
+          onClose={() => setLightboxOpen(false)}
+          caption={activeRoom.label}
+        >
+          <div className="relative h-[80vh] w-full max-w-[1100px]" onClick={(e) => e.stopPropagation()}>
+            <Image src={activeRoom.src} alt={activeRoom.alt} fill sizes="90vw" className="object-contain" />
+          </div>
+        </Lightbox>
+      )}
     </section>
   );
 }

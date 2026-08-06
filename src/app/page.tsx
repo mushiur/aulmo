@@ -10,16 +10,12 @@ import { getProductHierarchy } from "@/lib/products";
 export default async function Home() {
   const [series, heroStats] = await Promise.all([getProductHierarchy(), getHeroStats()]);
 
-  const lSeries = series.find((s) => s.slug === "l-series");
   const dSeries = series.find((s) => s.slug === "d-series");
-  const mSeries = series.find((s) => s.slug === "m-series");
 
   return (
     <main className="relative w-full overflow-x-hidden bg-ink">
       <Hero stats={heroStats} />
-      {lSeries && dSeries && mSeries && (
-        <ProductGallery lSeries={lSeries} dSeries={dSeries} mSeries={mSeries} />
-      )}
+      <ProductGallery series={series} />
       <InteriorGallery />
       {dSeries && <InteractiveProductView series={dSeries} />}
       <FashionEditorial />

@@ -11,10 +11,14 @@ import ChatWidget from "@/components/ui/ChatWidget";
 import { getProductHierarchy, getFeaturedSubSeries } from "@/lib/products";
 import { SITE_NAME, SITE_URL } from "@/lib/seo";
 
+// Loaded as the true variable font (not a fixed weight list) so headings
+// using `[font-stretch:114%]` get real width-axis glyph data instead of the
+// browser faking the stretch by scaling static letterforms — which is what
+// was causing the soft/blurry edges on bold display text.
 const archivo = Archivo({
   variable: "--font-archivo",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800", "900"],
+  weight: "variable",
   display: "swap",
 });
 
