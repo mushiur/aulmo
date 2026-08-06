@@ -33,7 +33,13 @@ export default async function SeriesPage({
   const series = await getSeriesBySlug(seriesSlug);
   if (!series) notFound();
 
-  const [featured, ...rest] = series.subSeries;
+  const subSeries = series.subSeries;
+  const gridCols =
+    subSeries.length === 1
+      ? ""
+      : subSeries.length === 2
+        ? "grid grid-cols-1 gap-4 sm:grid-cols-2"
+        : "grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3";
 
   return (
     <main className="relative min-h-screen bg-paper-bright text-charcoal">
@@ -82,31 +88,21 @@ export default async function SeriesPage({
         </div>
       </section>
 
-      {/* Sub-series — one large featured item, the rest in a supporting row */}
+      {/* Sub-series — a single centered showcase at 1 item, an even grid otherwise */}
       <section data-theme="light" className="relative px-6 py-[8vh] md:px-[4.5vw] md:py-[9vh]">
-        <SeriesSubCard
-          href={`/products/${series.slug}/${featured.slug}`}
-          spec={featured.spec}
-          name={featured.name}
-          description={featured.description}
-          image={getCoverImage(featured)}
-          featured
-        />
-
-        {rest.length > 0 && (
-          <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
-            {rest.map((sub) => (
-              <SeriesSubCard
-                key={sub.slug}
-                href={`/products/${series.slug}/${sub.slug}`}
-                spec={sub.spec}
-                name={sub.name}
-                description={sub.description}
-                image={getCoverImage(sub)}
-              />
-            ))}
-          </div>
-        )}
+        <div className={subSeries.length === 1 ? "mx-auto max-w-[720px]" : gridCols}>
+          {subSeries.map((sub) => (
+            <SeriesSubCard
+              key={sub.slug}
+              href={`/products/${series.slug}/${sub.slug}`}
+              spec={sub.spec}
+              name={sub.name}
+              description={sub.description}
+              image={getCoverImage(sub)}
+              featured={subSeries.length === 1}
+            />
+          ))}
+        </div>
       </section>
 
       {/* Closing — a distinct statement, not a repeat of the footer's phone CTA */}

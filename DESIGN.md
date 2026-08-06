@@ -203,11 +203,19 @@ patterns, so all stay unchecked.
       ambiguous-glyph typeface as everywhere else in this discrepancy, and
       asked for it back (repositioned/enlarged in the closing band, not
       replaced). Reverted; `/brand/aulmo-logo.png` isn't used on this page.
-- [ ] Products Overview — real data (correct photos, sub-series counts), same
-      generic card grid as before — **not** touched this pass; the client's
-      reference design and request were specifically for the per-series pages
-      below, so `ProductCard.tsx` (which this page shares with the old Series
-      Page) was deliberately left alone rather than changed as a side effect.
+- [ ] Products Overview — **pass 2**: the client asked to bring the same
+      premium card language here as the per-series pages below, using the
+      real marketing copy already sitting unused in
+      `public/Product page/information.txt`. Swapped the generic
+      `ProductCard` grid for `SeriesSubCard.tsx` (same component the series
+      pages use) — `spec` slot now shows each series' one-word `theme`
+      (DESIGN/SECURE/MATERIAL/COLOUR/LIFETIME) instead of a sub-series count,
+      `description` shows the verbatim `quote`, and the CTA reads
+      "READ MORE →" via `SeriesSubCard`'s new `ctaLabel` prop (defaults to
+      "EXPLORE SERIES" everywhere else, so the series pages didn't need
+      changes for this). **`ProductCard.tsx` is now unused by any page** —
+      left in place rather than deleted speculatively; safe to remove in a
+      future pass once confirmed nothing else needs it.
 - [ ] Series Page (`/products/[series]`) — rebuilt **twice**. Pass 1 followed
       a client reference design literally (split hero, 5-item generic icon
       feature strip, uniform 3-col `ProductCard`-style grid, a dark "explore
@@ -236,15 +244,25 @@ patterns, so all stay unchecked.
         repeating the Footer's content one section above it.
       - **The sub-series grid read as generic e-commerce**, not an
         architectural catalogue. Replaced the boxed "photo tile + separate
-        white text block" `ProductCard` pattern with `SeriesSubCard.tsx`
-        (still a page-specific component, kept separate from the shared
-        `ProductCard` so the Products Overview page above is unaffected):
-        full-bleed image, gradient, and text overlaid directly on the photo —
-        and the layout itself is now asymmetric/editorial rather than a
-        uniform grid: the first sub-series renders large and full-width
-        (`featured` prop, wide aspect ratio), the rest sit in a smaller
-        supporting row below. For D/M (one sub-series each) this means a
-        single large flagship showcase instead of a sparse 2-card grid.
+        white text block" `ProductCard` pattern with `SeriesSubCard.tsx`:
+        full-bleed image, gradient, and text overlaid directly on the photo.
+      - **Pass 3 fixed a real bug pass 2 introduced**: pass 2's layout always
+        destructured `[featured, ...rest] = series.subSeries` and rendered
+        the first sub-series in a giant `aspect-[16/10] md:aspect-[21/9]`
+        box. For D and M (one sub-series each) `rest` was empty, so the page
+        was just one isolated stretched card — the client flagged this as
+        "extremely odd," and the wide box was forcing the ~855px-wide
+        portrait source photos to upscale ~2×, which is what read as blur.
+        Fixed by making `SeriesSubCard` use the **same `aspect-[4/3]` box
+        for every card regardless of `featured`** (which now only bumps type
+        scale, never box shape), and by replacing the featured/rest split in
+        `/products/[series]/page.tsx` with a count-aware branch: 1
+        sub-series → a single card centered at `max-w-[720px]`, 2 →
+        `sm:grid-cols-2`, 3+ → `sm:grid-cols-2 md:grid-cols-3`. Same
+        component drives L (5, grid), K (4, grid), S (7, grid), D and M (1
+        each, centered showcase) with no per-series branching in the
+        template — adding or removing a sub-series just changes which count
+        branch renders.
       - **Removed the generic 5-icon feature strip and the dark "explore
         everything" grid tile** — both read as filler once the client shared
         `public/Product page/information.txt` with real per-series marketing

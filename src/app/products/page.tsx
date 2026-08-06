@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import PageHeader from "@/components/ui/PageHeader";
-import ProductCard from "@/components/products/ProductCard";
+import SeriesSubCard from "@/components/products/SeriesSubCard";
 import { getProductHierarchy } from "@/lib/products";
 
 export const metadata: Metadata = {
@@ -21,13 +21,14 @@ export default async function ProductsPage() {
       />
       <div className="grid grid-cols-1 gap-10 px-6 py-[8vh] sm:grid-cols-2 md:grid-cols-3 md:px-[4.5vw]">
         {series.map((s) => (
-          <ProductCard
+          <SeriesSubCard
             key={s.slug}
             href={`/products/${s.slug}`}
-            eyebrow={`${s.subSeries.length} SUB-SERIES`}
+            spec={s.theme}
             name={s.name}
-            description={s.tagline}
+            description={s.quote ?? s.tagline}
             image={s.image}
+            ctaLabel="READ MORE →"
           />
         ))}
       </div>
