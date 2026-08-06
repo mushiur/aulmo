@@ -2,6 +2,7 @@
 
 import { useRef, useState, type PointerEvent } from "react";
 import Image from "next/image";
+import { AnimatePresence, motion } from "framer-motion";
 import clsx from "clsx";
 import type { ImageRef } from "@/data/types";
 import Lightbox from "@/components/ui/Lightbox";
@@ -48,21 +49,32 @@ export default function ProductGallery({
         onPointerDown={onPointerDown}
         onPointerUp={onPointerUp}
       >
-        {images.map((img, i) => (
-          <Image
-            key={img.src}
-            src={img.src}
-            alt={img.alt}
-            fill
-            sizes="(min-width: 768px) 50vw, 100vw"
-            priority={priority && i === activeIndex}
-            className={clsx(
-              img.fit === "contain" ? "object-contain p-6" : "object-cover",
-              "pointer-events-none transition-opacity duration-500",
-              i === activeIndex ? "opacity-100" : "opacity-0",
-            )}
-          />
-        ))}
+        <AnimatePresence mode="wait" initial={false}>
+          <motion.div
+            key={images[0]?.src}
+            className="absolute inset-0"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.35, ease: "easeOut" }}
+          >
+            {images.map((img, i) => (
+              <Image
+                key={img.src}
+                src={img.src}
+                alt={img.alt}
+                fill
+                sizes="(min-width: 768px) 50vw, 100vw"
+                priority={priority && i === activeIndex}
+                className={clsx(
+                  img.fit === "contain" ? "object-contain p-6" : "object-cover",
+                  "pointer-events-none transition-opacity duration-500",
+                  i === activeIndex ? "opacity-100" : "opacity-0",
+                )}
+              />
+            ))}
+          </motion.div>
+        </AnimatePresence>
 
         {hasMultiple && (
           <div className="absolute top-4 left-4 flex items-center gap-2 rounded-full bg-ink/55 px-3 py-1.5 font-mono-label text-[9px] font-semibold tracking-[0.16em] text-paper uppercase backdrop-blur-sm">
