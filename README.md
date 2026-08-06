@@ -45,12 +45,12 @@ src/
 │                        /products/[series]/[subseries], /certificate, /contact
 ├── components/
 │   ├── layout/           Navbar (+ mega menu), Footer — shared by every page
-│   ├── home/              Homepage-only sections (Hero, Manifesto,
-│   │                      LSeriesShowcase, DSeriesShowcase, MSeriesShowcase, ...)
-│   ├── products/         ProductCard, FinishSelector, ProductGallery,
+│   ├── home/              Homepage-only sections (Hero, ProductGallery,
+│   │                      InteriorGallery, InteractiveProductView, ...)
+│   ├── products/         SeriesSubCard, FinishSelector, ProductGallery,
 │   │                      ProductVariantExperience — reusable across every product
-│   └── ui/                Reusable primitives (Reveal, MagneticLink, PageHeader,
-│                          Breadcrumb, ImagePlaceholder, Loader, ...)
+│   └── ui/                Reusable primitives (Reveal, MagneticLink, Lightbox,
+│                          Breadcrumb, ImagePlaceholder, Loader, ChatWidget, ...)
 ├── data/                 Static content, plain TypeScript objects/arrays
 └── lib/                  Accessor functions — pages read content through here,
                           never straight from src/data/

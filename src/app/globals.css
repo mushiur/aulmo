@@ -63,20 +63,6 @@
   }
 }
 
-/* Continuous marquee / ticker loops */
-@keyframes scroll-x {
-  from {
-    transform: translate3d(0, 0, 0);
-  }
-  to {
-    transform: translate3d(-50%, 0, 0);
-  }
-}
-
-.animate-scroll-x {
-  animation: scroll-x linear infinite;
-}
-
 /* Product-page loader — lightweight spinner shown while a product route
    loads, distinct from the premium homepage preloader. A continuous CSS
    transform rotation (via Tailwind's animate-spin) so it's smooth by

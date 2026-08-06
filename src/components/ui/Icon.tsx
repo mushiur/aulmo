@@ -140,34 +140,6 @@ export function EyeIcon(props: IconProps) {
   );
 }
 
-export function DiamondIcon(props: IconProps) {
-  return (
-    <svg {...strokeBase} {...props}>
-      <path d="M7 3h10l4 6-11 12L2 9z" />
-      <path d="M2 9h20M9 3l-2 6 5 12 5-12-2-6" />
-    </svg>
-  );
-}
-
-export function HomeIcon(props: IconProps) {
-  return (
-    <svg {...strokeBase} {...props}>
-      <path d="M3 10.5 12 3l9 7.5" />
-      <path d="M5.5 9v11h13V9" />
-      <path d="M10 20v-6h4v6" />
-    </svg>
-  );
-}
-
-export function ApertureIcon(props: IconProps) {
-  return (
-    <svg {...strokeBase} {...props}>
-      <rect x="3" y="3" width="18" height="18" rx="3" />
-      <rect x="8" y="8" width="8" height="8" rx="1.2" />
-    </svg>
-  );
-}
-
 export function ChevronLeftIcon(props: IconProps) {
   return (
     <svg {...strokeBase} {...props}>
@@ -189,15 +161,6 @@ export function DragIcon(props: IconProps) {
     <svg {...strokeBase} {...props}>
       <path d="M3 12h5M3 12l3-3M3 12l3 3" />
       <path d="M21 12h-5M21 12l-3-3M21 12l-3 3" />
-    </svg>
-  );
-}
-
-export function ChatIcon(props: IconProps) {
-  return (
-    <svg {...strokeBase} {...props}>
-      <path d="M4 5.5h16v11H12l-4 4v-4H4z" />
-      <path d="M8 10h8M8 13h5" />
     </svg>
   );
 }

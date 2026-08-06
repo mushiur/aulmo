@@ -47,28 +47,34 @@ src/
 │   ├── page.tsx                    Homepage
 │   ├── about/page.tsx
 │   ├── products/
-│   │   ├── page.tsx                 Products overview (all 6 series)
+│   │   ├── page.tsx                 Products overview (all 5 series)
 │   │   ├── [series]/page.tsx         One series' sub-series
 │   │   └── [series]/[subseries]/page.tsx   Sub-series detail (gallery + finish selector)
 │   ├── certificate/page.tsx
-│   └── contact/page.tsx
+│   ├── contact/page.tsx
+│   └── sitemap.ts / robots.ts       SEO — both derived from getProductHierarchy(),
+│                                      never hand-maintained
 ├── components/
 │   ├── layout/                    Navbar (+ mega menu), Footer
-│   ├── home/                      Homepage sections only (Hero, Manifesto,
-│   │                                LSeriesShowcase, DSeriesShowcase, MSeriesShowcase, ...)
-│   ├── products/                  ProductCard, FinishSelector, ProductGallery,
+│   ├── home/                      Homepage sections only (Hero, ProductGallery,
+│   │                                InteriorGallery, InteractiveProductView,
+│   │                                FashionEditorial, HomeClosingCta)
+│   ├── products/                  SeriesSubCard, FinishSelector, ProductGallery,
 │   │                                ProductVariantExperience — all reusable, all
 │   │                                driven by data, none hardcoded to one product
 │   └── ui/                        Generic, reusable across any page (Reveal,
-│                                    MagneticLink, PageHeader, Breadcrumb,
-│                                    ImagePlaceholder, Loader, CustomCursor, ...)
+│                                    MagneticLink, Breadcrumb, Lightbox,
+│                                    ImagePlaceholder, Loader, CustomCursor,
+│                                    ChatWidget, ...)
 ├── data/                          Static content as plain TypeScript objects
 │   ├── product-hierarchy.ts        THE product hierarchy — see below
 │   ├── types.ts                    Shared content types (incl. ProductVariant)
-│   └── parts.ts, hero.ts           Homepage storytelling content
+│   ├── chat.ts                      Fixed Q&A for the chat widget
+│   └── hero.ts                     Homepage storytelling content
 ├── lib/
 │   ├── products.ts                Accessors for the product hierarchy
-│   └── content.ts                 Accessors for homepage storytelling content
+│   ├── content.ts                 Accessors for homepage storytelling content
+│   └── seo.ts                     SITE_URL / SITE_NAME — single source of truth
 public/
 ├── brand/                         Logo only
 ├── marketing/                     Homepage editorial imagery (not tied to one SKU)
@@ -230,10 +236,10 @@ Reuse existing shared components instead of rebuilding their pattern:
 | Section eyebrow (`01 — LABEL ———`) | `components/ui/SectionEyebrow.tsx` |
 | Scroll-triggered fade/word/line reveal | `components/ui/Reveal.tsx` |
 | A button/link with the pointer-follow effect | `components/ui/MagneticLink.tsx` |
-| A secondary page's header (breadcrumb + eyebrow + title) | `components/ui/PageHeader.tsx` |
-| A product/series listing card | `components/products/ProductCard.tsx` |
+| A product/series listing card (full-bleed photo + overlay text) | `components/products/SeriesSubCard.tsx` |
 | A color/finish switcher | `components/products/FinishSelector.tsx` |
-| An image-set with thumbnails | `components/products/ProductGallery.tsx` |
+| An image-set with thumbnails, drag-to-explore, fullscreen | `components/products/ProductGallery.tsx` |
+| A fullscreen image viewer (prev/next, swipe, keyboard, counter) | `components/ui/Lightbox.tsx` |
 | Missing photography | `components/ui/ImagePlaceholder.tsx` |
 
 Visual/design changes belong to the **`DESIGN.md`** workflow (one checklist item

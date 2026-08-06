@@ -8,6 +8,7 @@ import MagneticLink from "@/components/ui/MagneticLink";
 import { Reveal } from "@/components/ui/Reveal";
 import ProductVariantExperience from "@/components/products/ProductVariantExperience";
 import { getSubSeries, getSubSeriesParams, getProductHierarchy, getCoverImage } from "@/lib/products";
+import type { ImageRef } from "@/data/types";
 
 export async function generateStaticParams() {
   return getSubSeriesParams();
@@ -168,32 +169,15 @@ export default async function SubSeriesPage({
               MORE IN {series.name.toUpperCase()}
             </div>
             <div className="mt-5 flex flex-wrap gap-4">
-              {siblings.map((sub, i) => {
-                const thumb = getCoverImage(sub);
-                return (
-                  <Reveal key={sub.slug} delay={i * 70} y={16}>
-                    <Link
-                      href={`/products/${series.slug}/${sub.slug}`}
-                      className="group block w-36 overflow-hidden border border-charcoal/15 transition-colors duration-300 hover:border-charcoal/50"
-                    >
-                      <div className="relative aspect-[4/3] w-full overflow-hidden bg-bone-deep">
-                        {thumb ? (
-                          <Image
-                            src={thumb.src}
-                            alt={thumb.alt}
-                            fill
-                            sizes="144px"
-                            className="object-cover transition-transform duration-500 group-hover:scale-105"
-                          />
-                        ) : (
-                          <ImagePlaceholder className="absolute inset-0" />
-                        )}
-                      </div>
-                      <div className="px-3 py-2.5 text-sm font-medium">{sub.name}</div>
-                    </Link>
-                  </Reveal>
-                );
-              })}
+              {siblings.map((sub, i) => (
+                <CrossLinkCard
+                  key={sub.slug}
+                  href={`/products/${series.slug}/${sub.slug}`}
+                  name={sub.name}
+                  thumb={getCoverImage(sub)}
+                  delay={i * 70}
+                />
+              ))}
             </div>
           </div>
         )}
@@ -203,35 +187,54 @@ export default async function SubSeriesPage({
             EXPLORE OTHER SERIES
           </div>
           <div className="mt-5 flex flex-wrap gap-4">
-            {otherSeries.map((s, i) => {
-              const thumb = s.cardImage ?? s.image;
-              return (
-                <Reveal key={s.slug} delay={i * 70} y={16}>
-                  <Link
-                    href={`/products/${s.slug}`}
-                    className="group block w-36 overflow-hidden border border-charcoal/15 transition-colors duration-300 hover:border-charcoal/50"
-                  >
-                    <div className="relative aspect-[4/3] w-full overflow-hidden bg-bone-deep">
-                      {thumb ? (
-                        <Image
-                          src={thumb.src}
-                          alt={thumb.alt}
-                          fill
-                          sizes="144px"
-                          className="object-cover transition-transform duration-500 group-hover:scale-105"
-                        />
-                      ) : (
-                        <ImagePlaceholder className="absolute inset-0" />
-                      )}
-                    </div>
-                    <div className="px-3 py-2.5 text-sm font-medium">{s.name}</div>
-                  </Link>
-                </Reveal>
-              );
-            })}
+            {otherSeries.map((s, i) => (
+              <CrossLinkCard
+                key={s.slug}
+                href={`/products/${s.slug}`}
+                name={s.name}
+                thumb={s.cardImage ?? s.image}
+                delay={i * 70}
+              />
+            ))}
           </div>
         </div>
       </div>
     </main>
+  );
+}
+
+function CrossLinkCard({
+  href,
+  name,
+  thumb,
+  delay,
+}: {
+  href: string;
+  name: string;
+  thumb?: ImageRef;
+  delay: number;
+}) {
+  return (
+    <Reveal delay={delay} y={16}>
+      <Link
+        href={href}
+        className="group block w-36 overflow-hidden border border-charcoal/15 transition-colors duration-300 hover:border-charcoal/50"
+      >
+        <div className="relative aspect-[4/3] w-full overflow-hidden bg-bone-deep">
+          {thumb ? (
+            <Image
+              src={thumb.src}
+              alt={thumb.alt}
+              fill
+              sizes="144px"
+              className="object-cover transition-transform duration-500 group-hover:scale-105"
+            />
+          ) : (
+            <ImagePlaceholder className="absolute inset-0" />
+          )}
+        </div>
+        <div className="px-3 py-2.5 text-sm font-medium">{name}</div>
+      </Link>
+    </Reveal>
   );
 }
