@@ -91,8 +91,8 @@ export default function PremiumLoader() {
         <Image
           src="/brand/aulmo-logo.png"
           alt="AULMO"
-          width={205}
-          height={41}
+          width={975}
+          height={245}
           className="h-[30px] w-auto invert hue-rotate-180"
           priority
         />

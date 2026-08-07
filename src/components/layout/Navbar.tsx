@@ -98,8 +98,8 @@ export default function Navbar({ series, featured }: NavbarProps) {
           <Image
             src="/brand/aulmo-logo.png"
             alt="AULMO"
-            width={205}
-            height={41}
+            width={975}
+            height={245}
             className={clsx("h-6 w-auto transition-[filter] duration-500", !isLight && "invert hue-rotate-180")}
             priority
           />
