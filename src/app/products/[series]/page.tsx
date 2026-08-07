@@ -6,6 +6,7 @@ import clsx from "clsx";
 import Breadcrumb from "@/components/ui/Breadcrumb";
 import SeriesSubCard from "@/components/products/SeriesSubCard";
 import { getSeriesBySlug, getSeriesParams, getCoverImage } from "@/lib/products";
+import { SITE_URL } from "@/lib/seo";
 
 export async function generateStaticParams() {
   return getSeriesParams();
@@ -19,9 +20,15 @@ export async function generateMetadata({
   const { series: seriesSlug } = await params;
   const series = await getSeriesBySlug(seriesSlug);
   if (!series) return {};
+  const title = `${series.name} Switches & Sockets`;
+  const description = `AULMO ${series.name} switches and sockets in Bangladesh — ${series.description}`;
   return {
-    title: series.name,
-    description: series.description,
+    title,
+    description,
+    alternates: { canonical: `${SITE_URL}/products/${series.slug}` },
+    openGraph: series.image
+      ? { title, description, images: [{ url: series.image.src, alt: series.image.alt }] }
+      : undefined,
   };
 }
 
@@ -48,8 +55,38 @@ export default async function SeriesPage({
     { label: series.name },
   ];
 
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: SITE_URL },
+      { "@type": "ListItem", position: 2, name: "Products", item: `${SITE_URL}/products` },
+      { "@type": "ListItem", position: 3, name: series.name, item: `${SITE_URL}/products/${series.slug}` },
+    ],
+  };
+
+  const itemListSchema = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: `AULMO ${series.name} sub-series`,
+    itemListElement: subSeries.map((sub, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: sub.name,
+      url: `${SITE_URL}/products/${series.slug}/${sub.slug}`,
+    })),
+  };
+
   return (
     <main className="relative min-h-screen bg-paper-bright text-charcoal">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }}
+      />
       {/* Hero */}
       {series.heroStyle === "banner" ? (
         <section

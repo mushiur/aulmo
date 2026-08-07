@@ -434,9 +434,9 @@ export const productHierarchy: ProductSeries[] = [
     image: { src: "/marketing/s60-lineup.jpg", alt: "AULMO S Series lineup" },
     imagePosition: "50% 42%",
     subSeries: [
-      { code: "S20", slug: "s20", name: "S20 Series", description: "Part of the S Series glass-panel range." },
-      { code: "S30", slug: "s30", name: "S30 Series", description: "Part of the S Series glass-panel range." },
-      { code: "S50", slug: "s50", name: "S50 Series", description: "Part of the S Series glass-panel range." },
+      { code: "S20", slug: "s20", name: "S20 Series", description: "S20 module in the AULMO S Series glass-panel switch and socket range." },
+      { code: "S30", slug: "s30", name: "S30 Series", description: "S30 module in the AULMO S Series glass-panel switch and socket range." },
+      { code: "S50", slug: "s50", name: "S50 Series", description: "S50 module in the AULMO S Series glass-panel switch and socket range." },
       {
         code: "S60",
         slug: "s60",
@@ -444,9 +444,9 @@ export const productHierarchy: ProductSeries[] = [
         description: "Crystal glass panel switch and socket range.",
         image: { src: "/products/s-series/s60/hero.jpg", alt: "AULMO S60 Series glass-panel switch" },
       },
-      { code: "S70", slug: "s70", name: "S70 Series", description: "Part of the S Series glass-panel range." },
-      { code: "S80", slug: "s80", name: "S80 Series", description: "Part of the S Series glass-panel range." },
-      { code: "S90", slug: "s90", name: "S90 Series", description: "Part of the S Series glass-panel range." },
+      { code: "S70", slug: "s70", name: "S70 Series", description: "S70 module in the AULMO S Series glass-panel switch and socket range." },
+      { code: "S80", slug: "s80", name: "S80 Series", description: "S80 module in the AULMO S Series glass-panel switch and socket range." },
+      { code: "S90", slug: "s90", name: "S90 Series", description: "S90 module in the AULMO S Series glass-panel switch and socket range." },
     ],
   },
 ];

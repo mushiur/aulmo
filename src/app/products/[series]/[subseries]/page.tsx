@@ -9,9 +9,14 @@ import { Reveal } from "@/components/ui/Reveal";
 import ProductVariantExperience from "@/components/products/ProductVariantExperience";
 import { getSubSeries, getSubSeriesParams, getProductHierarchy, getCoverImage } from "@/lib/products";
 import type { ImageRef } from "@/data/types";
+import { SITE_URL } from "@/lib/seo";
 
 export async function generateStaticParams() {
   return getSubSeriesParams();
+}
+
+function hasRealPhotography(subSeries: { image?: ImageRef; variants?: { hero: ImageRef }[] }) {
+  return Boolean(subSeries.image) || Boolean(subSeries.variants && subSeries.variants.length > 0);
 }
 
 export async function generateMetadata({
@@ -19,12 +24,24 @@ export async function generateMetadata({
 }: {
   params: Promise<{ series: string; subseries: string }>;
 }): Promise<Metadata> {
-  const { series, subseries } = await params;
-  const result = await getSubSeries(series, subseries);
+  const { series: seriesSlug, subseries } = await params;
+  const result = await getSubSeries(seriesSlug, subseries);
   if (!result) return {};
+  const { series, subSeries } = result;
+  const title = `${subSeries.name} Switch`;
+  const description = `AULMO ${subSeries.name} switch — ${subSeries.description}`;
+  const cover = getCoverImage(subSeries);
   return {
-    title: result.subSeries.name,
-    description: result.subSeries.description,
+    title,
+    description,
+    alternates: { canonical: `${SITE_URL}/products/${series.slug}/${subSeries.slug}` },
+    // Thin, photography-less stub pages currently share near-identical boilerplate
+    // copy across several sub-series — indexing them as-is risks reading as thin/
+    // duplicate content and diluting the site's overall quality signal. They stay
+    // fully accessible to visitors and crawlable (follow), just not indexed until
+    // they have real photography and their own real copy.
+    robots: hasRealPhotography(subSeries) ? undefined : { index: false, follow: true },
+    openGraph: cover ? { title, description, images: [{ url: cover.src, alt: cover.alt }] } : undefined,
   };
 }
 
@@ -42,9 +59,47 @@ export default async function SubSeriesPage({
   const allSeries = await getProductHierarchy();
   const otherSeries = allSeries.filter((s) => s.slug !== series.slug);
   const cover = getCoverImage(subSeries);
+  const canonicalUrl = `${SITE_URL}/products/${series.slug}/${subSeries.slug}`;
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: SITE_URL },
+      { "@type": "ListItem", position: 2, name: "Products", item: `${SITE_URL}/products` },
+      { "@type": "ListItem", position: 3, name: series.name, item: `${SITE_URL}/products/${series.slug}` },
+      { "@type": "ListItem", position: 4, name: subSeries.name, item: canonicalUrl },
+    ],
+  };
+
+  const productSchema = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: `AULMO ${subSeries.name}`,
+    description: subSeries.description,
+    brand: { "@type": "Brand", name: "AULMO" },
+    category: series.name,
+    url: canonicalUrl,
+    ...(cover && { image: `${SITE_URL}${cover.src}` }),
+    ...(subSeries.parameters && {
+      additionalProperty: subSeries.parameters.map((p) => ({
+        "@type": "PropertyValue",
+        name: p.label,
+        value: p.value,
+      })),
+    }),
+  };
 
   return (
     <main data-theme="light" className="relative min-h-screen overflow-hidden bg-paper-bright text-charcoal">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }}
+      />
       <div
         aria-hidden
         className="pointer-events-none absolute -top-[8%] left-[6%] h-[55vh] w-[55vh] rounded-full bg-gradient-to-br from-signal-red/10 via-signal-yellow/6 to-transparent blur-[130px]"

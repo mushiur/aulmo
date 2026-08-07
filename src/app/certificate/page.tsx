@@ -6,11 +6,13 @@ import { Reveal } from "@/components/ui/Reveal";
 import MagneticLink from "@/components/ui/MagneticLink";
 import CertificateGrid, { type Certificate } from "@/components/certificate/CertificateGrid";
 import { GlobeIcon, DocumentIcon, ShieldIcon, EyeIcon } from "@/components/ui/Icon";
+import { SITE_URL } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Certificate",
   description:
     "AULMO switches and sockets are independently tested and certified by Intertek under the IECEE CB Scheme, EU CE conformity, and Gulf/Saudi (GSO/SASO) conformity programmes.",
+  alternates: { canonical: `${SITE_URL}/certificate` },
 };
 
 const CERTIFICATES: Certificate[] = [

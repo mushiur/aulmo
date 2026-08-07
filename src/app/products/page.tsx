@@ -3,10 +3,13 @@ import Image from "next/image";
 import Breadcrumb from "@/components/ui/Breadcrumb";
 import SeriesSubCard from "@/components/products/SeriesSubCard";
 import { getProductHierarchy } from "@/lib/products";
+import { SITE_URL } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "Products",
-  description: "Browse the AULMO product range — L, D, M, K and S Series switches and sockets.",
+  title: "Switches & Sockets — Full Product Range",
+  description:
+    "Browse the AULMO switch and socket range in Bangladesh — L, D, M, K and S Series luxury architectural hardware, one shared 86mm module.",
+  alternates: { canonical: `${SITE_URL}/products` },
 };
 
 export default async function ProductsPage() {

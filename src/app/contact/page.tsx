@@ -8,10 +8,13 @@ import { Reveal } from "@/components/ui/Reveal";
 import MagneticLink from "@/components/ui/MagneticLink";
 import LayeredImage from "@/components/ui/LayeredImage";
 import { CompassIcon, DocumentIcon, FacebookIcon, PhoneIcon, PinIcon, StoreIcon } from "@/components/ui/Icon";
+import { SITE_URL } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Contact",
-  description: "Visit the AULMO showroom, call the technical office, or find us on Facebook.",
+  description:
+    "Visit the AULMO switch and socket showroom at Khaza Electric Market, Nawabpur Road, Dhaka — call the technical office or find us on Facebook.",
+  alternates: { canonical: `${SITE_URL}/contact` },
 };
 
 const PHONE_DISPLAY = "01720-310552";

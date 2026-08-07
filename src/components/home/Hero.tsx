@@ -65,12 +65,12 @@ export default function Hero({ stats }: { stats: StatItem[] }) {
               AULMO ELECTRIC COMPANY <br></br><span className="text-signal-yellow"><b>SPECIALIZED IN SWITCHES</b></span>
             </span>
           </div>
-          <h1 className="m-0 text-[clamp(38px,min(6.6vw,8.4vh),108px)] leading-[0.95] font-extrabold tracking-[-0.035em] uppercase [font-stretch:116%]">
+          <h1 className="m-0 text-[clamp(26px,min(6.6vw,8.4vh),108px)] leading-[0.95] font-extrabold tracking-[-0.035em] whitespace-nowrap uppercase [font-stretch:116%]">
             <RevealLines
               lines={[
-                { text: "One hundred" },
-                { text: "years of" },
-                { text: "one object.", className: "text-signal-yellow" },
+                { text: "AULMO Bangladesh" },
+                { text: "Premium Switches", className: "text-signal-yellow" },
+                { text: "& Sockets", className: "text-signal-yellow" },
               ]}
             />
           </h1>

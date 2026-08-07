@@ -46,13 +46,19 @@ export const metadata: Metadata = {
     "AULMO Bangladesh",
     "AULMO Electric",
     "AULMO Electric International",
+    "AULMO Switch",
+    "AULMO Socket",
+    "switch Bangladesh",
+    "socket Bangladesh",
+    "luxury switch Bangladesh",
     "switches Bangladesh",
     "sockets Bangladesh",
     "electrical switches Dhaka",
   ],
-  alternates: {
-    canonical: "/",
-  },
+  // No blanket `alternates.canonical` here on purpose: Next.js does not deep-merge
+  // `alternates` between layout and page, so a fixed value here would silently
+  // become every page's canonical unless a page explicitly overrides it. Every
+  // route below sets its own correct self-referencing canonical instead.
   robots: {
     index: true,
     follow: true,

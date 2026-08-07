@@ -6,11 +6,13 @@ import SectionEyebrow from "@/components/ui/SectionEyebrow";
 import { Reveal } from "@/components/ui/Reveal";
 import MagneticLink from "@/components/ui/MagneticLink";
 import { CompassIcon, GlobeIcon, LayersIcon, ShieldIcon } from "@/components/ui/Icon";
+import { SITE_URL } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "About Us",
   description:
     "Founded in 1996 as Zhejiang Aulmo Industrial Co., Ltd. — AULMO builds switches, sockets and control panels exported across the Middle East, Australia, Europe, Africa and South America.",
+  alternates: { canonical: `${SITE_URL}/about` },
 };
 
 const STATS: {

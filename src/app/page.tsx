@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Hero from "@/components/home/Hero";
 import ProductGallery from "@/components/home/ProductGallery";
 import InteriorGallery from "@/components/home/InteriorGallery";
@@ -6,6 +7,14 @@ import FashionEditorial from "@/components/home/FashionEditorial";
 import HomeClosingCta from "@/components/home/HomeClosingCta";
 import { getHeroStats } from "@/lib/content";
 import { getProductHierarchy } from "@/lib/products";
+import { SITE_URL } from "@/lib/seo";
+
+export const metadata: Metadata = {
+  title: "AULMO Bangladesh — Luxury Switches & Sockets",
+  description:
+    "AULMO switches and sockets in Bangladesh — luxury architectural hardware built to a single 86mm module, in glass, wood, antique bronze and high-gloss finishes. Showroom in Dhaka.",
+  alternates: { canonical: SITE_URL },
+};
 
 export default async function Home() {
   const [series, heroStats] = await Promise.all([getProductHierarchy(), getHeroStats()]);
