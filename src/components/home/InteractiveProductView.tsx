@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import clsx from "clsx";
 import SectionEyebrow from "@/components/ui/SectionEyebrow";
@@ -10,6 +10,15 @@ import { TiltIcon, ZoomIcon } from "@/components/ui/Icon";
 import type { ProductSeries } from "@/data/types";
 
 const MAX_TILT = 8;
+// How many degrees of real physical tilt (relative to however the visitor is
+// already holding the phone) maps to the full MAX_TILT rotation.
+const MAX_DEVICE_DELTA = 18;
+
+type DeviceOrientationEventIOS = typeof DeviceOrientationEvent & {
+  requestPermission?: () => Promise<"granted" | "denied">;
+};
+
+const clamp = (n: number, min: number, max: number) => Math.max(min, Math.min(max, n));
 
 export default function InteractiveProductView({ series }: { series: ProductSeries }) {
   const product = series.subSeries[0];
@@ -19,6 +28,8 @@ export default function InteractiveProductView({ series }: { series: ProductSeri
   const cardRef = useRef<HTMLDivElement>(null);
   const [tilt, setTilt] = useState({ x: 0, y: 0, px: 50, py: 50 });
   const [hovering, setHovering] = useState(false);
+  const [deviceTiltOn, setDeviceTiltOn] = useState(false);
+  const baseline = useRef<{ beta: number; gamma: number } | null>(null);
 
   const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
     if (e.pointerType !== "mouse") return;
@@ -38,6 +49,54 @@ export default function InteractiveProductView({ series }: { series: ProductSeri
   const reset = () => {
     setHovering(false);
     setTilt({ x: 0, y: 0, px: 50, py: 50 });
+  };
+
+  // Real gyroscope-driven tilt for touch devices — mouse-hover tilt (above)
+  // never fires on touch, so without this "TILT TO EXPLORE" would be a false
+  // promise there. Calibrates against whatever angle the phone is already
+  // being held at on the first reading, then tracks movement from there,
+  // since visitors don't hold phones at any one "neutral" angle.
+  useEffect(() => {
+    if (!deviceTiltOn) return;
+
+    const onOrientation = (e: DeviceOrientationEvent) => {
+      if (e.beta === null || e.gamma === null) return;
+      if (!baseline.current) {
+        baseline.current = { beta: e.beta, gamma: e.gamma };
+        return;
+      }
+      const dBeta = clamp(e.beta - baseline.current.beta, -MAX_DEVICE_DELTA, MAX_DEVICE_DELTA);
+      const dGamma = clamp(e.gamma - baseline.current.gamma, -MAX_DEVICE_DELTA, MAX_DEVICE_DELTA);
+      setHovering(true);
+      setTilt({
+        x: (dBeta / MAX_DEVICE_DELTA) * MAX_TILT,
+        y: (dGamma / MAX_DEVICE_DELTA) * MAX_TILT,
+        px: 50 + (dGamma / MAX_DEVICE_DELTA) * 50,
+        py: 50 + (dBeta / MAX_DEVICE_DELTA) * 50,
+      });
+    };
+
+    window.addEventListener("deviceorientation", onOrientation);
+    return () => window.removeEventListener("deviceorientation", onOrientation);
+  }, [deviceTiltOn]);
+
+  // iOS 13+ Safari requires motion-sensor access to be requested from inside
+  // a real user gesture (a tap), so this can't run automatically on mount —
+  // the first tap on the card silently asks for permission, then every
+  // reading after that drives the tilt. Android/other browsers don't gate
+  // this behind a permission prompt at all, so it just turns on directly.
+  const enableDeviceTilt = () => {
+    if (deviceTiltOn || typeof window === "undefined" || !window.DeviceOrientationEvent) return;
+    const DOE = window.DeviceOrientationEvent as DeviceOrientationEventIOS;
+    if (typeof DOE.requestPermission === "function") {
+      DOE.requestPermission()
+        .then((result) => {
+          if (result === "granted") setDeviceTiltOn(true);
+        })
+        .catch(() => {});
+    } else {
+      setDeviceTiltOn(true);
+    }
   };
 
   return (
@@ -78,15 +137,16 @@ export default function InteractiveProductView({ series }: { series: ProductSeri
             onPointerMove={handlePointerMove}
             onPointerEnter={() => setHovering(true)}
             onPointerLeave={reset}
+            onClick={enableDeviceTilt}
             className="absolute inset-0"
           >
           <span
             aria-hidden="true"
-            className="pointer-events-none absolute inset-[-16%] rounded-full border border-dashed border-charcoal/15"
+            className="pointer-events-none absolute inset-[-9%] rounded-full border border-dashed border-charcoal/15 md:inset-[-16%]"
           />
           <span
             aria-hidden="true"
-            className="pointer-events-none absolute inset-[-7%] rounded-full border border-dashed border-charcoal/10"
+            className="pointer-events-none absolute inset-[-4%] rounded-full border border-dashed border-charcoal/10 md:inset-[-7%]"
           />
 
           <div
