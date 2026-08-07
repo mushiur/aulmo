@@ -7,15 +7,14 @@ export default function FashionEditorial() {
   return (
     <section
       data-theme="dark"
-      className="relative h-[78vh] min-h-[520px] overflow-hidden bg-ink text-paper md:h-[88vh]"
+      className="relative h-[58vh] min-h-[420px] overflow-hidden bg-ink text-paper md:h-[88vh]"
     >
       <Image
         src="/marketing/craftsmanship.jpg"
         alt="AULMO matte gold switch held in hand"
         fill
         sizes="100vw"
-        style={{ objectPosition: "60% 42%" }}
-        className="object-cover"
+        className="object-cover object-[72%_38%] md:object-[60%_42%]"
         priority={false}
       />
       <div className="absolute inset-0 bg-gradient-to-r from-ink/88 via-ink/40 to-ink/10" />

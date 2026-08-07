@@ -6,24 +6,32 @@ import clsx from "clsx";
 
 const EASE_REVEAL = [0.16, 0.84, 0.24, 1] as const;
 
+// Requires more of the element to actually be on screen before animating
+// (vs. the old amount: 0.12, margin: -8%) — that old threshold was so early
+// that sections not far below the fold could finish revealing themselves
+// before the loader even cleared, so by the time someone actually scrolled
+// to them there was nothing left to see. This ties the motion to the real
+// act of scrolling instead of firing near-instantly on page load.
+const VIEWPORT = { once: true, margin: "0px 0px -12% 0px", amount: 0.3 } as const;
+
 type RevealProps = {
   children: ReactNode;
   delay?: number;
   className?: string;
   y?: number;
-  as?: "div" | "p";
+  as?: "div" | "p" | "h1" | "h2";
 };
 
-/** Fade + slide reveal for a single block (paragraph, image, card). */
-export function Reveal({ children, delay = 0, className, y = 28, as = "div" }: RevealProps) {
+/** Fade + slide + settle reveal for a single block (paragraph, image, card). */
+export function Reveal({ children, delay = 0, className, y = 44, as = "div" }: RevealProps) {
   const Component = motion[as];
   return (
     <Component
       className={className}
-      initial={{ opacity: 0, y }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "0px 0px -8% 0px", amount: 0.12 }}
-      transition={{ duration: 1, delay: delay / 1000, ease: EASE_REVEAL }}
+      initial={{ opacity: 0, y, scale: 0.96 }}
+      whileInView={{ opacity: 1, y: 0, scale: 1 }}
+      viewport={VIEWPORT}
+      transition={{ duration: 0.9, delay: delay / 1000, ease: EASE_REVEAL }}
     >
       {children}
     </Component>
@@ -33,11 +41,11 @@ export function Reveal({ children, delay = 0, className, y = 28, as = "div" }: R
 type Token = { text: string; className?: string; break?: boolean };
 
 const wordVariants: Variants = {
-  hidden: { opacity: 0, y: "0.36em" },
+  hidden: { opacity: 0, y: "0.5em" },
   visible: (i: number) => ({
     opacity: 1,
     y: 0,
-    transition: { duration: 1, delay: i * 0.09, ease: EASE_REVEAL },
+    transition: { duration: 0.9, delay: i * 0.09, ease: EASE_REVEAL },
   }),
 };
 
@@ -52,7 +60,7 @@ export function RevealWords({ tokens, className }: { tokens: Token[]; className?
             custom={i}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, amount: 0.12 }}
+            viewport={VIEWPORT}
             variants={wordVariants}
           >
             {token.text}
@@ -65,11 +73,11 @@ export function RevealWords({ tokens, className }: { tokens: Token[]; className?
 }
 
 const lineVariants: Variants = {
-  hidden: { opacity: 0, y: "0.24em" },
+  hidden: { opacity: 0, y: "0.35em" },
   visible: (i: number) => ({
     opacity: 1,
     y: 0,
-    transition: { duration: 1, delay: i * 0.09, ease: EASE_REVEAL },
+    transition: { duration: 0.9, delay: i * 0.09, ease: EASE_REVEAL },
   }),
 };
 
@@ -84,7 +92,7 @@ export function RevealLines({ lines, className }: { lines: Token[]; className?: 
           custom={i}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.12 }}
+          viewport={VIEWPORT}
           variants={lineVariants}
         >
           {line.text}

@@ -6,6 +6,7 @@ import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import clsx from "clsx";
 import SectionEyebrow from "@/components/ui/SectionEyebrow";
+import { Reveal } from "@/components/ui/Reveal";
 import Lightbox from "@/components/ui/Lightbox";
 import { ExpandIcon } from "@/components/ui/Icon";
 import type { ProductSeries } from "@/data/types";
@@ -136,11 +137,11 @@ export default function ProductGallery({ series }: { series: ProductSeries[] }) 
       <div className="flex flex-wrap items-end justify-between gap-6">
         <div>
           <SectionEyebrow label="OUR COLLECTION" className="mb-6" />
-          <h2 className="m-0 text-[clamp(28px,4.2vw,60px)] leading-[0.98] font-extrabold tracking-[-0.04em] uppercase [font-stretch:114%]">
+          <Reveal as="h2" className="m-0 text-[clamp(28px,4.2vw,60px)] leading-[0.98] font-extrabold tracking-[-0.04em] uppercase [font-stretch:114%]">
             Crafted to define
             <br />
             every space.
-          </h2>
+          </Reveal>
         </div>
         <div className="flex flex-wrap gap-2">
           {FILTERS.map((f) => (
@@ -220,32 +221,33 @@ export default function ProductGallery({ series }: { series: ProductSeries[] }) 
           className="flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth pb-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         >
           {slides.map((s, i) => (
-            <button
-              key={s.key}
-              type="button"
-              onClick={() => setLightboxIndex(i)}
-              aria-label={`Expand ${s.subSeriesName}${s.variantName ? ` ${s.variantName}` : ""}`}
-              className="group relative w-[44vw] flex-none snap-start text-left sm:w-[210px]"
-            >
-              <span className="relative block aspect-[3/4] w-full overflow-hidden rounded-[16px] bg-bone-deep">
-                <Image
-                  src={s.src}
-                  alt={s.alt}
-                  fill
-                  sizes="(min-width: 640px) 210px, 44vw"
-                  className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
-                />
-                <span className="absolute right-2.5 bottom-2.5 flex h-8 w-8 items-center justify-center rounded-full bg-paper-bright/90 text-charcoal opacity-0 shadow-md transition-opacity duration-300 group-hover:opacity-100">
-                  <ExpandIcon className="h-4 w-4" />
+            <Reveal key={s.key} delay={Math.min(i * 40, 400)} y={20} className="w-[44vw] flex-none snap-start sm:w-[210px]">
+              <button
+                type="button"
+                onClick={() => setLightboxIndex(i)}
+                aria-label={`Expand ${s.subSeriesName}${s.variantName ? ` ${s.variantName}` : ""}`}
+                className="group relative block w-full text-left"
+              >
+                <span className="relative block aspect-[3/4] w-full overflow-hidden rounded-[16px] bg-bone-deep">
+                  <Image
+                    src={s.src}
+                    alt={s.alt}
+                    fill
+                    sizes="(min-width: 640px) 210px, 44vw"
+                    className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+                  />
+                  <span className="absolute right-2.5 bottom-2.5 flex h-8 w-8 items-center justify-center rounded-full bg-paper-bright/90 text-charcoal opacity-0 shadow-md transition-opacity duration-300 group-hover:opacity-100">
+                    <ExpandIcon className="h-4 w-4" />
+                  </span>
                 </span>
-              </span>
-              <span className="mt-3 block text-[13px] font-bold tracking-[-0.01em]">{s.subSeriesName}</span>
-              {s.variantName && (
-                <span className="mt-0.5 block font-mono-label text-[9px] tracking-[0.16em] opacity-50">
-                  {s.variantName.toUpperCase()}
-                </span>
-              )}
-            </button>
+                <span className="mt-3 block text-[13px] font-bold tracking-[-0.01em]">{s.subSeriesName}</span>
+                {s.variantName && (
+                  <span className="mt-0.5 block font-mono-label text-[9px] tracking-[0.16em] opacity-50">
+                    {s.variantName.toUpperCase()}
+                  </span>
+                )}
+              </button>
+            </Reveal>
           ))}
         </div>
 

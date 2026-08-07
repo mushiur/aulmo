@@ -5,6 +5,7 @@ import Image from "next/image";
 import clsx from "clsx";
 import SectionEyebrow from "@/components/ui/SectionEyebrow";
 import MagneticLink from "@/components/ui/MagneticLink";
+import { Reveal } from "@/components/ui/Reveal";
 import { TiltIcon, ZoomIcon } from "@/components/ui/Icon";
 import type { ProductSeries } from "@/data/types";
 
@@ -48,15 +49,15 @@ export default function InteractiveProductView({ series }: { series: ProductSeri
       <div className="grid gap-10 md:grid-cols-[0.75fr_0.85fr_0.7fr] md:items-center md:gap-8">
         <div>
           <SectionEyebrow label="PRODUCT EXPERIENCE" className="mb-5" />
-          <h2 className="m-0 text-[clamp(24px,3vw,38px)] leading-[1.02] font-extrabold tracking-[-0.035em] uppercase [font-stretch:114%]">
+          <Reveal as="h2" className="m-0 text-[clamp(24px,3vw,38px)] leading-[1.02] font-extrabold tracking-[-0.035em] uppercase [font-stretch:114%]">
             See it. Feel it.
             <br />
             Experience it.
-          </h2>
-          <p className="m-0 mt-4 max-w-[34ch] text-pretty text-[13.5px] leading-[1.6] opacity-65">
+          </Reveal>
+          <Reveal delay={100} as="p" className="m-0 mt-4 max-w-[34ch] text-pretty text-[13.5px] leading-[1.6] opacity-65">
             Move your cursor to see the texture and finish catch the light.
-          </p>
-          <div className="mt-6">
+          </Reveal>
+          <Reveal delay={180} className="mt-6">
             <MagneticLink
               href={`/products/${series.slug}/${product?.slug}`}
               arrow
@@ -64,16 +65,21 @@ export default function InteractiveProductView({ series }: { series: ProductSeri
             >
               View {product?.name}
             </MagneticLink>
-          </div>
+          </Reveal>
         </div>
 
-        <div
-          ref={cardRef}
-          onPointerMove={handlePointerMove}
-          onPointerEnter={() => setHovering(true)}
-          onPointerLeave={reset}
+        <Reveal
+          delay={120}
+          y={20}
           className="relative mx-auto aspect-[4/5] w-full max-w-[260px] [perspective:1200px]"
         >
+          <div
+            ref={cardRef}
+            onPointerMove={handlePointerMove}
+            onPointerEnter={() => setHovering(true)}
+            onPointerLeave={reset}
+            className="absolute inset-0"
+          >
           <span
             aria-hidden="true"
             className="pointer-events-none absolute inset-[-16%] rounded-full border border-dashed border-charcoal/15"
@@ -111,9 +117,10 @@ export default function InteractiveProductView({ series }: { series: ProductSeri
               }}
             />
           </div>
-        </div>
+          </div>
+        </Reveal>
 
-        <div>
+        <Reveal delay={200}>
           <ul className="flex flex-col gap-4">
             <li className="flex items-center gap-3">
               <span className="flex h-9 w-9 flex-none items-center justify-center rounded-full border border-charcoal/20">
@@ -150,7 +157,7 @@ export default function InteractiveProductView({ series }: { series: ProductSeri
               </div>
             </div>
           )}
-        </div>
+        </Reveal>
       </div>
     </section>
   );

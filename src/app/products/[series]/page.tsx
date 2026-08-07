@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import clsx from "clsx";
 import Breadcrumb from "@/components/ui/Breadcrumb";
 import SeriesSubCard from "@/components/products/SeriesSubCard";
+import { Reveal } from "@/components/ui/Reveal";
 import { getSeriesBySlug, getSeriesParams, getCoverImage } from "@/lib/products";
 import { SITE_URL } from "@/lib/seo";
 
@@ -115,17 +116,21 @@ export default async function SeriesPage({
                 <span className="h-px w-[60px] bg-current/20" />
               </div>
             )}
-            <h1 className="m-0 mt-6 text-[clamp(36px,6.4vw,96px)] leading-[0.9] font-extrabold tracking-[-0.045em] uppercase [font-stretch:114%]">
+            <Reveal as="h1" className="m-0 mt-6 text-[clamp(36px,6.4vw,96px)] leading-[0.9] font-extrabold tracking-[-0.045em] uppercase [font-stretch:114%]">
               {series.name}
-            </h1>
+            </Reveal>
             {series.quote && (
-              <p className="m-0 mt-6 max-w-[36ch] text-pretty text-[19px] leading-[1.35] font-semibold tracking-[-0.01em]">
+              <Reveal
+                delay={100}
+                as="p"
+                className="m-0 mt-6 max-w-[36ch] text-pretty text-[19px] leading-[1.35] font-semibold tracking-[-0.01em]"
+              >
                 &ldquo;{series.quote}&rdquo;
-              </p>
+              </Reveal>
             )}
-            <p className="m-0 mt-4 max-w-[46ch] text-pretty text-[14px] leading-[1.68] opacity-75">
+            <Reveal delay={180} as="p" className="m-0 mt-4 max-w-[46ch] text-pretty text-[14px] leading-[1.68] opacity-75">
               {series.description}
-            </p>
+            </Reveal>
           </div>
         </section>
       ) : (
@@ -144,17 +149,21 @@ export default async function SeriesPage({
                 <span className="h-px w-[60px] bg-current/20" />
               </div>
             )}
-            <h1 className="m-0 mt-6 text-[clamp(38px,6vw,84px)] leading-[0.92] font-extrabold tracking-[-0.04em] uppercase [font-stretch:114%]">
+            <Reveal as="h1" className="m-0 mt-6 text-[clamp(38px,6vw,84px)] leading-[0.92] font-extrabold tracking-[-0.04em] uppercase [font-stretch:114%]">
               {series.name}
-            </h1>
+            </Reveal>
             {series.quote && (
-              <p className="m-0 mt-4 max-w-[36ch] text-pretty text-[19px] leading-[1.35] font-semibold tracking-[-0.01em]">
+              <Reveal
+                delay={100}
+                as="p"
+                className="m-0 mt-4 max-w-[36ch] text-pretty text-[19px] leading-[1.35] font-semibold tracking-[-0.01em]"
+              >
                 &ldquo;{series.quote}&rdquo;
-              </p>
+              </Reveal>
             )}
-            <p className="m-0 mt-5 max-w-[46ch] text-pretty text-[14px] leading-[1.68] opacity-60">
+            <Reveal delay={180} as="p" className="m-0 mt-5 max-w-[46ch] text-pretty text-[14px] leading-[1.68] opacity-60">
               {series.description}
-            </p>
+            </Reveal>
           </div>
           <div className="relative min-h-[42vh] overflow-hidden bg-bone-deep md:min-h-0">
             {series.image && (
@@ -190,16 +199,17 @@ export default async function SeriesPage({
               : clsx("relative", gridCols)
           }
         >
-          {subSeries.map((sub) => (
-            <SeriesSubCard
-              key={sub.slug}
-              href={`/products/${series.slug}/${sub.slug}`}
-              spec={sub.spec}
-              name={sub.name}
-              description={sub.description}
-              image={getCoverImage(sub)}
-              featured={subSeries.length === 1}
-            />
+          {subSeries.map((sub, i) => (
+            <Reveal key={sub.slug} delay={i * 90} y={24}>
+              <SeriesSubCard
+                href={`/products/${series.slug}/${sub.slug}`}
+                spec={sub.spec}
+                name={sub.name}
+                description={sub.description}
+                image={getCoverImage(sub)}
+                featured={subSeries.length === 1}
+              />
+            </Reveal>
           ))}
         </div>
       </section>
@@ -211,9 +221,9 @@ export default async function SeriesPage({
             <span className="font-mono-label text-[9.5px] tracking-[0.24em] opacity-50">
               ONE STANDARD. ENDLESS POSSIBILITIES.
             </span>
-            <h2 className="m-0 mt-4 text-[clamp(24px,3.2vw,42px)] leading-[1.05] font-extrabold tracking-[-0.03em] uppercase [font-stretch:114%]">
+            <Reveal as="h2" className="m-0 mt-4 text-[clamp(24px,3.2vw,42px)] leading-[1.05] font-extrabold tracking-[-0.03em] uppercase [font-stretch:114%]">
               Designed to elevate every space.
-            </h2>
+            </Reveal>
           </div>
           <Link
             href="/products"
