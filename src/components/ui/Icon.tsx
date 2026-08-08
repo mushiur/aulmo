@@ -156,6 +156,56 @@ export function ChevronRightIcon(props: IconProps) {
   );
 }
 
+export function ChevronDownIcon(props: IconProps) {
+  return (
+    <svg {...strokeBase} {...props}>
+      <path d="M5 8.5 12 15l7-6.5" />
+    </svg>
+  );
+}
+
+export function HomeIcon(props: IconProps) {
+  return (
+    <svg {...strokeBase} {...props}>
+      <path d="M3 11.5 12 4l9 7.5" />
+      <path d="M5.5 10v9.5a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1V10" />
+      <path d="M9.5 20.5V14h5v6.5" />
+    </svg>
+  );
+}
+
+export function UsersIcon(props: IconProps) {
+  return (
+    <svg {...strokeBase} {...props}>
+      <circle cx="9" cy="8" r="3.2" />
+      <path d="M3.5 20v-1.5A4.5 4.5 0 0 1 8 14h2a4.5 4.5 0 0 1 4.5 4.5V20" />
+      <circle cx="17.2" cy="9" r="2.6" />
+      <path d="M15.7 14.3A4 4 0 0 1 20.5 18v2" />
+    </svg>
+  );
+}
+
+export function GridIcon(props: IconProps) {
+  return (
+    <svg {...strokeBase} {...props}>
+      <rect x="3.5" y="3.5" width="7" height="7" rx="1.2" />
+      <rect x="13.5" y="3.5" width="7" height="7" rx="1.2" />
+      <rect x="3.5" y="13.5" width="7" height="7" rx="1.2" />
+      <rect x="13.5" y="13.5" width="7" height="7" rx="1.2" />
+    </svg>
+  );
+}
+
+export function FactoryIcon(props: IconProps) {
+  return (
+    <svg {...strokeBase} {...props}>
+      <path d="M3 21V11l5 3.2V11l5 3.2V8l5-2.8V21" />
+      <path d="M3 21h17" />
+      <path d="M8 21v-3.5M13 21v-3.5" />
+    </svg>
+  );
+}
+
 export function DragIcon(props: IconProps) {
   return (
     <svg {...strokeBase} {...props}>

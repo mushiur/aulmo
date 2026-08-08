@@ -6,6 +6,17 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import clsx from "clsx";
 import MagneticLink from "@/components/ui/MagneticLink";
+import {
+  ChevronDownIcon,
+  ChevronRightIcon,
+  DocumentIcon,
+  FactoryIcon,
+  GridIcon,
+  HomeIcon,
+  PinIcon,
+  ShieldIcon,
+  UsersIcon,
+} from "@/components/ui/Icon";
 import type { ProductSeries } from "@/data/types";
 import { getCoverImage } from "@/lib/products";
 
@@ -20,17 +31,14 @@ type NavbarProps = {
   featured: FeaturedEntry[];
 };
 
-const PRIMARY_LINKS = [
-  { href: "/", label: "Home" },
-  { href: "/about-us", label: "About Aulmo" },
-  { href: "/about-us/workshop", label: "Workshop" },
-  { href: "/certificate", label: "Certificate" },
-  { href: "/contact", label: "Contact" },
-];
-
 const ABOUT_LINKS = [
-  { href: "/about-us", label: "About Aulmo", detail: "Our story, since 1996" },
-  { href: "/about-us/workshop", label: "Workshop", detail: "Inside the manufacturing floor" },
+  { href: "/about-us", label: "About Aulmo", detail: "Our story, since 1996", icon: DocumentIcon },
+  {
+    href: "/about-us/workshop",
+    label: "Workshop",
+    detail: "Inside the manufacturing floor",
+    icon: FactoryIcon,
+  },
 ];
 
 export default function Navbar({ series, featured }: NavbarProps) {
@@ -265,6 +273,7 @@ function MegaMenu({
   onClose: () => void;
 }) {
   const panelRef = useRef<HTMLDivElement>(null);
+  const pathname = usePathname();
   const flagship = featured[0];
   const flagshipCover = flagship ? getCoverImage(flagship.subSeries) : undefined;
 
@@ -274,13 +283,7 @@ function MegaMenu({
       onMouseLeave={onClose}
       className="fixed inset-x-0 top-0 z-[190] max-h-[100svh] overflow-y-auto border-b border-paper/10 bg-ink-raised px-6 pt-24 pb-10 md:px-10 md:pt-28"
     >
-      <div className="mb-8 flex flex-wrap gap-x-8 gap-y-3 border-b border-paper/10 pb-6 font-mono-label text-[10px] tracking-[0.18em] uppercase opacity-70 lg:hidden">
-        {PRIMARY_LINKS.map((l) => (
-          <a key={l.href} href={l.href} onClick={onClose}>
-            {l.label}
-          </a>
-        ))}
-      </div>
+      <MobileQuickNav pathname={pathname} onClose={onClose} />
 
       <div className="grid gap-10 md:grid-cols-[1fr_1fr_1.2fr] md:gap-12">
         <div>
@@ -377,6 +380,94 @@ function MegaMenu({
           </div>
         )}
       </div>
+    </div>
+  );
+}
+
+function MobileQuickNav({ pathname, onClose }: { pathname: string; onClose: () => void }) {
+  const [aboutOpen, setAboutOpen] = useState(pathname.startsWith("/about-us"));
+  const isProducts = pathname.startsWith("/products");
+  const isAbout = pathname.startsWith("/about-us");
+
+  const tabClass = (active: boolean) =>
+    clsx(
+      "flex flex-1 flex-col items-center gap-1.5 bg-transparent py-1 transition-colors duration-200",
+      active ? "text-signal-yellow" : "text-paper/65",
+    );
+
+  return (
+    <div className="mb-8 border-b border-paper/10 pb-6 lg:hidden">
+      <div className="flex gap-1">
+        <Link href="/" onClick={onClose} className={tabClass(pathname === "/")}>
+          <HomeIcon className="h-5 w-5" />
+          <span className="font-mono-label text-[8.5px] tracking-[0.1em] uppercase">Home</span>
+        </Link>
+        <button
+          type="button"
+          onClick={() => setAboutOpen((v) => !v)}
+          className={tabClass(isAbout || aboutOpen)}
+        >
+          <UsersIcon className="h-5 w-5" />
+          <span className="font-mono-label text-[8.5px] tracking-[0.1em] uppercase">About Us</span>
+        </button>
+        <Link href="/products" onClick={onClose} className={tabClass(isProducts)}>
+          <GridIcon className="h-5 w-5" />
+          <span className="font-mono-label text-[8.5px] tracking-[0.1em] uppercase">Products</span>
+        </Link>
+        <Link href="/certificate" onClick={onClose} className={tabClass(pathname === "/certificate")}>
+          <ShieldIcon className="h-5 w-5" />
+          <span className="font-mono-label text-[8.5px] tracking-[0.1em] uppercase">Certificate</span>
+        </Link>
+        <Link href="/contact" onClick={onClose} className={tabClass(pathname === "/contact")}>
+          <PinIcon className="h-5 w-5" />
+          <span className="font-mono-label text-[8.5px] tracking-[0.1em] uppercase">Contact</span>
+        </Link>
+      </div>
+
+      {aboutOpen && (
+        <div className="mt-5 rounded-2xl border border-paper/10 bg-ink-raised/50 p-2">
+          <button
+            type="button"
+            onClick={() => setAboutOpen(false)}
+            className="flex w-full items-center justify-between bg-transparent px-3 py-2.5 font-mono-label text-[9px] tracking-[0.2em] uppercase opacity-50"
+          >
+            About Us
+            <ChevronDownIcon className="h-3.5 w-3.5 rotate-180" />
+          </button>
+          <div className="flex flex-col gap-1">
+            {ABOUT_LINKS.map((l) => {
+              const active = pathname === l.href;
+              return (
+                <Link
+                  key={l.href}
+                  href={l.href}
+                  onClick={onClose}
+                  className={clsx(
+                    "flex items-center gap-3.5 rounded-xl px-3 py-3 transition-colors duration-200",
+                    active ? "bg-paper/8" : "hover:bg-paper/5",
+                  )}
+                >
+                  <span
+                    className={clsx(
+                      "flex h-9 w-9 flex-none items-center justify-center rounded-full border",
+                      active ? "border-signal-yellow text-signal-yellow" : "border-paper/20 opacity-70",
+                    )}
+                  >
+                    <l.icon className="h-4 w-4" />
+                  </span>
+                  <span className="min-w-0 flex-1">
+                    <span className={clsx("block text-[13px] font-bold tracking-wide", active && "text-signal-yellow")}>
+                      {l.label}
+                    </span>
+                    <span className="mt-0.5 block truncate text-[11px] tracking-normal opacity-50">{l.detail}</span>
+                  </span>
+                  <ChevronRightIcon className={clsx("h-4 w-4 flex-none", active ? "text-signal-yellow" : "opacity-35")} />
+                </Link>
+              );
+            })}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
