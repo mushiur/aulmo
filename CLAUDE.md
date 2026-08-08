@@ -45,7 +45,9 @@ src/
 ├── app/                          Routes (Next.js App Router)
 │   ├── layout.tsx                 Root shell: fonts, Navbar, Footer, Loader, cursor
 │   ├── page.tsx                    Homepage
-│   ├── about/page.tsx
+│   ├── about-us/
+│   │   ├── page.tsx                 About Aulmo (company story)
+│   │   └── workshop/page.tsx         Workshop — manufacturing floor photography
 │   ├── products/
 │   │   ├── page.tsx                 Products overview (all 5 series)
 │   │   ├── [series]/page.tsx         One series' sub-series
@@ -79,6 +81,8 @@ public/
 ├── brand/                         Logo only
 ├── marketing/                     Homepage editorial imagery (not tied to one SKU)
 ├── products/<series>/<subseries>/<finish>/  Per-finish photography (see below)
+├── workshop/                      Real manufacturing-floor photography, used only
+│                                    by /about-us/workshop
 └── video/                         Hero background video
 ```
 
@@ -91,8 +95,11 @@ HOME · ABOUT US · PRODUCTS · CERTIFICATE · CONTACT
 ```
 
 `PRODUCTS` opens the mega menu (hover on desktop, tap on mobile); it is not a page
-of its own in the nav bar, though `/products` exists as a real route. Do not rename,
-reorder, or add to this list without the user explicitly asking.
+of its own in the nav bar, though `/products` exists as a real route. `ABOUT US`
+opens a small dropdown (hover on desktop, tap on mobile) with two pages — About
+Aulmo (`/about-us`) and Workshop (`/about-us/workshop`) — it is not a page of its
+own either. Do not rename, reorder, or add to this list without the user explicitly
+asking.
 
 ## The product hierarchy — evidence-based, not assumed
 

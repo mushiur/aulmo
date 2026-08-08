@@ -9,10 +9,10 @@ import { CompassIcon, GlobeIcon, LayersIcon, ShieldIcon } from "@/components/ui/
 import { SITE_URL } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "About Us",
+  title: "About Aulmo",
   description:
     "Founded in 1996 as Zhejiang Aulmo Industrial Co., Ltd. — AULMO builds switches, sockets and control panels exported across the Middle East, Australia, Europe, Africa and South America.",
-  alternates: { canonical: `${SITE_URL}/about` },
+  alternates: { canonical: `${SITE_URL}/about-us` },
 };
 
 const STATS: {
@@ -54,7 +54,13 @@ export default function AboutPage() {
       {/* Hero */}
       <section data-theme="dark" className="relative grid grid-cols-1 overflow-hidden bg-ink text-paper md:grid-cols-2">
         <div className="flex flex-col justify-center px-6 py-[16vh] md:px-[4.5vw] md:py-[18vh]">
-          <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "About Us" }]} />
+          <Breadcrumb
+            items={[
+              { label: "Home", href: "/" },
+              { label: "About Us", href: "/about-us" },
+              { label: "About Aulmo" },
+            ]}
+          />
           <div className="mt-6 flex items-center gap-3.5">
             <span className="font-mono-label text-[9.5px] tracking-[0.24em] opacity-50">ABOUT AULMO</span>
             <span className="h-px w-[60px] bg-current/20" />

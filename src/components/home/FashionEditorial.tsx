@@ -33,7 +33,7 @@ export default function FashionEditorial() {
             />
           </h2>
           <MagneticLink
-            href="/about"
+            href="/about-us"
             arrow
             className="mt-7 inline-flex items-center gap-2.5 border-b border-signal-yellow/50 pb-1.5 font-mono-label text-[10px] tracking-[0.18em] text-signal-yellow"
           >

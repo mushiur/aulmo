@@ -82,7 +82,7 @@ export default function Lightbox({
         type="button"
         aria-label="Close"
         onClick={onClose}
-        className="absolute top-6 right-6 font-mono-label text-[11px] tracking-[0.2em] text-paper/70 hover:text-paper"
+        className="absolute top-6 right-6 z-10 flex items-center gap-2 rounded-full bg-signal-red px-4 py-2.5 font-mono-label text-[10.5px] tracking-[0.2em] text-paper transition-transform duration-200 hover:scale-110"
       >
         CLOSE ✕
       </button>
@@ -93,7 +93,7 @@ export default function Lightbox({
           e.stopPropagation();
           onPrev();
         }}
-        className="absolute left-4 top-1/2 -translate-y-1/2 text-[32px] text-paper/60 hover:text-paper md:left-10"
+        className="absolute top-1/2 left-4 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-paper/20 bg-ink/60 text-[26px] text-paper backdrop-blur-md transition-colors duration-200 hover:bg-ink/85 md:left-10"
       >
         ‹
       </button>
@@ -107,11 +107,11 @@ export default function Lightbox({
           e.stopPropagation();
           onNext();
         }}
-        className="absolute top-1/2 right-4 -translate-y-1/2 text-[32px] text-paper/60 hover:text-paper md:right-10"
+        className="absolute top-1/2 right-4 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-paper/20 bg-ink/60 text-[26px] text-paper backdrop-blur-md transition-colors duration-200 hover:bg-ink/85 md:right-10"
       >
         ›
       </button>
-      <div className="absolute bottom-6 left-1/2 flex -translate-x-1/2 items-center gap-2 whitespace-nowrap font-mono-label text-[10px] tracking-[0.2em] text-paper/70">
+      <div className="absolute bottom-6 left-1/2 z-10 flex -translate-x-1/2 items-center gap-2 whitespace-nowrap rounded-full border border-paper/15 bg-ink/60 px-4 py-2 font-mono-label text-[10px] tracking-[0.2em] text-paper backdrop-blur-md">
         {caption && <span>{caption} ·</span>}
         <span>
           {String(activeIndex + 1).padStart(2, "0")} / {String(count).padStart(2, "0")}

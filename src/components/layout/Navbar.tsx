@@ -22,16 +22,28 @@ type NavbarProps = {
 
 const PRIMARY_LINKS = [
   { href: "/", label: "Home" },
-  { href: "/about", label: "About Us" },
+  { href: "/about-us", label: "About Aulmo" },
+  { href: "/about-us/workshop", label: "Workshop" },
   { href: "/certificate", label: "Certificate" },
   { href: "/contact", label: "Contact" },
+];
+
+const ABOUT_LINKS = [
+  { href: "/about-us", label: "About Aulmo", detail: "Our story, since 1996" },
+  { href: "/about-us/workshop", label: "Workshop", detail: "Inside the manufacturing floor" },
 ];
 
 export default function Navbar({ series, featured }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false);
   const [light, setLight] = useState(false);
   const [megaOpen, setMegaOpen] = useState(false);
+  const [aboutOpen, setAboutOpen] = useState(false);
   const pathname = usePathname();
+
+  const closeMenus = () => {
+    setMegaOpen(false);
+    setAboutOpen(false);
+  };
 
   // Navbar lives in the root layout and never remounts across client-side
   // navigations, so `[data-theme]` zones must be re-queried on every check —
@@ -92,7 +104,7 @@ export default function Navbar({ series, featured }: NavbarProps) {
         <Link
           href="/"
           onClick={scrollToTop}
-          onMouseEnter={() => setMegaOpen(false)}
+          onMouseEnter={closeMenus}
           className="flex-none"
         >
           <Image
@@ -111,16 +123,67 @@ export default function Navbar({ series, featured }: NavbarProps) {
             isLight ? "border-charcoal/14 bg-paper-bright/50" : "border-paper/14 bg-ink-raised/40",
           )}
         >
-          <NavLink href="/" onClick={scrollToTop} onMouseEnter={() => setMegaOpen(false)}>
+          <NavLink href="/" onClick={scrollToTop} onMouseEnter={closeMenus}>
             Home
           </NavLink>
-          <NavLink href="/about" onMouseEnter={() => setMegaOpen(false)}>
-            About Us
-          </NavLink>
+          <div
+            className="relative"
+            onMouseLeave={() => setAboutOpen(false)}
+          >
+            <button
+              type="button"
+              onClick={() => {
+                setAboutOpen((v) => !v);
+                setMegaOpen(false);
+              }}
+              onMouseEnter={() => {
+                setAboutOpen(true);
+                setMegaOpen(false);
+              }}
+              className="flex items-center gap-2 bg-transparent p-0 opacity-80 transition-opacity duration-300 hover:opacity-100"
+            >
+              About Us
+              <span
+                className={clsx(
+                  "block h-1 w-1 border-r border-b border-current transition-transform duration-[400ms] ease-[cubic-bezier(.2,.7,.2,1)]",
+                  aboutOpen ? "-translate-y-0.5 rotate-[225deg]" : "-translate-y-0.5 rotate-45",
+                )}
+              />
+            </button>
+            {aboutOpen && (
+              // pt-3 (not mt-3) keeps the visual gap *inside* this element's own
+              // hoverable box, so the cursor never crosses a dead zone between
+              // the button and the panel — that gap was closing the dropdown
+              // before a visitor could reach it.
+              <div className="absolute left-0 top-full w-64 pt-3">
+                <div className="rounded-2xl border border-paper/14 bg-ink-raised/95 p-2 text-paper normal-case backdrop-blur-xl shadow-[0_30px_60px_-20px_rgba(0,0,0,0.5)]">
+                  {ABOUT_LINKS.map((l) => (
+                    <Link
+                      key={l.href}
+                      href={l.href}
+                      onClick={() => setAboutOpen(false)}
+                      className="block rounded-xl px-4 py-3 transition-colors duration-200 hover:bg-paper/8"
+                    >
+                      <span className="block text-[13px] font-bold tracking-wide">{l.label}</span>
+                      <span className="mt-0.5 block text-[11px] tracking-normal opacity-50">
+                        {l.detail}
+                      </span>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
           <button
             type="button"
-            onClick={() => setMegaOpen((v) => !v)}
-            onMouseEnter={() => setMegaOpen(true)}
+            onClick={() => {
+              setMegaOpen((v) => !v);
+              setAboutOpen(false);
+            }}
+            onMouseEnter={() => {
+              setMegaOpen(true);
+              setAboutOpen(false);
+            }}
             className="flex items-center gap-2 bg-transparent p-0 opacity-80 transition-opacity duration-300 hover:opacity-100"
           >
             Products
@@ -131,10 +194,10 @@ export default function Navbar({ series, featured }: NavbarProps) {
               )}
             />
           </button>
-          <NavLink href="/certificate" onMouseEnter={() => setMegaOpen(false)}>
+          <NavLink href="/certificate" onMouseEnter={closeMenus}>
             Certificate
           </NavLink>
-          <NavLink href="/contact" onMouseEnter={() => setMegaOpen(false)}>
+          <NavLink href="/contact" onMouseEnter={closeMenus}>
             Contact
           </NavLink>
         </nav>
@@ -143,7 +206,7 @@ export default function Navbar({ series, featured }: NavbarProps) {
           <MagneticLink
             href="tel:+8801720310552"
             arrow
-            onMouseEnter={() => setMegaOpen(false)}
+            onMouseEnter={closeMenus}
             className={clsx(
               "rounded-full border px-5 py-3.5 font-mono-label text-[10px] font-bold tracking-[0.18em] uppercase backdrop-blur-xl transition-colors duration-[400ms] hover:border-signal-red hover:bg-signal-red hover:text-paper-bright",
               isLight ? "border-charcoal/24 bg-paper-bright/50" : "border-paper/26 bg-ink-raised/40",

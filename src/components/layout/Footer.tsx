@@ -4,7 +4,8 @@ import type { ProductSeries } from "@/data/types";
 
 const BRAND_LINKS = [
   { href: "/", label: "Home" },
-  { href: "/about", label: "About Us" },
+  { href: "/about-us", label: "About Aulmo" },
+  { href: "/about-us/workshop", label: "Workshop" },
   { href: "/products", label: "Products" },
   { href: "/certificate", label: "Certificate" },
   { href: "/contact", label: "Contact" },
