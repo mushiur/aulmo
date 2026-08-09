@@ -719,8 +719,12 @@ export const productHierarchy: ProductSeries[] = [
     quote: "Selected materials, durable and long-lasting.",
     description:
       "A diamond-embossed trim border in four finishes — champagne gold, graphite black, gray and pearl white.",
-    image: { src: "/products/m-series/m30/gold/hero.jpg", alt: "AULMO M30 Series switch, champagne gold" },
-    imagePosition: "50% 42%",
+    image: {
+      src: "/products/m-series/banner.png",
+      alt: "AULMO M Series switches — champagne gold, graphite black, graphite gray, pearl white and natural wood veneer",
+    },
+    heroStyle: "banner",
+    cardImage: { src: "/products/m-series/m30/gold/hero.jpg", alt: "AULMO M30 Series switch, champagne gold" },
     subSeries: [
       {
         code: "M30",
@@ -728,6 +732,27 @@ export const productHierarchy: ProductSeries[] = [
         name: "M30 Series",
         description: "Two-gang switch with a diamond-embossed trim border, engineered in Germany.",
         spec: "86 × 92 mm module",
+        parameters: [
+          { label: "Color", value: "White / Gray / Gold / Black" },
+          { label: "Material (panel)", value: "PC" },
+          { label: "Size", value: "86 × 92 mm" },
+          { label: "Max. Current", value: "16A" },
+          { label: "Max. Voltage", value: "250V" },
+        ],
+        familyImages: [
+          {
+            src: "/products/m-series/m30/brand-statement.png",
+            alt: "AULMO M30 Series — German design brand statement",
+            width: 1700,
+            height: 2478,
+          },
+          {
+            src: "/products/m-series/m30/profiling-diagram.png",
+            alt: "AULMO M30 Series switch profiling diagram",
+            width: 1700,
+            height: 1400,
+          },
+        ],
         configurations: [
           "1–4 gang switches",
           "Switch + socket combinations",
@@ -742,6 +767,14 @@ export const productHierarchy: ProductSeries[] = [
             name: "Nebula Ash",
             swatch: "#17171A",
             hero: { src: "/products/m-series/m30/black/hero.jpg", alt: "AULMO M30 Series switch, Nebula Ash black" },
+            gallery: [
+              {
+                src: "/products/m-series/architecture.png",
+                alt: "AULMO M30 Series dimension diagram, 86 x 92 mm",
+                fit: "contain",
+                label: "Dimensions",
+              },
+            ],
           },
           {
             code: "gold",
@@ -750,6 +783,12 @@ export const productHierarchy: ProductSeries[] = [
             hero: { src: "/products/m-series/m30/gold/hero.jpg", alt: "AULMO M30 Series switch, champagne gold" },
             gallery: [
               { src: "/products/m-series/m30/gold/detail.jpg", alt: "AULMO M30 Series switch detail, champagne gold" },
+              {
+                src: "/products/m-series/architecture.png",
+                alt: "AULMO M30 Series dimension diagram, 86 x 92 mm",
+                fit: "contain",
+                label: "Dimensions",
+              },
             ],
           },
           {
@@ -757,6 +796,14 @@ export const productHierarchy: ProductSeries[] = [
             name: "Graphite Gray",
             swatch: "#6E7175",
             hero: { src: "/products/m-series/m30/gray/hero.jpg", alt: "AULMO M30 Series switch, graphite gray" },
+            gallery: [
+              {
+                src: "/products/m-series/architecture.png",
+                alt: "AULMO M30 Series dimension diagram, 86 x 92 mm",
+                fit: "contain",
+                label: "Dimensions",
+              },
+            ],
           },
           {
             code: "white",
@@ -765,6 +812,64 @@ export const productHierarchy: ProductSeries[] = [
             hero: { src: "/products/m-series/m30/white/hero.jpg", alt: "AULMO M30 Series switch, pearl white" },
             gallery: [
               { src: "/products/m-series/m30/white/detail.jpg", alt: "AULMO M30 Series switch and socket, pearl white" },
+              {
+                src: "/products/m-series/architecture.png",
+                alt: "AULMO M30 Series dimension diagram, 86 x 92 mm",
+                fit: "contain",
+                label: "Dimensions",
+              },
+            ],
+          },
+        ],
+      },
+      {
+        code: "M50",
+        slug: "m50",
+        name: "M50 Series",
+        description:
+          "Two-gang switch with a diamond-embossed trim border in natural wood veneer, engineered in Germany.",
+        spec: "86 × 92 mm module",
+        familyImages: [
+          {
+            src: "/products/m-series/m30/brand-statement.png",
+            alt: "AULMO M Series — German design brand statement",
+            width: 1700,
+            height: 2478,
+          },
+          {
+            src: "/products/m-series/m30/profiling-diagram.png",
+            alt: "AULMO M Series switch profiling diagram",
+            width: 1700,
+            height: 1400,
+          },
+        ],
+        variants: [
+          {
+            code: "black",
+            name: "Espresso Walnut",
+            swatch: "linear-gradient(105deg,#7A4530,#A75235 46%,#4A2A1C)",
+            hero: { src: "/products/m-series/m50/black/hero.png", alt: "AULMO M50 Series switch, espresso walnut" },
+            gallery: [
+              {
+                src: "/products/m-series/architecture.png",
+                alt: "AULMO M50 Series dimension diagram, 86 x 92 mm",
+                fit: "contain",
+                label: "Dimensions",
+              },
+            ],
+          },
+          {
+            code: "white",
+            name: "Golden Oak",
+            swatch: "linear-gradient(105deg,#D9A66B,#EDB680 46%,#B9814A)",
+            hero: { src: "/products/m-series/m50/white/hero.png", alt: "AULMO M50 Series switch, golden oak" },
+            gallery: [
+              {
+                src: "/products/m-series/architecture.png",
+                alt: "AULMO M50 Series dimension diagram, 86 x 92 mm",
+                fit: "contain",
+                label: "Dimensions",
+              },
             ],
           },
         ],
@@ -779,36 +884,333 @@ export const productHierarchy: ProductSeries[] = [
     theme: "COLOUR",
     quote: "Fantastic colors, stunning at first glance.",
     description: "A dedicated switch and outlet range within the AULMO product family.",
-    image: { src: "/products/k-series/k40/hero.jpg", alt: "AULMO K40 Series switch" },
-    imagePosition: "50% 46%",
+    image: { src: "/products/k-series/banner.png", alt: "AULMO K Series switch installed on a wall" },
+    heroStyle: "banner",
+    cardImage: { src: "/products/k-series/k30/black/hero.png", alt: "AULMO K30 Series switch, ink black" },
     subSeries: [
       {
         code: "K30",
         slug: "k30",
         name: "K30 Series",
-        description: "K Series K30 module.",
-        image: { src: "/products/k-series/k30/hero.jpg", alt: "AULMO K30 Series switch" },
+        description: "Four-gang switch offered across four finishes.",
+        spec: "86 × 92 mm module",
+        parameters: [
+          { label: "Color", value: "White / Gray / Gold / Black" },
+          { label: "Material (panel)", value: "PC" },
+          { label: "Size", value: "86 × 92 mm" },
+          { label: "Max. Current", value: "16A" },
+          { label: "Max. Voltage", value: "250V" },
+        ],
+        familyImages: [
+          {
+            src: "/products/k-series/k30/brand-statement.png",
+            alt: "AULMO K30 Series switch and socket, ink black",
+            width: 1700,
+            height: 1948,
+          },
+          {
+            src: "/products/k-series/k30/family-lineup.png",
+            alt: "AULMO K30 Series switch and socket lineup, silver gray",
+            width: 1700,
+            height: 2400,
+          },
+          {
+            src: "/products/k-series/k30/mechanism-detail.png",
+            alt: "AULMO K30 Series internal mechanism detail",
+            width: 1700,
+            height: 955,
+          },
+          {
+            src: "/products/k-series/k30/logo-detail.png",
+            alt: "AULMO K30 Series logo detail, ink black",
+            width: 1700,
+            height: 780,
+          },
+        ],
+        variants: [
+          {
+            code: "black",
+            name: "Ink Black",
+            swatch: "#17171A",
+            hero: { src: "/products/k-series/k30/black/hero.png", alt: "AULMO K30 Series switch, ink black" },
+            gallery: [
+              {
+                src: "/products/k-series/k30/architecture.png",
+                alt: "AULMO K30 Series dimension diagram, 86 x 92 mm",
+                fit: "contain",
+                label: "Dimensions",
+              },
+            ],
+          },
+          {
+            code: "gold",
+            name: "Champagne Gold",
+            swatch: "linear-gradient(105deg,#C9A053,#E8CB8C 46%,#A9803A)",
+            hero: { src: "/products/k-series/k30/gold/hero.png", alt: "AULMO K30 Series switch, champagne gold" },
+            gallery: [
+              {
+                src: "/products/k-series/k30/architecture.png",
+                alt: "AULMO K30 Series dimension diagram, 86 x 92 mm",
+                fit: "contain",
+                label: "Dimensions",
+              },
+            ],
+          },
+          {
+            code: "gray",
+            name: "Silver Gray",
+            swatch: "#8B8D90",
+            hero: { src: "/products/k-series/k30/gray/hero.png", alt: "AULMO K30 Series switch, silver gray" },
+            gallery: [
+              {
+                src: "/products/k-series/k30/architecture.png",
+                alt: "AULMO K30 Series dimension diagram, 86 x 92 mm",
+                fit: "contain",
+                label: "Dimensions",
+              },
+            ],
+          },
+          {
+            code: "white",
+            name: "Pearl White",
+            swatch: "#F4F2ED",
+            hero: { src: "/products/k-series/k30/white/hero.png", alt: "AULMO K30 Series switch, pearl white" },
+            gallery: [
+              {
+                src: "/products/k-series/k30/architecture.png",
+                alt: "AULMO K30 Series dimension diagram, 86 x 92 mm",
+                fit: "contain",
+                label: "Dimensions",
+              },
+            ],
+          },
+        ],
       },
       {
         code: "K40",
         slug: "k40",
         name: "K40 Series",
-        description: "K Series K40 module.",
-        image: { src: "/products/k-series/k40/hero.jpg", alt: "AULMO K40 Series switch" },
+        description: "Four-gang switch offered across four finishes.",
+        spec: "86 × 92 mm module",
+        parameters: [
+          { label: "Color", value: "Coffee Gold / Red / Gold / Bright Gold" },
+          { label: "Material (panel)", value: "PC" },
+          { label: "Size", value: "86 × 92 mm" },
+          { label: "Max. Current", value: "16A" },
+          { label: "Max. Voltage", value: "250V" },
+        ],
+        familyImages: [
+          {
+            src: "/products/k-series/k40/color-range.png",
+            alt: "AULMO K40 Series switch, coffee gold, red, gold and bright gold",
+            width: 1700,
+            height: 2261,
+          },
+          {
+            src: "/products/k-series/k40/lifestyle.png",
+            alt: "AULMO K40 Series switch and socket installed, gold",
+            width: 1700,
+            height: 1847,
+          },
+        ],
+        variants: [
+          {
+            code: "gold",
+            name: "Gold",
+            swatch: "linear-gradient(105deg,#C9A053,#E8CB8C 46%,#A9803A)",
+            hero: { src: "/products/k-series/k40/gold/hero.png", alt: "AULMO K40 Series switch, gold" },
+            gallery: [
+              {
+                src: "/products/k-series/k40/architecture.png",
+                alt: "AULMO K40 Series dimension diagram, 86 x 92 mm",
+                fit: "contain",
+                label: "Dimensions",
+              },
+            ],
+          },
+        ],
       },
       {
         code: "K50",
         slug: "k50",
         name: "K50 Series",
-        description: "K Series K50 module.",
-        image: { src: "/products/k-series/k50/hero.jpg", alt: "AULMO K50 Series switch" },
+        description: "Four-gang switch in a wood-grain finish, offered across three colors.",
+        spec: "86 × 92 mm module",
+        parameters: [
+          { label: "Color", value: "Pine Color / Red Wood Grain / Yellow Wood Grain" },
+          { label: "Material (panel)", value: "PC" },
+          { label: "Size", value: "86 × 92 mm" },
+          { label: "Max. Current", value: "16A" },
+          { label: "Max. Voltage", value: "250V" },
+        ],
+        familyImages: [
+          {
+            src: "/products/k-series/k50/craftsmanship.png",
+            alt: "AULMO K50 Series — ecological wooden craftsmanship",
+            width: 1700,
+            height: 1749,
+          },
+          {
+            src: "/products/k-series/k50/color-range.png",
+            alt: "AULMO K50 Series switch, red wood grain, pine color and yellow wood grain",
+            width: 1700,
+            height: 1115,
+          },
+        ],
+        variants: [
+          {
+            code: "yellow-wood-grain",
+            name: "Yellow Wood Grain",
+            swatch: "linear-gradient(105deg,#E8B23C,#F3CE7A 46%,#B8801E)",
+            hero: {
+              src: "/products/k-series/k50/yellow-wood-grain/hero.png",
+              alt: "AULMO K50 Series switch, yellow wood grain",
+            },
+            gallery: [
+              {
+                src: "/products/k-series/k50/yellow-wood-grain/detail.png",
+                alt: "AULMO K50 Series switch and socket detail, yellow wood grain",
+              },
+              {
+                src: "/products/k-series/k50/architecture.png",
+                alt: "AULMO K50 Series dimension diagram, 86 x 92 mm",
+                fit: "contain",
+                label: "Dimensions",
+              },
+            ],
+          },
+        ],
       },
       {
         code: "K60",
         slug: "k60",
         name: "K60 Series",
-        description: "K Series K60 module.",
-        image: { src: "/products/k-series/k60/hero.jpg", alt: "AULMO K60 Series switch" },
+        description: "Ornate embossed switch offered across four metallic finishes.",
+        spec: "86 × 92 mm module",
+        parameters: [
+          { label: "Color", value: "Bright Gold / Copper / Bronze / Rose Gold" },
+          { label: "Material (panel)", value: "PC+Zinc Alloy" },
+          { label: "Size", value: "86 × 92 mm" },
+          { label: "Max. Current", value: "16A" },
+          { label: "Max. Voltage", value: "250V" },
+        ],
+        familyImages: [
+          {
+            src: "/products/k-series/k60/brand-statement.png",
+            alt: "AULMO K60 Series — fashionable and minimalist design brand statement",
+            width: 1700,
+            height: 1389,
+          },
+          {
+            src: "/products/k-series/k60/rose-gold/detail.png",
+            alt: "AULMO K60 Series switch detail, rose gold",
+            width: 1700,
+            height: 1151,
+          },
+        ],
+        variants: [
+          {
+            code: "bright-gold",
+            name: "Bright Gold",
+            swatch: "linear-gradient(105deg,#FCE9A8,#FBDC81 46%,#D9AE47)",
+            hero: { src: "/products/k-series/k60/bright-gold/hero.png", alt: "AULMO K60 Series switch, bright gold" },
+            gallery: [
+              {
+                src: "/products/k-series/k60/bright-gold/brand-statement.png",
+                alt: "AULMO K60 Series switch and socket, bright gold",
+                fit: "contain",
+                label: "Detail",
+              },
+              {
+                src: "/products/k-series/k60/architecture.png",
+                alt: "AULMO K60 Series dimension diagram, 86 x 92 mm",
+                fit: "contain",
+                label: "Dimensions",
+              },
+              {
+                src: "/products/k-series/k60/materials-description.png",
+                alt: "AULMO K60 Series material description and exploded view",
+                fit: "contain",
+                label: "Materials",
+              },
+            ],
+          },
+          {
+            code: "bronze",
+            name: "Bronze",
+            swatch: "linear-gradient(105deg,#A8A8A8,#888888 46%,#5E5E5E)",
+            hero: { src: "/products/k-series/k60/bronze/hero.png", alt: "AULMO K60 Series switch, bronze" },
+            gallery: [
+              {
+                src: "/products/k-series/k60/bronze/detail.png",
+                alt: "AULMO K60 Series switch detail, bronze",
+                label: "Detail",
+              },
+              {
+                src: "/products/k-series/k60/bronze/lifestyle.png",
+                alt: "AULMO K60 Series switch installed on a wall, bronze",
+                label: "Installed",
+              },
+              {
+                src: "/products/k-series/k60/architecture.png",
+                alt: "AULMO K60 Series dimension diagram, 86 x 92 mm",
+                fit: "contain",
+                label: "Dimensions",
+              },
+              {
+                src: "/products/k-series/k60/materials-description.png",
+                alt: "AULMO K60 Series material description and exploded view",
+                fit: "contain",
+                label: "Materials",
+              },
+            ],
+          },
+          {
+            code: "copper",
+            name: "Copper",
+            swatch: "linear-gradient(105deg,#8C5A4A,#4C3A3A 46%,#2E2020)",
+            hero: { src: "/products/k-series/k60/copper/hero.png", alt: "AULMO K60 Series switch, copper" },
+            gallery: [
+              {
+                src: "/products/k-series/k60/architecture.png",
+                alt: "AULMO K60 Series dimension diagram, 86 x 92 mm",
+                fit: "contain",
+                label: "Dimensions",
+              },
+              {
+                src: "/products/k-series/k60/materials-description.png",
+                alt: "AULMO K60 Series material description and exploded view",
+                fit: "contain",
+                label: "Materials",
+              },
+            ],
+          },
+          {
+            code: "rose-gold",
+            name: "Rose Gold",
+            swatch: "linear-gradient(105deg,#F5ECD8,#EADFC1 46%,#CBB98F)",
+            hero: { src: "/products/k-series/k60/rose-gold/hero.png", alt: "AULMO K60 Series switch, rose gold" },
+            gallery: [
+              {
+                src: "/products/k-series/k60/rose-gold/detail.png",
+                alt: "AULMO K60 Series switch detail, rose gold",
+                label: "Detail",
+              },
+              {
+                src: "/products/k-series/k60/architecture.png",
+                alt: "AULMO K60 Series dimension diagram, 86 x 92 mm",
+                fit: "contain",
+                label: "Dimensions",
+              },
+              {
+                src: "/products/k-series/k60/materials-description.png",
+                alt: "AULMO K60 Series material description and exploded view",
+                fit: "contain",
+                label: "Materials",
+              },
+            ],
+          },
+        ],
       },
     ],
   },

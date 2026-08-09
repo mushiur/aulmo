@@ -113,8 +113,14 @@ L Series  — L50 (black/gold/gray/white), L60 (black/gold/gray/white),
             L80 (black/gold/gray/white), LG20 (matte gold/silvery/water ink/carbon
             gray/pearl white), LG30 (carbon gray/matte gold/water ink/pearl white)
 D Series  — DZ (black/gold/gray/ivory/white)
-M Series  — M30 (Nebula Ash black/champagne gold/graphite gray/pearl white)
-K Series  — K30, K40, K50, K60          (untouched — no asset library yet)
+M Series  — M30 (Nebula Ash black/champagne gold/graphite gray/pearl white),
+            M50 (espresso walnut/golden oak — wood-veneer trim, not metal-look)
+K Series  — K30 (ink black/champagne gold/silver gray/pearl white), K40 (gold only —
+            coffee gold/red/bright gold are named in the parameter table but have no
+            isolated hero photo yet, only a group shot), K50 (yellow wood grain only —
+            pine color/red wood grain are named but have no isolated hero photo, only
+            a group shot), K60 (bright gold/bronze/copper/rose gold — ornate embossed
+            border, a distinct decorative line from K30/K40/K50's plain finishes)
 S Series  — S20, S30, S50, S60, S70, S80, S90   (untouched — only S60 has a photo)
 ```
 
@@ -129,11 +135,33 @@ finish exists because it was named in a spec; only add it once a real photo (or 
 unambiguous printed label on a real asset) confirms it.** If a name is mentioned in
 marketing copy but never photographed (e.g. LG30's "matte silver" is named in body
 copy but has zero photography), leave it out rather than add an empty entry.
+M50 is the example of the other direction: removed for lack of photography in that
+earlier pass, then correctly re-added later once real photos (espresso walnut and
+golden oak, wood-veneer finish) actually arrived — the rule is evidence either way,
+not a one-time verdict. L620/L630 remain removed; no photography for those has
+surfaced since.
 
-L/D/M Series are fully built with real finish photography. K/S Series are
-intentionally untouched (simpler single-`image` shape, mostly `ImagePlaceholder`)
-pending their own asset libraries — do not build out their visuals without new
-photography to work from.
+L/D/M Series are fully built with real finish photography. K30, K40, K50 and K60
+were upgraded the same way once their own asset libraries arrived — none are part
+of the "untouched" group anymore. K40 and K50 each currently have only one
+isolated finish (K40: Gold; K50: Yellow Wood Grain); their other named colors
+(K40: coffee gold, red, bright gold; K50: pine color, red wood grain) are visible
+only in a real group photo (`familyImages`), not given their own `variants` entry,
+since no per-finish studio shot exists for them yet. K60 got a full 4-finish
+build (bright gold/bronze/copper/rose gold), each with its own gallery. Only
+K series' own top-level banner (`image` on the K-series object itself) is still
+unresolved — see the note below. All of S Series remains intentionally untouched
+(simpler single-`image` shape, mostly `ImagePlaceholder`) pending its own asset
+library — do not build out its visuals without new photography to work from.
+
+**K series banner:** the first upload named `K series banner image.png` turned
+out to be byte-for-byte identical to `m-series/banner.png` — genuine M-series
+photography, not K-series — so it was rejected rather than wired in with a
+mismatched photo. A correct, distinct K-series lifestyle photo was uploaded
+afterward (`public/products/k-series/banner.png`, real dark/gunmetal K30-style
+switch installed on a wall) and is now the K-series `heroStyle: "banner"` image,
+with `cardImage` set separately to K30's Ink Black studio shot so the `/products`
+overview grid is unaffected.
 
 **This structure lives in exactly one place: `src/data/product-hierarchy.ts`.**
 It is the single source of truth for the products mega-menu, `/products` routes,
