@@ -55,6 +55,8 @@ export default function ChatWidget() {
                         {entry.href && (
                           <a
                             href={entry.href}
+                            target={entry.href.startsWith("http") ? "_blank" : undefined}
+                            rel={entry.href.startsWith("http") ? "noopener noreferrer" : undefined}
                             className="mt-1.5 block font-mono-label text-[10px] font-bold tracking-[0.14em] text-signal-red uppercase"
                           >
                             {entry.hrefLabel ?? "Learn more"} →

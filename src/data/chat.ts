@@ -11,6 +11,9 @@ export const CHAT_INTRO =
 const MAPS_QUERY = "Aulmo Electric Company, Nawabpur Road, Dhaka 1100, Bangladesh";
 const MAPS_LINK = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(MAPS_QUERY)}`;
 const PHONE_TEL = "tel:+8801720310552";
+const WHATSAPP_CATALOGUE_LINK =
+  "https://wa.me/8801720310552?text=" +
+  encodeURIComponent("Hi AULMO, I'd like to see your product catalogue.");
 
 // Fixed, client-supplied Q&A — same real details already used on the Contact
 // page (src/app/contact/page.tsx). Kept in sync manually since this is a
@@ -34,8 +37,8 @@ export const CHAT_QA: ChatQA[] = [
   },
   {
     question: "Can I get a product catalog?",
-    answer: "Please call or visit our shop for the full catalog.",
-    href: PHONE_TEL,
-    hrefLabel: "Call now",
+    answer: "Message us on WhatsApp and we'll send you the full catalogue.",
+    href: WHATSAPP_CATALOGUE_LINK,
+    hrefLabel: "Message on WhatsApp",
   },
 ];

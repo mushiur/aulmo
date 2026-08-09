@@ -16,6 +16,7 @@ import {
   PinIcon,
   ShieldIcon,
   UsersIcon,
+  WhatsappIcon,
 } from "@/components/ui/Icon";
 import type { ProductSeries } from "@/data/types";
 import { getCoverImage } from "@/lib/products";
@@ -23,6 +24,10 @@ import { getCoverImage } from "@/lib/products";
 // useLayoutEffect runs before paint, avoiding a flash of the wrong nav theme
 // on load; it's a no-op (and warns) during SSR, so fall back to useEffect there.
 const useIsomorphicLayoutEffect = typeof window !== "undefined" ? useLayoutEffect : useEffect;
+
+const WHATSAPP_LINK =
+  "https://wa.me/8801720310552?text=" +
+  encodeURIComponent("Hi AULMO, I'd like to see your product catalogue.");
 
 type FeaturedEntry = { series: ProductSeries; subSeries: ProductSeries["subSeries"][number] };
 
@@ -212,14 +217,15 @@ export default function Navbar({ series, featured }: NavbarProps) {
 
         <div className="flex flex-none items-center gap-4 md:gap-5">
           <MagneticLink
-            href="tel:+8801720310552"
-            arrow
+            href={WHATSAPP_LINK}
+            newTab
             onMouseEnter={closeMenus}
             className={clsx(
               "rounded-full border px-5 py-3.5 font-mono-label text-[10px] font-bold tracking-[0.18em] uppercase backdrop-blur-xl transition-colors duration-[400ms] hover:border-signal-red hover:bg-signal-red hover:text-paper-bright",
               isLight ? "border-charcoal/24 bg-paper-bright/50" : "border-paper/26 bg-ink-raised/40",
             )}
           >
+            <WhatsappIcon className="h-3.5 w-3.5" />
             Contact
           </MagneticLink>
           <button

@@ -11,6 +11,7 @@ type MagneticLinkProps = {
   arrow?: boolean;
   onClick?: () => void;
   onMouseEnter?: () => void;
+  newTab?: boolean;
 };
 
 export default function MagneticLink({
@@ -20,6 +21,7 @@ export default function MagneticLink({
   arrow = false,
   onClick,
   onMouseEnter,
+  newTab = false,
 }: MagneticLinkProps) {
   const ref = useRef<HTMLAnchorElement>(null);
   const arrowRef = useRef<HTMLSpanElement>(null);
@@ -82,6 +84,8 @@ export default function MagneticLink({
     <a
       ref={ref}
       href={href}
+      target={newTab ? "_blank" : undefined}
+      rel={newTab ? "noopener noreferrer" : undefined}
       onClick={onClick}
       onMouseEnter={onMouseEnter}
       onMouseMove={handleMove}
