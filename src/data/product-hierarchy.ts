@@ -47,10 +47,14 @@ export const productHierarchy: ProductSeries[] = [
         description: "One-gang architectural switch with a flat stilt-board face.",
         story:
           "AULMO focuses on details and never compromises. Every look touches the heart. Achieving a new ultra-thin design also requires brilliant technological innovation. Every detail from the inside to outside, we refine, conceive or redesign over and over again. It has not only achieved the beauty of art, but also filled with the beauty of amazing technology.",
-        familyImage: {
-          src: "/products/l-series/l50/white/white-image1.png",
-          alt: "AULMO L Series switches and sockets, product family",
-        },
+        familyImages: [
+          {
+            src: "/products/l-series/l50/white/white-image1.png",
+            alt: "AULMO L Series switches and sockets, product family",
+            width: 1700,
+            height: 1465,
+          },
+        ],
         spec: "86 × 90 mm module",
         parameters: [
           { label: "Color", value: "White / Gray / Gold / Black" },
@@ -161,10 +165,14 @@ export const productHierarchy: ProductSeries[] = [
           { label: "Max. Current", value: "16A" },
           { label: "Max. Voltage", value: "250V" },
         ],
-        familyImage: {
-          src: "/products/l-series/l60/family-lineup.jpg",
-          alt: "AULMO L60 Series switch, pearl white, lifestyle installation",
-        },
+        familyImages: [
+          {
+            src: "/products/l-series/l60/family-lineup.jpg",
+            alt: "AULMO L60 Series switch, pearl white, lifestyle installation",
+            width: 1700,
+            height: 2265,
+          },
+        ],
         variants: [
           {
             code: "black",
@@ -242,10 +250,14 @@ export const productHierarchy: ProductSeries[] = [
           { label: "Max. Current", value: "16A" },
           { label: "Max. Voltage", value: "250V" },
         ],
-        familyImage: {
-          src: "/products/l-series/l80/family-lineup.jpg",
-          alt: "AULMO L80 Series control plate, pearl white, product lineup",
-        },
+        familyImages: [
+          {
+            src: "/products/l-series/l80/family-lineup.jpg",
+            alt: "AULMO L80 Series control plate, pearl white, product lineup",
+            width: 1700,
+            height: 2430,
+          },
+        ],
         variants: [
           {
             code: "black",
@@ -324,6 +336,20 @@ export const productHierarchy: ProductSeries[] = [
           { label: "Max. Current", value: "16A" },
           { label: "Max. Voltage", value: "250V" },
         ],
+        familyImages: [
+          {
+            src: "/products/l-series/lg20/lg20-imag1.png",
+            alt: "AULMO LG20 Series switches and sockets, pearl white, product configurations",
+            width: 1700,
+            height: 2103,
+          },
+          {
+            src: "/products/l-series/lg20/material-description.png",
+            alt: "AULMO LG20 Series material description and exploded view",
+            width: 1700,
+            height: 1966,
+          },
+        ],
         configurations: [
           "1–6 gang switches",
           "USB & Type-C sockets",
@@ -345,6 +371,12 @@ export const productHierarchy: ProductSeries[] = [
                 fit: "contain",
                 label: "Dimensions",
               },
+              {
+                src: "/products/l-series/lg20/material-description.png",
+                alt: "AULMO LG20 Series material description and exploded view",
+                fit: "contain",
+                label: "Materials",
+              },
             ],
           },
           {
@@ -359,6 +391,12 @@ export const productHierarchy: ProductSeries[] = [
                 alt: "AULMO LG20 Series dimension diagram, 86 x 90 mm",
                 fit: "contain",
                 label: "Dimensions",
+              },
+              {
+                src: "/products/l-series/lg20/material-description.png",
+                alt: "AULMO LG20 Series material description and exploded view",
+                fit: "contain",
+                label: "Materials",
               },
             ],
           },
@@ -375,6 +413,12 @@ export const productHierarchy: ProductSeries[] = [
                 fit: "contain",
                 label: "Dimensions",
               },
+              {
+                src: "/products/l-series/lg20/material-description.png",
+                alt: "AULMO LG20 Series material description and exploded view",
+                fit: "contain",
+                label: "Materials",
+              },
             ],
           },
           {
@@ -390,6 +434,12 @@ export const productHierarchy: ProductSeries[] = [
                 fit: "contain",
                 label: "Dimensions",
               },
+              {
+                src: "/products/l-series/lg20/material-description.png",
+                alt: "AULMO LG20 Series material description and exploded view",
+                fit: "contain",
+                label: "Materials",
+              },
             ],
           },
           {
@@ -404,6 +454,12 @@ export const productHierarchy: ProductSeries[] = [
                 alt: "AULMO LG20 Series dimension diagram, 86 x 90 mm",
                 fit: "contain",
                 label: "Dimensions",
+              },
+              {
+                src: "/products/l-series/lg20/material-description.png",
+                alt: "AULMO LG20 Series material description and exploded view",
+                fit: "contain",
+                label: "Materials",
               },
             ],
           },
@@ -422,6 +478,20 @@ export const productHierarchy: ProductSeries[] = [
           { label: "Size", value: "86 × 90 mm" },
           { label: "Max. Current", value: "16A" },
           { label: "Max. Voltage", value: "250V" },
+        ],
+        familyImages: [
+          {
+            src: "/products/l-series/lg30/lg30-image1.png",
+            alt: "AULMO, Touches the New World — LG30 Series brand statement",
+            width: 1700,
+            height: 1575,
+          },
+          {
+            src: "/products/l-series/lg30/lg30-series.png",
+            alt: "AULMO LG30 Series switch and socket, pearl white",
+            width: 1700,
+            height: 2285,
+          },
         ],
         variants: [
           {
@@ -495,8 +565,13 @@ export const productHierarchy: ProductSeries[] = [
     theme: "SECURE",
     quote: "Exquisite yet safe. Safeguarding Life.",
     description: "A clean, versatile design offered in five studio finishes — from ivory to matte black.",
-    image: { src: "/products/d-series/dz/gold/hero.jpg", alt: "AULMO DZ Series switch, champagne gold" },
-    imagePosition: "50% 40%",
+    image: {
+      src: "/products/d-series/banner.png",
+      alt: "AULMO DZ Series switches — graphite black, champagne gold, and platinum gray — timeless design",
+    },
+    imagePosition: "50% 30%",
+    heroStyle: "banner",
+    cardImage: { src: "/products/d-series/dz/gold/hero.jpg", alt: "AULMO DZ Series switch, champagne gold" },
     subSeries: [
       {
         code: "DZ",
@@ -504,36 +579,132 @@ export const productHierarchy: ProductSeries[] = [
         name: "DZ Series",
         description: "Two-gang switch offered across five finishes.",
         spec: "86 × 90 mm module",
+        parameters: [
+          { label: "Color", value: "White / Gray / Gold / Black / Ivory" },
+          { label: "Material (panel)", value: "PC" },
+          { label: "Size", value: "86 × 90 mm" },
+          { label: "Max. Current", value: "16A" },
+          { label: "Max. Voltage", value: "250V" },
+        ],
+        familyImages: [
+          {
+            src: "/products/d-series/dz/profiling-diagram.png",
+            alt: "AULMO DZ Series socket profiling diagram",
+            width: 1700,
+            height: 1901,
+          },
+          {
+            src: "/products/d-series/dz/black/detail.png",
+            alt: "AULMO DZ Series switch detail, graphite black",
+            width: 1700,
+            height: 2105,
+          },
+        ],
         variants: [
           {
             code: "black",
             name: "Graphite Black",
             swatch: "#17171A",
             hero: { src: "/products/d-series/dz/black/hero.jpg", alt: "AULMO DZ Series switch, graphite black with gold trim" },
+            gallery: [
+              {
+                src: "/products/d-series/dz/black/detail.png",
+                alt: "AULMO DZ Series switch detail, graphite black",
+                label: "Detail",
+              },
+              {
+                src: "/products/d-series/dz/architecture.png",
+                alt: "AULMO DZ Series dimension diagram, 86 x 90 mm",
+                fit: "contain",
+                label: "Dimensions",
+              },
+              {
+                src: "/products/d-series/dz/profiling-diagram.png",
+                alt: "AULMO DZ Series socket profiling diagram",
+                fit: "contain",
+                label: "Exploded View",
+              },
+            ],
           },
           {
             code: "gold",
             name: "Champagne Gold",
             swatch: "linear-gradient(105deg,#C9A053,#E8CB8C 46%,#A9803A)",
             hero: { src: "/products/d-series/dz/gold/hero.jpg", alt: "AULMO DZ Series switch, champagne gold" },
+            gallery: [
+              {
+                src: "/products/d-series/dz/architecture.png",
+                alt: "AULMO DZ Series dimension diagram, 86 x 90 mm",
+                fit: "contain",
+                label: "Dimensions",
+              },
+              {
+                src: "/products/d-series/dz/profiling-diagram.png",
+                alt: "AULMO DZ Series socket profiling diagram",
+                fit: "contain",
+                label: "Exploded View",
+              },
+            ],
           },
           {
             code: "gray",
             name: "Silver Gray",
             swatch: "#8B8D90",
             hero: { src: "/products/d-series/dz/gray/hero.jpg", alt: "AULMO DZ Series switch, gray with silver trim" },
+            gallery: [
+              {
+                src: "/products/d-series/dz/architecture.png",
+                alt: "AULMO DZ Series dimension diagram, 86 x 90 mm",
+                fit: "contain",
+                label: "Dimensions",
+              },
+              {
+                src: "/products/d-series/dz/profiling-diagram.png",
+                alt: "AULMO DZ Series socket profiling diagram",
+                fit: "contain",
+                label: "Exploded View",
+              },
+            ],
           },
           {
             code: "ivory",
             name: "Ivory",
             swatch: "#E8E1CF",
             hero: { src: "/products/d-series/dz/ivory/hero.jpg", alt: "AULMO DZ Series switch, ivory" },
+            gallery: [
+              {
+                src: "/products/d-series/dz/architecture.png",
+                alt: "AULMO DZ Series dimension diagram, 86 x 90 mm",
+                fit: "contain",
+                label: "Dimensions",
+              },
+              {
+                src: "/products/d-series/dz/profiling-diagram.png",
+                alt: "AULMO DZ Series socket profiling diagram",
+                fit: "contain",
+                label: "Exploded View",
+              },
+            ],
           },
           {
             code: "white",
             name: "White",
             swatch: "#F4F2ED",
             hero: { src: "/products/d-series/dz/white/hero.jpg", alt: "AULMO DZ Series switch, white with gold trim" },
+            gallery: [
+              {
+                src: "/products/d-series/dz/architecture.png",
+                alt: "AULMO DZ Series dimension diagram, 86 x 90 mm",
+                fit: "contain",
+                label: "Dimensions",
+              },
+              {
+                src: "/products/d-series/dz/profiling-diagram.png",
+                alt: "AULMO DZ Series socket profiling diagram",
+                fit: "contain",
+                label: "Exploded View",
+              },
+            ],
           },
         ],
       },

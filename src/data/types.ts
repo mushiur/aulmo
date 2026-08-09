@@ -10,6 +10,11 @@ export type ImageRef = {
    *  gallery (e.g. "Front", "Detail", "Dimensions"). Optional — thumbnails
    *  without a label just show no caption. */
   label?: string;
+  /** Real intrinsic pixel size — only needed where an image renders at its
+   *  own natural aspect ratio instead of a fixed `fill` box (e.g.
+   *  `familyImages`, which vary from landscape to tall portrait). */
+  width?: number;
+  height?: number;
 };
 
 /**
@@ -55,12 +60,14 @@ export type ProductSubSeries = {
    *  detail page. Distinct from the short `description` used in meta tags,
    *  the mega menu, and cards, which stays short by design. */
   story?: string;
-  /** A composite marketing collage/lineup shot (real product photography
-   *  with printed headline or body copy baked into the same file) that
-   *  doesn't fit the per-finish `gallery` — cropping these tightly cuts
-   *  through the text. Shown uncropped in its own section on the detail
-   *  page instead of forced into a gallery thumbnail. */
-  familyImage?: ImageRef;
+  /** Composite marketing collage/lineup shots (real product photography
+   *  with printed headline, body copy, or an exploded/material diagram
+   *  baked into the same file) that don't fit the per-finish `gallery` —
+   *  cropping these tightly cuts through the text. Shown uncropped in
+   *  their own section on the detail page instead of forced into a
+   *  gallery thumbnail. One image renders full-width; two or more render
+   *  side by side on desktop. */
+  familyImages?: ImageRef[];
 };
 
 export type ProductSeries = {

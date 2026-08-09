@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import clsx from "clsx";
 import Breadcrumb from "@/components/ui/Breadcrumb";
 import ImagePlaceholder from "@/components/ui/ImagePlaceholder";
 import MagneticLink from "@/components/ui/MagneticLink";
@@ -248,19 +249,31 @@ export default async function SubSeriesPage({
         </section>
       )}
 
-      {subSeries.familyImage && (
+      {subSeries.familyImages && subSeries.familyImages.length > 0 && (
         <section data-theme="light" className="relative border-t border-charcoal/12 bg-paper-bright px-6 py-[8vh] md:px-[4.5vw] md:py-[10vh]">
-          <div className="mx-auto max-w-[720px]">
-            <SectionEyebrow label="THE FAMILY" className="mb-6" />
-            <Reveal y={20} className="relative w-full overflow-hidden rounded-[16px] bg-bone-deep">
-              <Image
-                src={subSeries.familyImage.src}
-                alt={subSeries.familyImage.alt}
-                width={1700}
-                height={1465}
-                className="h-auto w-full"
-              />
-            </Reveal>
+          <div
+            className={clsx(
+              "mx-auto",
+              subSeries.familyImages.length > 1
+                ? "grid max-w-[1600px] grid-cols-1 gap-8 md:grid-cols-2"
+                : "max-w-[900px]",
+            )}
+          >
+            <SectionEyebrow
+              label="THE FAMILY"
+              className={clsx("mb-6", subSeries.familyImages.length > 1 && "md:col-span-2")}
+            />
+            {subSeries.familyImages.map((image, i) => (
+              <Reveal key={image.src} delay={i * 90} y={20} className="relative w-full overflow-hidden rounded-[16px] bg-bone-deep">
+                <Image
+                  src={image.src}
+                  alt={image.alt}
+                  width={image.width ?? 1700}
+                  height={image.height ?? 1465}
+                  className="h-auto w-full"
+                />
+              </Reveal>
+            ))}
           </div>
         </section>
       )}
