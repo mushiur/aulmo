@@ -24,9 +24,13 @@ export default function ProductVariantExperience({ variants }: { variants: Produ
     <div>
       <ProductGallery images={images} activeIndex={imageIndex} onSelect={setImageIndex} priority />
       {variants.length > 1 && (
-        <div className="mt-6 border-t border-charcoal/14 pt-5">
-          <div className="mb-3 font-mono-label text-[9px] tracking-[0.18em] opacity-45">
-            FINISH — {activeVariant.name.toUpperCase()}
+        <div className="mt-5 rounded-[16px] border border-charcoal/10 bg-bone-deep/60 p-4">
+          <div className="mb-3 flex items-center gap-2.5">
+            <span className="font-mono-label text-[9px] font-semibold tracking-[0.18em] opacity-45">FINISH</span>
+            <span className="h-px w-9 bg-charcoal/20" />
+          </div>
+          <div className="mb-3.5 text-base font-extrabold tracking-[-0.01em] uppercase [font-stretch:114%]">
+            {activeVariant.name}
           </div>
           <FinishSelector variants={variants} activeIndex={variantIndex} onSelect={selectVariant} />
         </div>

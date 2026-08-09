@@ -45,6 +45,12 @@ export const productHierarchy: ProductSeries[] = [
         slug: "l50",
         name: "L50 Series",
         description: "One-gang architectural switch with a flat stilt-board face.",
+        story:
+          "AULMO focuses on details and never compromises. Every look touches the heart. Achieving a new ultra-thin design also requires brilliant technological innovation. Every detail from the inside to outside, we refine, conceive or redesign over and over again. It has not only achieved the beauty of art, but also filled with the beauty of amazing technology.",
+        familyImage: {
+          src: "/products/l-series/l50/white/white-image1.png",
+          alt: "AULMO L Series switches and sockets, product family",
+        },
         spec: "86 × 90 mm module",
         parameters: [
           { label: "Color", value: "White / Gray / Gold / Black" },
@@ -70,7 +76,7 @@ export const productHierarchy: ProductSeries[] = [
                 label: "Detail",
               },
               {
-                src: "/products/l-series/l50/black/architecture.png",
+                src: "/products/l-series/l50/architecture.png",
                 alt: "AULMO L50 Series dimension diagram, 86 x 90 mm",
                 fit: "contain",
                 label: "Dimensions",
@@ -88,18 +94,57 @@ export const productHierarchy: ProductSeries[] = [
             name: "Matte Gold",
             swatch: "linear-gradient(105deg,#C9A053,#E8CB8C 46%,#A9803A)",
             hero: { src: "/products/l-series/l50/gold/hero.jpg", alt: "AULMO L50 Series switch, matte gold" },
+            gallery: [
+              {
+                src: "/products/l-series/l50/architecture.png",
+                alt: "AULMO L50 Series dimension diagram, 86 x 90 mm",
+                fit: "contain",
+                label: "Dimensions",
+              },
+            ],
           },
           {
             code: "gray",
             name: "Carbon Gray",
             swatch: "#6E7175",
             hero: { src: "/products/l-series/l50/gray/hero.jpg", alt: "AULMO L50 Series switch, carbon gray" },
+            gallery: [
+              {
+                src: "/products/l-series/l50/gray/detail.png",
+                alt: "AULMO L50 Series switch detail, carbon gray",
+                label: "Detail",
+              },
+              {
+                src: "/products/l-series/l50/gray/lifestyle.png",
+                alt: "AULMO L50 Series switch installed on a wall, carbon gray",
+                label: "Installed",
+              },
+              {
+                src: "/products/l-series/l50/architecture.png",
+                alt: "AULMO L50 Series dimension diagram, 86 x 90 mm",
+                fit: "contain",
+                label: "Dimensions",
+              },
+            ],
           },
           {
             code: "white",
             name: "Pearl White",
             swatch: "#F4F2ED",
             hero: { src: "/products/l-series/l50/white/hero.jpg", alt: "AULMO L50 Series switch, pearl white" },
+            gallery: [
+              {
+                src: "/products/l-series/l50/white/family-lineup.png",
+                alt: "AULMO L50 Series product family, pearl white",
+                label: "Configurations",
+              },
+              {
+                src: "/products/l-series/l50/architecture.png",
+                alt: "AULMO L50 Series dimension diagram, 86 x 90 mm",
+                fit: "contain",
+                label: "Dimensions",
+              },
+            ],
           },
         ],
       },
@@ -109,24 +154,78 @@ export const productHierarchy: ProductSeries[] = [
         name: "L60 Series",
         description: "Two-gang switch and socket range with a woven-texture face.",
         spec: "86 × 90 mm module",
+        parameters: [
+          { label: "Color", value: "White / Gray / Gold / Black" },
+          { label: "Material (panel)", value: "PC" },
+          { label: "Size", value: "86 × 90 mm" },
+          { label: "Max. Current", value: "16A" },
+          { label: "Max. Voltage", value: "250V" },
+        ],
+        familyImage: {
+          src: "/products/l-series/l60/family-lineup.jpg",
+          alt: "AULMO L60 Series switch, pearl white, lifestyle installation",
+        },
         variants: [
+          {
+            code: "black",
+            name: "Ink Black",
+            swatch: "#17171A",
+            hero: { src: "/products/l-series/l60/black/hero.png", alt: "AULMO L60 Series switch, ink black" },
+            gallery: [
+              {
+                src: "/products/l-series/l60/architecture.png",
+                alt: "AULMO L60 Series dimension diagram, 86 x 90 mm",
+                fit: "contain",
+                label: "Dimensions",
+              },
+            ],
+          },
           {
             code: "gold",
             name: "Matte Gold",
             swatch: "linear-gradient(105deg,#C9A053,#E8CB8C 46%,#A9803A)",
             hero: { src: "/products/l-series/l60/gold/hero.jpg", alt: "AULMO L60 Series switch, matte gold" },
+            gallery: [
+              {
+                src: "/products/l-series/l60/architecture.png",
+                alt: "AULMO L60 Series dimension diagram, 86 x 90 mm",
+                fit: "contain",
+                label: "Dimensions",
+              },
+            ],
           },
           {
             code: "gray",
             name: "Carbon Gray",
             swatch: "#6E7175",
             hero: { src: "/products/l-series/l60/gray/hero.jpg", alt: "AULMO L60 Series switch, carbon gray" },
+            gallery: [
+              {
+                src: "/products/l-series/l60/architecture.png",
+                alt: "AULMO L60 Series dimension diagram, 86 x 90 mm",
+                fit: "contain",
+                label: "Dimensions",
+              },
+            ],
           },
           {
             code: "white",
             name: "Pearl White",
             swatch: "#F4F2ED",
             hero: { src: "/products/l-series/l60/white/hero.jpg", alt: "AULMO L60 Series switch, pearl white" },
+            gallery: [
+              {
+                src: "/products/l-series/l60/lifestyle.jpg",
+                alt: "AULMO L60 Series switch installed on a wall, pearl white",
+                label: "Installed",
+              },
+              {
+                src: "/products/l-series/l60/architecture.png",
+                alt: "AULMO L60 Series dimension diagram, 86 x 90 mm",
+                fit: "contain",
+                label: "Dimensions",
+              },
+            ],
           },
         ],
       },
@@ -136,30 +235,78 @@ export const productHierarchy: ProductSeries[] = [
         name: "L80 Series",
         description: "Four-gang control plate with a curved profile and glowing accent edge.",
         spec: "86 × 90 mm module",
+        parameters: [
+          { label: "Color", value: "White / Gray / Gold / Black" },
+          { label: "Material (panel)", value: "PC" },
+          { label: "Size", value: "86 × 90 mm" },
+          { label: "Max. Current", value: "16A" },
+          { label: "Max. Voltage", value: "250V" },
+        ],
+        familyImage: {
+          src: "/products/l-series/l80/family-lineup.jpg",
+          alt: "AULMO L80 Series control plate, pearl white, product lineup",
+        },
         variants: [
           {
             code: "black",
             name: "Matte Black",
             swatch: "#17171A",
             hero: { src: "/products/l-series/l80/black/hero.jpg", alt: "AULMO L80 Series control plate, matte black" },
+            gallery: [
+              {
+                src: "/products/l-series/l80/architecture.png",
+                alt: "AULMO L80 Series dimension diagram, 86 x 90 mm",
+                fit: "contain",
+                label: "Dimensions",
+              },
+            ],
           },
           {
             code: "gold",
             name: "Matte Gold",
             swatch: "linear-gradient(105deg,#C9A053,#E8CB8C 46%,#A9803A)",
             hero: { src: "/products/l-series/l80/gold/hero.jpg", alt: "AULMO L80 Series control plate, matte gold" },
+            gallery: [
+              {
+                src: "/products/l-series/l80/architecture.png",
+                alt: "AULMO L80 Series dimension diagram, 86 x 90 mm",
+                fit: "contain",
+                label: "Dimensions",
+              },
+            ],
           },
           {
             code: "gray",
             name: "Graphite Gray",
             swatch: "#6E7175",
             hero: { src: "/products/l-series/l80/gray/hero.jpg", alt: "AULMO L80 Series control plate, graphite gray" },
+            gallery: [
+              {
+                src: "/products/l-series/l80/architecture.png",
+                alt: "AULMO L80 Series dimension diagram, 86 x 90 mm",
+                fit: "contain",
+                label: "Dimensions",
+              },
+            ],
           },
           {
             code: "white",
             name: "Pearl White",
             swatch: "#F4F2ED",
             hero: { src: "/products/l-series/l80/white/hero.jpg", alt: "AULMO L80 Series control plate, pearl white" },
+            gallery: [
+              {
+                src: "/products/l-series/l80/l80-series.png",
+                alt: "AULMO L80 Series control plate detail, pearl white, glowing accent edge",
+                label: "Detail",
+              },
+              {
+                src: "/products/l-series/l80/architecture.png",
+                alt: "AULMO L80 Series dimension diagram, 86 x 90 mm",
+                fit: "contain",
+                label: "Dimensions",
+              },
+            ],
           },
         ],
       },
@@ -170,6 +317,13 @@ export const productHierarchy: ProductSeries[] = [
         description:
           "The widest configuration range in the L Series — switches from one to six gangs, USB and Type-C sockets, TEL/NET/TV and satellite jacks, dimmers and curtain switches, all sharing one face.",
         spec: "86 × 90 mm module",
+        parameters: [
+          { label: "Color", value: "Water Ink Black / Carbon Gray / Matte Gold / Pearl White / Silvery" },
+          { label: "Material (panel)", value: "PC" },
+          { label: "Size", value: "86 × 90 mm" },
+          { label: "Max. Current", value: "16A" },
+          { label: "Max. Voltage", value: "250V" },
+        ],
         configurations: [
           "1–6 gang switches",
           "USB & Type-C sockets",
@@ -184,6 +338,14 @@ export const productHierarchy: ProductSeries[] = [
             name: "Matte Gold",
             swatch: "linear-gradient(105deg,#C9A053,#E8CB8C 46%,#A9803A)",
             hero: { src: "/products/l-series/lg20/matte-gold/hero.jpg", alt: "AULMO LG20 Series switch, matte gold" },
+            gallery: [
+              {
+                src: "/products/l-series/lg20/architecture.png",
+                alt: "AULMO LG20 Series dimension diagram, 86 x 90 mm",
+                fit: "contain",
+                label: "Dimensions",
+              },
+            ],
           },
           {
             code: "silvery",
@@ -192,6 +354,12 @@ export const productHierarchy: ProductSeries[] = [
             hero: { src: "/products/l-series/lg20/silvery/hero.jpg", alt: "AULMO LG20 Series switch, silvery" },
             gallery: [
               { src: "/products/l-series/lg20/silvery/detail.jpg", alt: "AULMO LG20 Series switch and socket detail, silvery" },
+              {
+                src: "/products/l-series/lg20/architecture.png",
+                alt: "AULMO LG20 Series dimension diagram, 86 x 90 mm",
+                fit: "contain",
+                label: "Dimensions",
+              },
             ],
           },
           {
@@ -201,6 +369,12 @@ export const productHierarchy: ProductSeries[] = [
             hero: { src: "/products/l-series/lg20/water-ink/hero.jpg", alt: "AULMO LG20 Series switch, water ink" },
             gallery: [
               { src: "/products/l-series/lg20/water-ink/detail.jpg", alt: "AULMO LG20 Series switch and socket detail, water ink" },
+              {
+                src: "/products/l-series/lg20/architecture.png",
+                alt: "AULMO LG20 Series dimension diagram, 86 x 90 mm",
+                fit: "contain",
+                label: "Dimensions",
+              },
             ],
           },
           {
@@ -210,6 +384,12 @@ export const productHierarchy: ProductSeries[] = [
             hero: { src: "/products/l-series/lg20/carbon-gray/hero.jpg", alt: "AULMO LG20 Series switch, carbon gray" },
             gallery: [
               { src: "/products/l-series/lg20/carbon-gray/detail.jpg", alt: "AULMO LG20 Series switch detail, carbon gray" },
+              {
+                src: "/products/l-series/lg20/architecture.png",
+                alt: "AULMO LG20 Series dimension diagram, 86 x 90 mm",
+                fit: "contain",
+                label: "Dimensions",
+              },
             ],
           },
           {
@@ -219,6 +399,12 @@ export const productHierarchy: ProductSeries[] = [
             hero: { src: "/products/l-series/lg20/pearl-white/hero.jpg", alt: "AULMO LG20 Series switch, pearl white" },
             gallery: [
               { src: "/products/l-series/lg20/pearl-white/family-lineup.jpg", alt: "AULMO LG20 Series product family, pearl white" },
+              {
+                src: "/products/l-series/lg20/architecture.png",
+                alt: "AULMO LG20 Series dimension diagram, 86 x 90 mm",
+                fit: "contain",
+                label: "Dimensions",
+              },
             ],
           },
         ],
@@ -230,6 +416,13 @@ export const productHierarchy: ProductSeries[] = [
         description:
           "A double-layer embossed panel in four finishes, built for hospitality and residential interiors.",
         spec: "86 × 90 mm module",
+        parameters: [
+          { label: "Color", value: "Water Ink Black / Carbon Gray / Matte Gold / Pearl White / Silvery" },
+          { label: "Material (panel)", value: "PC" },
+          { label: "Size", value: "86 × 90 mm" },
+          { label: "Max. Current", value: "16A" },
+          { label: "Max. Voltage", value: "250V" },
+        ],
         variants: [
           {
             code: "carbon-gray",
@@ -238,6 +431,12 @@ export const productHierarchy: ProductSeries[] = [
             hero: { src: "/products/l-series/lg30/carbon-gray/hero.jpg", alt: "AULMO LG30 Series switch, carbon gray" },
             gallery: [
               { src: "/products/l-series/lg30/carbon-gray/detail.jpg", alt: "AULMO LG30 Series product group, carbon gray" },
+              {
+                src: "/products/l-series/lg30/architecture.png",
+                alt: "AULMO LG30 Series dimension diagram, 86 x 90 mm",
+                fit: "contain",
+                label: "Dimensions",
+              },
             ],
           },
           {
@@ -247,6 +446,12 @@ export const productHierarchy: ProductSeries[] = [
             hero: { src: "/products/l-series/lg30/matte-gold/hero.jpg", alt: "AULMO LG30 Series switch, matte gold" },
             gallery: [
               { src: "/products/l-series/lg30/matte-gold/detail.jpg", alt: "AULMO LG30 Series product group, matte gold" },
+              {
+                src: "/products/l-series/lg30/architecture.png",
+                alt: "AULMO LG30 Series dimension diagram, 86 x 90 mm",
+                fit: "contain",
+                label: "Dimensions",
+              },
             ],
           },
           {
@@ -256,6 +461,12 @@ export const productHierarchy: ProductSeries[] = [
             hero: { src: "/products/l-series/lg30/water-ink/hero.png", alt: "AULMO LG30 Series switch, water ink" },
             gallery: [
               { src: "/products/l-series/lg30/water-ink/detail.jpg", alt: "AULMO LG30 Series product group, water ink" },
+              {
+                src: "/products/l-series/lg30/architecture.png",
+                alt: "AULMO LG30 Series dimension diagram, 86 x 90 mm",
+                fit: "contain",
+                label: "Dimensions",
+              },
             ],
           },
           {
@@ -263,6 +474,14 @@ export const productHierarchy: ProductSeries[] = [
             name: "Pearl White",
             swatch: "#F4F2ED",
             hero: { src: "/products/l-series/lg30/pearl-white/hero.jpg", alt: "AULMO LG30 Series switch, pearl white" },
+            gallery: [
+              {
+                src: "/products/l-series/lg30/architecture.png",
+                alt: "AULMO LG30 Series dimension diagram, 86 x 90 mm",
+                fit: "contain",
+                label: "Dimensions",
+              },
+            ],
           },
         ],
       },

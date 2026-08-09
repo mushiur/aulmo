@@ -156,6 +156,14 @@ export function ChevronRightIcon(props: IconProps) {
   );
 }
 
+export function CheckIcon(props: IconProps) {
+  return (
+    <svg {...strokeBase} strokeWidth={2.2} {...props}>
+      <path d="M4.5 12.5 9.5 17.5 19.5 6.5" />
+    </svg>
+  );
+}
+
 export function ChevronDownIcon(props: IconProps) {
   return (
     <svg {...strokeBase} {...props}>

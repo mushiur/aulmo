@@ -4,6 +4,7 @@ import ProductGallery from "@/components/home/ProductGallery";
 import InteriorGallery from "@/components/home/InteriorGallery";
 import InteractiveProductView from "@/components/home/InteractiveProductView";
 import FashionEditorial from "@/components/home/FashionEditorial";
+import BrandBand from "@/components/home/BrandBand";
 import HomeClosingCta from "@/components/home/HomeClosingCta";
 import { getHeroStats } from "@/lib/content";
 import { getProductHierarchy } from "@/lib/products";
@@ -28,6 +29,7 @@ export default async function Home() {
       <InteriorGallery />
       {dSeries && <InteractiveProductView series={dSeries} />}
       <FashionEditorial />
+      <BrandBand />
       <HomeClosingCta />
     </main>
   );

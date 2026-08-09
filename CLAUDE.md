@@ -109,7 +109,7 @@ migrated into `public/products/` — the original `Image/` folder can be removed
 a future session confirms nothing new needs migrating from it):
 
 ```
-L Series  — L50 (black/gold/gray/white), L60 (gold/gray/white — no black exists),
+L Series  — L50 (black/gold/gray/white), L60 (black/gold/gray/white),
             L80 (black/gold/gray/white), LG20 (matte gold/silvery/water ink/carbon
             gray/pearl white), LG30 (carbon gray/matte gold/water ink/pearl white)
 D Series  — DZ (black/gold/gray/ivory/white)
@@ -183,6 +183,16 @@ K/S keep working unchanged.
    extra shots) pointing at the files from step 1.
 3. Done — the finish selector, gallery, mega menu thumbnail, and homepage showcase
    all pick it up automatically; nothing else needs to change.
+
+**Dimension diagrams (`architecture.png`) are one file per sub-series, not one
+per finish.** The line drawing doesn't change with color, so it belongs at
+`public/products/<series-slug>/<subseries-slug>/architecture.png` (sub-series
+root, no finish folder) and every finish's `gallery` entry points at that same
+single file. Do not save a separate copy into each finish folder — L50 and L60
+both did this at one point (`black/architecture.png`, `gold/architecture.png`, ...,
+byte-for-byte identical) and it was consolidated back down to one shared file
+per sub-series. The same applies to any other genuinely finish-agnostic asset
+(e.g. an exploded profiling diagram).
 
 To add a whole new **sub-series** with its own finishes, add a new
 `ProductSubSeries` object (with a `variants` array) to its series in the same

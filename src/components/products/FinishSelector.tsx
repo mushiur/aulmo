@@ -1,6 +1,7 @@
 "use client";
 
 import clsx from "clsx";
+import { CheckIcon } from "@/components/ui/Icon";
 import type { ProductVariant } from "@/data/types";
 
 export default function FinishSelector({
@@ -13,7 +14,7 @@ export default function FinishSelector({
   onSelect: (index: number) => void;
 }) {
   return (
-    <div className="flex flex-wrap gap-3" role="radiogroup" aria-label="Finish">
+    <div className="grid grid-cols-2 gap-2 sm:grid-cols-4" role="radiogroup" aria-label="Finish">
       {variants.map((variant, i) => {
         const active = i === activeIndex;
         return (
@@ -24,19 +25,22 @@ export default function FinishSelector({
             aria-checked={active}
             onClick={() => onSelect(i)}
             className={clsx(
-              "group flex items-center gap-2.5 border px-3 py-2.5 text-left transition-colors duration-300",
-              active ? "border-charcoal" : "border-charcoal/20 hover:border-charcoal/50",
+              "group relative flex flex-col items-start gap-2 rounded-[12px] border bg-paper-bright p-2.5 text-left transition-colors duration-300",
+              active ? "border-charcoal" : "border-charcoal/14 hover:border-charcoal/40",
             )}
           >
+            {active && (
+              <span className="absolute top-1.5 right-1.5 flex h-4 w-4 flex-none items-center justify-center rounded-full bg-charcoal text-paper-bright">
+                <CheckIcon className="h-2.5 w-2.5" />
+              </span>
+            )}
             <span
               aria-hidden="true"
-              className={clsx(
-                "h-7 w-7 flex-none border transition-shadow",
-                active ? "border-charcoal shadow-[0_0_0_2px_rgba(20,20,18,0.12)]" : "border-charcoal/25",
-              )}
+              className="h-10 w-10 flex-none rounded-[8px] border border-charcoal/10"
               style={{ background: variant.swatch }}
             />
-            <span className="text-[13px] font-semibold tracking-[-0.01em]">{variant.name}</span>
+            <span className="text-[12px] font-bold tracking-[-0.005em]">{variant.name}</span>
+            <span aria-hidden="true" className="h-[2px] w-5 rounded-full" style={{ background: variant.swatch }} />
           </button>
         );
       })}

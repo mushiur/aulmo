@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import Breadcrumb from "@/components/ui/Breadcrumb";
 import ImagePlaceholder from "@/components/ui/ImagePlaceholder";
 import MagneticLink from "@/components/ui/MagneticLink";
+import SectionEyebrow from "@/components/ui/SectionEyebrow";
 import { Reveal } from "@/components/ui/Reveal";
 import ProductVariantExperience from "@/components/products/ProductVariantExperience";
 import { getSubSeries, getSubSeriesParams, getProductHierarchy, getCoverImage } from "@/lib/products";
@@ -91,7 +92,7 @@ export default async function SubSeriesPage({
   };
 
   return (
-    <main data-theme="light" className="relative min-h-screen overflow-hidden bg-paper-bright text-charcoal">
+    <main className="relative min-h-screen overflow-hidden bg-paper-bright text-charcoal">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
@@ -101,14 +102,17 @@ export default async function SubSeriesPage({
         dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }}
       />
       <div
-        aria-hidden
-        className="pointer-events-none absolute -top-[8%] left-[6%] h-[55vh] w-[55vh] rounded-full bg-gradient-to-br from-signal-red/10 via-signal-yellow/6 to-transparent blur-[130px]"
-      />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute top-[62%] right-[4%] h-[50vh] w-[50vh] rounded-full bg-gradient-to-tr from-signal-yellow/9 via-signal-red/6 to-transparent blur-[120px]"
-      />
-      <div className="relative flex flex-col gap-10 px-6 pt-[16vh] pb-[8vh] md:flex-row md:items-start md:gap-x-[5vw] md:px-[4.5vw] md:pt-[18vh]">
+        data-theme="light"
+        className="relative flex flex-col gap-10 px-6 pt-[16vh] pb-[8vh] md:flex-row md:items-start md:gap-x-[5vw] md:px-[4.5vw] md:pt-[18vh]"
+      >
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -top-[8%] left-[6%] h-[55vh] w-[55vh] rounded-full bg-gradient-to-br from-signal-red/10 via-signal-yellow/6 to-transparent blur-[130px]"
+        />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute top-[62%] right-[4%] h-[50vh] w-[50vh] rounded-full bg-gradient-to-tr from-signal-yellow/9 via-signal-red/6 to-transparent blur-[120px]"
+        />
         {/* Mobile-only intro — hidden at md: the same content re-appears inside the
             text column below so desktop keeps a single, naturally-sized column
             instead of splitting intro/details across a shared grid row (which
@@ -217,7 +221,51 @@ export default async function SubSeriesPage({
         </div>
       </div>
 
-      <div className="relative border-t border-charcoal/12">
+      {subSeries.story && (
+        <section data-theme="dark" className="relative overflow-hidden bg-ink text-paper">
+          <div className="grid grid-cols-1 md:grid-cols-2">
+            <div className="relative flex flex-col justify-center px-6 py-[9vh] md:px-[4.5vw] md:py-[11vh]">
+              <SectionEyebrow label="DESIGN PHILOSOPHY" className="mb-6 opacity-70" />
+              <Reveal
+                as="p"
+                className="m-0 max-w-[46ch] text-pretty text-[20px] leading-[1.55] font-medium tracking-[-0.01em] md:text-[25px]"
+              >
+                {subSeries.story}
+              </Reveal>
+            </div>
+            <div className="relative min-h-[42vh] overflow-hidden bg-ink-raised p-10 md:min-h-0 md:p-14">
+              {cover && (
+                <Image
+                  src={cover.src}
+                  alt={cover.alt}
+                  fill
+                  sizes="(min-width: 768px) 50vw, 100vw"
+                  className="object-contain"
+                />
+              )}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {subSeries.familyImage && (
+        <section data-theme="light" className="relative border-t border-charcoal/12 bg-paper-bright px-6 py-[8vh] md:px-[4.5vw] md:py-[10vh]">
+          <div className="mx-auto max-w-[720px]">
+            <SectionEyebrow label="THE FAMILY" className="mb-6" />
+            <Reveal y={20} className="relative w-full overflow-hidden rounded-[16px] bg-bone-deep">
+              <Image
+                src={subSeries.familyImage.src}
+                alt={subSeries.familyImage.alt}
+                width={1700}
+                height={1465}
+                className="h-auto w-full"
+              />
+            </Reveal>
+          </div>
+        </section>
+      )}
+
+      <div data-theme="light" className="relative border-t border-charcoal/12">
         {siblings.length > 0 && (
           <div className="relative px-6 pt-[6vh] pb-[5vh] md:px-[4.5vw]">
             <div className="font-mono-label text-[9px] tracking-[0.2em] opacity-45">

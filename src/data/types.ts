@@ -50,6 +50,17 @@ export type ProductSubSeries = {
   configurations?: string[];
   /** Real product-parameter sheet (color range, material, ratings), client-supplied verbatim — rendered as a label/value table on the sub-series detail page. */
   parameters?: { label: string; value: string }[];
+  /** Longer client-supplied design/brand narrative for this sub-series — shared
+   *  across every finish/color, shown as its own passage on the sub-series
+   *  detail page. Distinct from the short `description` used in meta tags,
+   *  the mega menu, and cards, which stays short by design. */
+  story?: string;
+  /** A composite marketing collage/lineup shot (real product photography
+   *  with printed headline or body copy baked into the same file) that
+   *  doesn't fit the per-finish `gallery` — cropping these tightly cuts
+   *  through the text. Shown uncropped in its own section on the detail
+   *  page instead of forced into a gallery thumbnail. */
+  familyImage?: ImageRef;
 };
 
 export type ProductSeries = {
