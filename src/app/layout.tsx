@@ -9,6 +9,7 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import ChatWidget from "@/components/ui/ChatWidget";
 import { getProductHierarchy, getFeaturedSubSeries } from "@/lib/products";
+import { getCircuitBreakerCategories } from "@/lib/circuit-breakers";
 import { SITE_NAME, SITE_URL } from "@/lib/seo";
 
 // Loaded as the true variable font (not a fixed weight list) so headings
@@ -107,7 +108,11 @@ const LOCAL_BUSINESS_SCHEMA = {
 };
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  const [series, featured] = await Promise.all([getProductHierarchy(), getFeaturedSubSeries()]);
+  const [series, featured, circuitBreakerCategories] = await Promise.all([
+    getProductHierarchy(),
+    getFeaturedSubSeries(),
+    getCircuitBreakerCategories(),
+  ]);
 
   return (
     <html
@@ -122,7 +127,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <Loader />
         <ScrollProgress />
         <CustomCursor />
-        <Navbar series={series} featured={featured} />
+        <Navbar series={series} featured={featured} circuitBreakerCategories={circuitBreakerCategories} />
         <PageTransition>{children}</PageTransition>
         <Footer series={series} />
         <ChatWidget />

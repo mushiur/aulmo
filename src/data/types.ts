@@ -102,3 +102,49 @@ export type StatItem = {
   suffix?: string;
   label: string;
 };
+
+/**
+ * Circuit Breaker — a separate product vertical alongside the switch/socket
+ * hierarchy above (distributed third-party brands, not AULMO's own
+ * manufactured line). Kept as its own small data model rather than forced
+ * into ProductSeries/ProductSubSeries, since it has a genuinely different
+ * shape: brand-led, spec-filtered, pole-selected, mock/placeholder imagery
+ * pending real product photography.
+ */
+export type CircuitBreakerPole = "SP" | "DP" | "TP";
+
+export type CircuitBreakerBrand = {
+  slug: string;
+  name: string;
+};
+
+export type CircuitBreakerCategory = {
+  slug: string;
+  name: string;
+  fullName: string;
+  description: string;
+  /** Whether this category is selected by pole (MCB, MCCB) or not (Magnetic Contactor). */
+  hasPoles: boolean;
+  image: ImageRef;
+};
+
+/**
+ * A single mock/placeholder listing — not a verified real SKU. Ratings use
+ * common industry-standard values (16A, C-curve, 6kA, 230/400V, etc.) as
+ * illustrative examples, not a claim that this exact product/spec
+ * combination is in stock. Replace with real catalog data before this
+ * section goes live with actual inventory.
+ */
+export type CircuitBreakerProduct = {
+  id: string;
+  categorySlug: string;
+  brandSlug: string;
+  pole?: CircuitBreakerPole;
+  name: string;
+  series?: string;
+  ratedCurrent: string;
+  curveType?: string;
+  breakingCapacity?: string;
+  voltage: string;
+  image: ImageRef;
+};

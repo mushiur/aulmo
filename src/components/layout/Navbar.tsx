@@ -7,18 +7,21 @@ import { usePathname } from "next/navigation";
 import clsx from "clsx";
 import MagneticLink from "@/components/ui/MagneticLink";
 import {
+  BoltIcon,
   ChevronDownIcon,
+  ChevronLeftIcon,
   ChevronRightIcon,
   DocumentIcon,
   FactoryIcon,
   GridIcon,
   HomeIcon,
+  LayersIcon,
   PinIcon,
   ShieldIcon,
   UsersIcon,
   WhatsappIcon,
 } from "@/components/ui/Icon";
-import type { ProductSeries } from "@/data/types";
+import type { CircuitBreakerCategory, ProductSeries } from "@/data/types";
 import { getCoverImage } from "@/lib/products";
 
 // useLayoutEffect runs before paint, avoiding a flash of the wrong nav theme
@@ -34,6 +37,7 @@ type FeaturedEntry = { series: ProductSeries; subSeries: ProductSeries["subSerie
 type NavbarProps = {
   series: ProductSeries[];
   featured: FeaturedEntry[];
+  circuitBreakerCategories: CircuitBreakerCategory[];
 };
 
 const ABOUT_LINKS = [
@@ -46,7 +50,7 @@ const ABOUT_LINKS = [
   },
 ];
 
-export default function Navbar({ series, featured }: NavbarProps) {
+export default function Navbar({ series, featured, circuitBreakerCategories }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false);
   const [light, setLight] = useState(false);
   const [megaOpen, setMegaOpen] = useState(false);
@@ -239,7 +243,12 @@ export default function Navbar({ series, featured }: NavbarProps) {
       </header>
 
       {megaOpen && (
-        <MegaMenu series={series} featured={featured} onClose={() => setMegaOpen(false)} />
+        <MegaMenu
+          series={series}
+          featured={featured}
+          circuitBreakerCategories={circuitBreakerCategories}
+          onClose={() => setMegaOpen(false)}
+        />
       )}
     </>
   );
@@ -269,17 +278,25 @@ function NavLink({
   );
 }
 
+const NAV_CATEGORIES = [
+  { code: "switch-socket" as const, label: "Switch & Socket" },
+  { code: "circuit-breaker" as const, label: "Circuit Breaker" },
+];
+
 function MegaMenu({
   series,
   featured,
+  circuitBreakerCategories,
   onClose,
 }: {
   series: ProductSeries[];
   featured: FeaturedEntry[];
+  circuitBreakerCategories: CircuitBreakerCategory[];
   onClose: () => void;
 }) {
   const panelRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
+  const [activeCategory, setActiveCategory] = useState<"switch-socket" | "circuit-breaker">("switch-socket");
   const flagship = featured[0];
   const flagshipCover = flagship ? getCoverImage(flagship.subSeries) : undefined;
 
@@ -289,109 +306,248 @@ function MegaMenu({
       onMouseLeave={onClose}
       className="fixed inset-x-0 top-0 z-[190] max-h-[100svh] overflow-y-auto border-b border-paper/10 bg-ink-raised px-6 pt-24 pb-10 md:px-10 md:pt-28"
     >
-      <MobileQuickNav pathname={pathname} onClose={onClose} />
+      <MobileQuickNav
+        pathname={pathname}
+        onClose={onClose}
+        series={series}
+        circuitBreakerCategories={circuitBreakerCategories}
+      />
 
-      <div className="grid gap-10 md:grid-cols-[1fr_1fr_1.2fr] md:gap-12">
+      <div className="hidden gap-10 md:grid md:grid-cols-[0.8fr_1fr_1fr_1.2fr] md:gap-10">
         <div>
           <div className="mb-5 font-mono-label text-[9px] tracking-[0.22em] opacity-40">
-            SERIES
+            CATEGORIES
           </div>
           <div className="flex flex-col">
-            {series.map((s) => (
-              <a
-                key={s.slug}
-                href={`/products/${s.slug}`}
-                onClick={onClose}
-                className="group flex items-baseline justify-between gap-3.5 border-b border-paper/8 py-2.5 text-lg font-medium tracking-tight transition-[padding-left,color] duration-300 hover:pl-2.5 hover:text-signal-yellow"
-              >
-                {s.name}
-                <span className="font-mono-label text-[9.5px] opacity-35">{s.subSeries.length}</span>
-              </a>
-            ))}
-          </div>
-        </div>
-
-        <div>
-          <div className="mb-5 font-mono-label text-[9px] tracking-[0.22em] opacity-40">
-            FEATURED PRODUCTS
-          </div>
-          <div className="flex flex-col gap-3.5">
-            {featured.map(({ series: s, subSeries: sub }) => {
-              const cover = getCoverImage(sub);
+            {NAV_CATEGORIES.map((cat) => {
+              const active = activeCategory === cat.code;
+              const count = cat.code === "switch-socket" ? series.length : circuitBreakerCategories.length;
               return (
-              <a
-                key={sub.slug}
-                href={`/products/${s.slug}/${sub.slug}`}
-                onClick={onClose}
-                className="flex items-start gap-3.5"
-              >
-                {cover ? (
-                  <Image
-                    src={cover.src}
-                    alt={cover.alt}
-                    width={56}
-                    height={56}
-                    className="h-14 w-14 flex-none bg-ink-raised object-cover"
-                  />
-                ) : (
-                  <span className="flex h-14 w-14 flex-none items-center justify-center bg-ink text-center font-mono-label text-[6px] tracking-[0.1em] opacity-40">
-                    ON REQUEST
-                  </span>
-                )}
-                <span>
-                  <span className="block text-[14.5px] font-bold tracking-wide">{sub.name}</span>
-                  <span className="mt-1 block max-w-[28ch] text-xs leading-relaxed opacity-50">
-                    {sub.description}
-                  </span>
-                </span>
-              </a>
+                <button
+                  key={cat.code}
+                  type="button"
+                  onMouseEnter={() => setActiveCategory(cat.code)}
+                  onClick={() => setActiveCategory(cat.code)}
+                  className={clsx(
+                    "group flex items-baseline justify-between gap-3.5 border-b border-paper/8 bg-transparent py-2.5 text-left text-lg font-medium tracking-tight transition-[padding-left,color] duration-300 hover:pl-2.5 hover:text-signal-yellow",
+                    active && "pl-2.5 text-signal-yellow",
+                  )}
+                >
+                  {cat.label}
+                  <span className="font-mono-label text-[9.5px] opacity-35">{count}</span>
+                </button>
               );
             })}
           </div>
         </div>
 
-        {flagship && (
-          <div>
-            <div className="mb-5 font-mono-label text-[9px] tracking-[0.22em] opacity-40">
-              FEATURED — {flagship.series.name.toUpperCase()}
+        {activeCategory === "switch-socket" ? (
+          <>
+            <div>
+              <div className="mb-5 font-mono-label text-[9px] tracking-[0.22em] opacity-40">
+                SERIES
+              </div>
+              <div className="flex flex-col">
+                {series.map((s) => (
+                  <a
+                    key={s.slug}
+                    href={`/products/${s.slug}`}
+                    onClick={onClose}
+                    className="group flex items-baseline justify-between gap-3.5 border-b border-paper/8 py-2.5 text-lg font-medium tracking-tight transition-[padding-left,color] duration-300 hover:pl-2.5 hover:text-signal-yellow"
+                  >
+                    {s.name}
+                    <span className="font-mono-label text-[9.5px] opacity-35">{s.subSeries.length}</span>
+                  </a>
+                ))}
+              </div>
             </div>
-            {flagshipCover ? (
+
+            <div>
+              <div className="mb-5 font-mono-label text-[9px] tracking-[0.22em] opacity-40">
+                FEATURED PRODUCTS
+              </div>
+              <div className="flex flex-col gap-3.5">
+                {featured.map(({ series: s, subSeries: sub }) => {
+                  const cover = getCoverImage(sub);
+                  return (
+                    <a
+                      key={sub.slug}
+                      href={`/products/${s.slug}/${sub.slug}`}
+                      onClick={onClose}
+                      className="flex items-start gap-3.5"
+                    >
+                      {cover ? (
+                        <Image
+                          src={cover.src}
+                          alt={cover.alt}
+                          width={56}
+                          height={56}
+                          className="h-14 w-14 flex-none bg-ink-raised object-cover"
+                        />
+                      ) : (
+                        <span className="flex h-14 w-14 flex-none items-center justify-center bg-ink text-center font-mono-label text-[6px] tracking-[0.1em] opacity-40">
+                          ON REQUEST
+                        </span>
+                      )}
+                      <span>
+                        <span className="block text-[14.5px] font-bold tracking-wide">{sub.name}</span>
+                        <span className="mt-1 block max-w-[28ch] text-xs leading-relaxed opacity-50">
+                          {sub.description}
+                        </span>
+                      </span>
+                    </a>
+                  );
+                })}
+              </div>
+            </div>
+
+            {flagship && (
+              <div>
+                <div className="mb-5 font-mono-label text-[9px] tracking-[0.22em] opacity-40">
+                  FEATURED — {flagship.series.name.toUpperCase()}
+                </div>
+                {flagshipCover ? (
+                  <Image
+                    src={flagshipCover.src}
+                    alt={flagshipCover.alt}
+                    width={480}
+                    height={230}
+                    className="h-[230px] w-full bg-ink-raised object-cover"
+                  />
+                ) : (
+                  <div className="flex h-[230px] w-full items-center justify-center bg-ink font-mono-label text-[9px] tracking-[0.2em] opacity-40">
+                    PHOTOGRAPHY ON REQUEST
+                  </div>
+                )}
+                <div className="mt-3.5 flex items-baseline justify-between">
+                  <div>
+                    <div className="text-xl font-extrabold tracking-tight">
+                      {flagship.series.name.toUpperCase()}
+                    </div>
+                    <div className="mt-1 text-xs opacity-50">{flagship.series.tagline}</div>
+                  </div>
+                  <a
+                    href={`/products/${flagship.series.slug}`}
+                    onClick={onClose}
+                    className="font-mono-label text-[10px] tracking-[0.16em] text-signal-yellow"
+                  >
+                    EXPLORE →
+                  </a>
+                </div>
+              </div>
+            )}
+          </>
+        ) : (
+          <>
+            <div>
+              <div className="mb-5 font-mono-label text-[9px] tracking-[0.22em] opacity-40">
+                CIRCUIT BREAKER
+              </div>
+              <div className="flex flex-col gap-3.5">
+                {circuitBreakerCategories.map((c) => (
+                  <a
+                    key={c.slug}
+                    href={`/products/circuit-breaker/${c.slug}`}
+                    onClick={onClose}
+                    className="group flex items-start gap-3.5"
+                  >
+                    <Image
+                      src={c.image.src}
+                      alt={c.image.alt}
+                      width={56}
+                      height={56}
+                      className="h-14 w-14 flex-none bg-ink-raised object-cover"
+                    />
+                    <span className="flex-1">
+                      <span className="flex items-baseline justify-between gap-2">
+                        <span className="block text-[14.5px] font-bold tracking-wide group-hover:text-signal-yellow">
+                          {c.name}
+                        </span>
+                        <ChevronRightIcon className="h-3.5 w-3.5 flex-none opacity-40 transition-transform duration-300 group-hover:translate-x-1 group-hover:opacity-100" />
+                      </span>
+                      <span className="mt-1 block max-w-[28ch] text-xs leading-relaxed opacity-50">
+                        {c.fullName}
+                      </span>
+                    </span>
+                  </a>
+                ))}
+              </div>
+            </div>
+
+            <div>
+              <div className="mb-1.5 font-mono-label text-[9px] tracking-[0.22em] opacity-40">
+                MCB QUICK SELECT
+              </div>
+              <div className="mb-5 text-xs opacity-50">Choose poles to explore</div>
+              <div className="grid grid-cols-3 gap-2.5">
+                {(["sp", "dp", "tp"] as const).map((pole) => (
+                  <Link
+                    key={pole}
+                    href={`/products/circuit-breaker/mcb?pole=${pole}`}
+                    onClick={onClose}
+                    className="group flex flex-col items-center gap-2 rounded-[12px] border border-paper/14 bg-ink-raised/60 px-3 py-4 text-center transition-colors duration-300 hover:border-signal-yellow/60"
+                  >
+                    <span className="flex h-9 w-9 items-center justify-center rounded-[8px] border border-paper/20 font-mono-label text-[10px] font-bold uppercase group-hover:border-signal-yellow group-hover:text-signal-yellow">
+                      {pole.toUpperCase()}
+                    </span>
+                    <span className="font-mono-label text-[8.5px] tracking-[0.1em] uppercase opacity-60">
+                      {pole === "sp" ? "Single Pole" : pole === "dp" ? "Double Pole" : "Triple Pole"}
+                    </span>
+                  </Link>
+                ))}
+              </div>
+            </div>
+
+            <div>
+              <div className="mb-5 font-mono-label text-[9px] tracking-[0.22em] opacity-40">
+                RELIABLE PROTECTION
+              </div>
               <Image
-                src={flagshipCover.src}
-                alt={flagshipCover.alt}
+                src="/images/products/circuit-breaker/banner-placeholder.png"
+                alt="Circuit breaker protection"
                 width={480}
                 height={230}
                 className="h-[230px] w-full bg-ink-raised object-cover"
               />
-            ) : (
-              <div className="flex h-[230px] w-full items-center justify-center bg-ink font-mono-label text-[9px] tracking-[0.2em] opacity-40">
-                PHOTOGRAPHY ON REQUEST
-              </div>
-            )}
-            <div className="mt-3.5 flex items-baseline justify-between">
-              <div>
-                <div className="text-xl font-extrabold tracking-tight">
-                  {flagship.series.name.toUpperCase()}
+              <div className="mt-3.5 flex items-baseline justify-between">
+                <div>
+                  <div className="text-xl font-extrabold tracking-tight">CIRCUIT BREAKER</div>
+                  <div className="mt-1 text-xs opacity-50">High performance protection, every application.</div>
                 </div>
-                <div className="mt-1 text-xs opacity-50">{flagship.series.tagline}</div>
+                <Link
+                  href="/products/circuit-breaker"
+                  onClick={onClose}
+                  className="font-mono-label text-[10px] tracking-[0.16em] text-signal-yellow"
+                >
+                  EXPLORE →
+                </Link>
               </div>
-              <a
-                href={`/products/${flagship.series.slug}`}
-                onClick={onClose}
-                className="font-mono-label text-[10px] tracking-[0.16em] text-signal-yellow"
-              >
-                EXPLORE →
-              </a>
             </div>
-          </div>
+          </>
         )}
       </div>
     </div>
   );
 }
 
-function MobileQuickNav({ pathname, onClose }: { pathname: string; onClose: () => void }) {
+type ProductsCategory = "switch-socket" | "circuit-breaker";
+
+function MobileQuickNav({
+  pathname,
+  onClose,
+  series,
+  circuitBreakerCategories,
+}: {
+  pathname: string;
+  onClose: () => void;
+  series: ProductSeries[];
+  circuitBreakerCategories: CircuitBreakerCategory[];
+}) {
   const [aboutOpen, setAboutOpen] = useState(pathname.startsWith("/about-us"));
+  const [productsOpen, setProductsOpen] = useState(pathname.startsWith("/products"));
+  const [productsCategory, setProductsCategory] = useState<ProductsCategory | null>(
+    pathname.startsWith("/products/circuit-breaker") ? "circuit-breaker" : null,
+  );
   const isProducts = pathname.startsWith("/products");
   const isAbout = pathname.startsWith("/about-us");
 
@@ -416,10 +572,14 @@ function MobileQuickNav({ pathname, onClose }: { pathname: string; onClose: () =
           <UsersIcon className="h-5 w-5" />
           <span className="font-mono-label text-[8.5px] tracking-[0.1em] uppercase">About Us</span>
         </button>
-        <Link href="/products" onClick={onClose} className={tabClass(isProducts)}>
+        <button
+          type="button"
+          onClick={() => setProductsOpen((v) => !v)}
+          className={tabClass(isProducts || productsOpen)}
+        >
           <GridIcon className="h-5 w-5" />
           <span className="font-mono-label text-[8.5px] tracking-[0.1em] uppercase">Products</span>
-        </Link>
+        </button>
         <Link href="/certificate" onClick={onClose} className={tabClass(pathname === "/certificate")}>
           <ShieldIcon className="h-5 w-5" />
           <span className="font-mono-label text-[8.5px] tracking-[0.1em] uppercase">Certificate</span>
@@ -472,6 +632,144 @@ function MobileQuickNav({ pathname, onClose }: { pathname: string; onClose: () =
               );
             })}
           </div>
+        </div>
+      )}
+
+      {productsOpen && (
+        <div className="mt-5 rounded-2xl border border-paper/10 bg-ink-raised/50 p-2">
+          <button
+            type="button"
+            onClick={() => {
+              if (productsCategory) {
+                setProductsCategory(null);
+              } else {
+                setProductsOpen(false);
+              }
+            }}
+            className="flex w-full items-center gap-2 bg-transparent px-3 py-2.5 font-mono-label text-[9px] tracking-[0.2em] uppercase opacity-50"
+          >
+            {productsCategory && <ChevronLeftIcon className="h-3.5 w-3.5" />}
+            <span className="flex-1 text-left">
+              {productsCategory === "switch-socket"
+                ? "Switch & Socket"
+                : productsCategory === "circuit-breaker"
+                  ? "Circuit Breaker"
+                  : "Products"}
+            </span>
+            {!productsCategory && <ChevronDownIcon className="h-3.5 w-3.5 rotate-180" />}
+          </button>
+
+          {productsCategory === null && (
+            <div className="flex flex-col gap-1">
+              <button
+                type="button"
+                onClick={() => setProductsCategory("switch-socket")}
+                className="flex items-center gap-3.5 rounded-xl bg-transparent px-3 py-3 text-left transition-colors duration-200 hover:bg-paper/5"
+              >
+                <span className="flex h-9 w-9 flex-none items-center justify-center rounded-full border border-paper/20 opacity-70">
+                  <LayersIcon className="h-4 w-4" />
+                </span>
+                <span className="min-w-0 flex-1">
+                  <span className="block text-[13px] font-bold tracking-wide">Switch & Socket</span>
+                  <span className="mt-0.5 block truncate text-[11px] tracking-normal opacity-50">
+                    L, D, M, K and S Series
+                  </span>
+                </span>
+                <ChevronRightIcon className="h-4 w-4 flex-none opacity-35" />
+              </button>
+              <button
+                type="button"
+                onClick={() => setProductsCategory("circuit-breaker")}
+                className="flex items-center gap-3.5 rounded-xl bg-transparent px-3 py-3 text-left transition-colors duration-200 hover:bg-paper/5"
+              >
+                <span className="flex h-9 w-9 flex-none items-center justify-center rounded-full border border-paper/20 opacity-70">
+                  <BoltIcon className="h-4 w-4" />
+                </span>
+                <span className="min-w-0 flex-1">
+                  <span className="block text-[13px] font-bold tracking-wide">Circuit Breaker</span>
+                  <span className="mt-0.5 block truncate text-[11px] tracking-normal opacity-50">
+                    MCB, MCCB and Magnetic Contactor
+                  </span>
+                </span>
+                <ChevronRightIcon className="h-4 w-4 flex-none opacity-35" />
+              </button>
+            </div>
+          )}
+
+          {productsCategory === "switch-socket" && (
+            <div className="flex flex-col gap-1">
+              <Link
+                href="/products"
+                onClick={onClose}
+                className={clsx(
+                  "flex items-center justify-between rounded-xl px-3 py-3 text-[13px] font-bold tracking-wide transition-colors duration-200",
+                  pathname === "/products" ? "bg-paper/8 text-signal-yellow" : "hover:bg-paper/5",
+                )}
+              >
+                View all
+                <ChevronRightIcon className="h-4 w-4 flex-none opacity-35" />
+              </Link>
+              {series.map((s) => {
+                const href = `/products/${s.slug}`;
+                const active = pathname === href;
+                return (
+                  <Link
+                    key={s.slug}
+                    href={href}
+                    onClick={onClose}
+                    className={clsx(
+                      "flex items-center justify-between rounded-xl px-3 py-3 text-[13px] font-bold tracking-wide transition-colors duration-200",
+                      active ? "bg-paper/8 text-signal-yellow" : "hover:bg-paper/5",
+                    )}
+                  >
+                    {s.name}
+                    <ChevronRightIcon className={clsx("h-4 w-4 flex-none", active ? "text-signal-yellow" : "opacity-35")} />
+                  </Link>
+                );
+              })}
+            </div>
+          )}
+
+          {productsCategory === "circuit-breaker" && (
+            <div className="flex flex-col gap-1">
+              <Link
+                href="/products/circuit-breaker"
+                onClick={onClose}
+                className={clsx(
+                  "flex items-center justify-between rounded-xl px-3 py-3 text-[13px] font-bold tracking-wide transition-colors duration-200",
+                  pathname === "/products/circuit-breaker" ? "bg-paper/8 text-signal-yellow" : "hover:bg-paper/5",
+                )}
+              >
+                View all
+                <ChevronRightIcon className="h-4 w-4 flex-none opacity-35" />
+              </Link>
+              {circuitBreakerCategories.map((c) => {
+                const href = `/products/circuit-breaker/${c.slug}`;
+                const active = pathname === href;
+                return (
+                  <Link
+                    key={c.slug}
+                    href={href}
+                    onClick={onClose}
+                    className={clsx(
+                      "flex items-center gap-3.5 rounded-xl px-3 py-3 transition-colors duration-200",
+                      active ? "bg-paper/8" : "hover:bg-paper/5",
+                    )}
+                  >
+                    <span className="min-w-0 flex-1">
+                      <span className={clsx("block text-[13px] font-bold tracking-wide", active && "text-signal-yellow")}>
+                        {c.name}
+                      </span>
+                      <span className="mt-0.5 block truncate text-[11px] tracking-normal opacity-50">
+                        {c.fullName}
+                      </span>
+                    </span>
+                    <ChevronRightIcon className={clsx("h-4 w-4 flex-none", active ? "text-signal-yellow" : "opacity-35")} />
+                  </Link>
+                );
+              })}
+            </div>
+          )}
         </div>
       )}
     </div>

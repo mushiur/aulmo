@@ -165,6 +165,24 @@ export function ChevronRightIcon(props: IconProps) {
   );
 }
 
+export function FilterIcon(props: IconProps) {
+  return (
+    <svg {...strokeBase} {...props}>
+      <path d="M4 5h16" />
+      <path d="M7 12h10" />
+      <path d="M10.5 19h3" />
+    </svg>
+  );
+}
+
+export function BoltIcon(props: IconProps) {
+  return (
+    <svg {...strokeBase} {...props}>
+      <path d="M13 2.5 4.5 14h6l-1 7.5 8.5-11.5h-6z" />
+    </svg>
+  );
+}
+
 export function CheckIcon(props: IconProps) {
   return (
     <svg {...strokeBase} strokeWidth={2.2} {...props}>
