@@ -121,7 +121,10 @@ K Series  — K30 (ink black/champagne gold/silver gray/pearl white), K40 (gold 
             pine color/red wood grain are named but have no isolated hero photo, only
             a group shot), K60 (bright gold/bronze/copper/rose gold — ornate embossed
             border, a distinct decorative line from K30/K40/K50's plain finishes)
-S Series  — S20, S30, S50, S60, S70, S80, S90   (untouched — only S60 has a photo)
+S Series  — S20 (black/gold/gray/white), S30 (black/gold/gray/white), S50
+            (untouched — no asset library yet), S60 (black/gray/gold/white/red),
+            S70, S80 (untouched — no asset library yet), S90 (black/blue/orange/
+            wine red)
 ```
 
 T Series (Power Track) was removed from the hierarchy entirely at the
@@ -150,9 +153,11 @@ only in a real group photo (`familyImages`), not given their own `variants` entr
 since no per-finish studio shot exists for them yet. K60 got a full 4-finish
 build (bright gold/bronze/copper/rose gold), each with its own gallery. Only
 K series' own top-level banner (`image` on the K-series object itself) is still
-unresolved — see the note below. All of S Series remains intentionally untouched
-(simpler single-`image` shape, mostly `ImagePlaceholder`) pending its own asset
-library — do not build out its visuals without new photography to work from.
+unresolved — see the note below. S Series was upgraded the same way for S20,
+S30, S60 and S90, each with real finishes, a shared dimension diagram, and
+`familyImages`. S50 and S80 remain intentionally untouched (simpler
+single-`image` shape, mostly `ImagePlaceholder`) pending their own asset
+libraries — do not build out their visuals without new photography to work from.
 
 **K series banner:** the first upload named `K series banner image.png` turned
 out to be byte-for-byte identical to `m-series/banner.png` — genuine M-series
