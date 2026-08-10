@@ -1576,6 +1576,20 @@ export const productHierarchy: ProductSeries[] = [
           { src: "/products/s-series/s90/lifestyle-couple.png", alt: "AULMO S90 Series switch, blue, lifestyle", width: 1700, height: 2100 },
         ],
         variants: [
+           {
+            code: "wine-red",
+            name: "Wine Red",
+            swatch: "#6E2430",
+            hero: { src: "/products/s-series/s90/wine-red/hero.png", alt: "AULMO S90 Series switch, wine red" },
+            gallery: [
+              {
+                src: "/products/s-series/s90/architecture.png",
+                alt: "AULMO S90 Series dimension diagram, 86 x 88 mm",
+                fit: "contain",
+                label: "Dimensions",
+              },
+            ],
+          },
           {
             code: "black",
             name: "Black",
@@ -1621,20 +1635,7 @@ export const productHierarchy: ProductSeries[] = [
               },
             ],
           },
-          {
-            code: "wine-red",
-            name: "Wine Red",
-            swatch: "#6E2430",
-            hero: { src: "/products/s-series/s90/wine-red/hero.png", alt: "AULMO S90 Series switch, wine red" },
-            gallery: [
-              {
-                src: "/products/s-series/s90/architecture.png",
-                alt: "AULMO S90 Series dimension diagram, 86 x 88 mm",
-                fit: "contain",
-                label: "Dimensions",
-              },
-            ],
-          },
+         
         ],
       },
     ],
