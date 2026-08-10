@@ -37,7 +37,7 @@ export default function PoleSelector({
               aria-checked={isActive}
               onClick={() => onSelect(pole.code)}
               className={clsx(
-                "flex-1 bg-transparent py-3 text-center font-mono-label text-[12px] font-bold tracking-[0.04em] transition-colors duration-200",
+                "flex-1 py-3 text-center font-mono-label text-[12px] font-bold tracking-[0.04em] transition-colors duration-200",
                 isActive ? "bg-signal-red text-paper-bright" : "bg-paper-bright text-charcoal/70",
                 i > 0 && "border-l border-charcoal/16",
               )}
