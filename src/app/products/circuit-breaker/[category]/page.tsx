@@ -47,7 +47,7 @@ export default async function CircuitBreakerCategoryPage({
   ]);
 
   return (
-    <main className="relative min-h-screen bg-paper-bright text-charcoal">
+    <main data-theme="light" className="relative min-h-screen bg-paper-bright text-charcoal">
       <div className="px-6 pt-[16vh] pb-[6vh] md:px-[4.5vw] md:pt-[18vh]">
         <Breadcrumb
           items={[
