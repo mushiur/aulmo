@@ -60,19 +60,19 @@ export default function PoleSelector({
               aria-checked={isActive}
               onClick={() => onSelect(pole.code)}
               className={clsx(
-                "group relative flex flex-col items-start gap-2 rounded-[12px] border bg-paper-bright p-2.5 text-left transition-colors duration-300",
-                isActive ? "border-charcoal" : "border-charcoal/14 hover:border-charcoal/40",
+                "group relative flex flex-col items-start gap-2 rounded-[12px] border p-2.5 text-left transition-colors duration-300",
+                isActive ? "border-signal-red bg-signal-red text-paper-bright" : "border-charcoal/14 bg-paper-bright hover:border-charcoal/40",
               )}
             >
               {isActive && (
-                <span className="absolute top-1.5 right-1.5 flex h-4 w-4 flex-none items-center justify-center rounded-full bg-charcoal text-paper-bright">
+                <span className="absolute top-1.5 right-1.5 flex h-4 w-4 flex-none items-center justify-center rounded-full bg-paper-bright text-signal-red">
                   <CheckIcon className="h-2.5 w-2.5" />
                 </span>
               )}
               <span
                 className={clsx(
                   "flex h-10 w-10 flex-none items-center justify-center rounded-[8px] border font-mono-label text-[11px] font-bold tracking-[0.02em]",
-                  isActive ? "border-charcoal bg-charcoal text-paper-bright" : "border-charcoal/14 text-charcoal/70",
+                  isActive ? "border-paper-bright/50 bg-paper-bright/10 text-paper-bright" : "border-charcoal/14 text-charcoal/70",
                 )}
               >
                 {pole.code}

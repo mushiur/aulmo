@@ -1,12 +1,15 @@
 # AULMO
 
 A static product-catalogue website for AULMO Electric International — switches,
-sockets and control panels built to a single 86&nbsp;mm module. No e-commerce, no
-backend: every page is statically generated from TypeScript content at build time.
+sockets and control panels built to a single 86&nbsp;mm module — plus a distributed
+Circuit Breaker catalogue (MCB/MCCB/Magnetic Contactor from Schneider Electric, ABB,
+Legrand, Hyundai, CHINT and others). No e-commerce, no backend: every page is
+statically generated from TypeScript content at build time. Primary contact is
+WhatsApp (`wa.me`), with `tel:` links wherever a button is explicitly labeled "Call."
 
 See [`CLAUDE.md`](./CLAUDE.md) for the full project rules (architecture, product
-hierarchy, design preservation) and [`PLAN.md`](./PLAN.md) /
-[`DESIGN.md`](./DESIGN.md) for current progress.
+hierarchy, Circuit Breaker vertical, design preservation) and
+[`PLAN.md`](./PLAN.md) / [`DESIGN.md`](./DESIGN.md) for current progress.
 
 ## Tech stack
 
@@ -41,46 +44,84 @@ Run `lint`, `typecheck`, and `build` before considering any change finished — 
 
 ```
 src/
-├── app/                 Routes: /, /about, /products, /products/[series],
-│                        /products/[series]/[subseries], /certificate, /contact
+├── app/                 Routes: /, /about-us (+ /workshop), /products,
+│                        /products/[series], /products/[series]/[subseries],
+│                        /products/circuit-breaker (+ /[category]),
+│                        /certificate, /contact
 ├── components/
-│   ├── layout/           Navbar (+ mega menu), Footer — shared by every page
+│   ├── layout/           Navbar (+ mega menu, About Us dropdown, mobile
+│   │                      drill-down accordion), Footer — shared by every page
 │   ├── home/              Homepage-only sections (Hero, ProductGallery,
-│   │                      InteriorGallery, InteractiveProductView, ...)
+│   │                      InteriorGallery, InteractiveProductView, BrandBand, ...)
 │   ├── products/         SeriesSubCard, FinishSelector, ProductGallery,
 │   │                      ProductVariantExperience — reusable across every product
+│   ├── circuit-breaker/  PoleSelector, CircuitBreakerCard, CircuitBreakerFilters,
+│   │                      CircuitBreakerListing, BrandGrid
 │   └── ui/                Reusable primitives (Reveal, MagneticLink, Lightbox,
 │                          Breadcrumb, ImagePlaceholder, Loader, ChatWidget, ...)
-├── data/                 Static content, plain TypeScript objects/arrays
+├── data/                 Static content, plain TypeScript objects/arrays —
+│                         product-hierarchy.ts (switches/sockets) and
+│                         circuit-breakers.ts (distributed brands) are separate
+│                         data models, not merged
 └── lib/                  Accessor functions — pages read content through here,
                           never straight from src/data/
 public/
 ├── brand/                Logo
 ├── marketing/            Homepage editorial imagery (not tied to one SKU)
-├── products/<series>/<subseries>/<finish>/   Per-finish photography
+├── products/<series>/<subseries>/<finish>/   Per-finish photography (real)
+├── images/products/circuit-breaker/<category>/  Placeholder imagery (mock,
+│                        predictable filenames — swap for real product photos later)
+├── workshop/             Real manufacturing-floor photography (/about-us/workshop)
 └── video/                Hero background video
 ```
 
 ## The product hierarchy
 
-Five series. L, D and M have real photography and color/finish variants; K and
-S are still placeholders pending their own asset libraries. T Series (Power
-Track) was removed at the client's request — it never had any photography.
+Five series, all with real photography and color/finish variants now. T Series
+(Power Track) was removed at the client's request — it never had any
+photography. Only S50 and S80 remain unbuilt, pending their own asset
+libraries.
 
 ```
-L Series  — L50 (black/gold/gray/white), L60 (gold/gray/white),
+L Series  — L50 (black/gold/gray/white), L60 (black/gold/gray/white),
             L80 (black/gold/gray/white),
             LG20 (matte gold/silvery/water ink/carbon gray/pearl white),
             LG30 (carbon gray/matte gold/water ink/pearl white)
 D Series  — DZ (black/gold/gray/ivory/white)
-M Series  — M30 (Nebula Ash black/champagne gold/graphite gray/pearl white)
-K Series  — K30, K40, K50, K60
-S Series  — S20, S30, S50, S60, S70, S80, S90
+M Series  — M30 (Nebula Ash black/champagne gold/graphite gray/pearl white),
+            M50 (espresso walnut/golden oak — wood-veneer, not metal-look)
+K Series  — K30 (ink black/champagne gold/silver gray/pearl white),
+            K40 (gold only so far), K50 (yellow wood grain only so far),
+            K60 (bright gold/bronze/copper/rose gold)
+S Series  — S20 (black/gold/gray/white), S30 (black/gold/gray/white),
+            S50 (not built yet), S60 (black/gray/gold/white/red),
+            S70, S80 (not built yet), S90 (black/blue/orange/wine red)
 ```
 
 This lives in **one file**, `src/data/product-hierarchy.ts`, and drives the
 products mega-menu, the `/products` routes, the homepage series showcases, and
-related-product links. Nothing else duplicates this structure.
+related-product links. Nothing else duplicates this structure. See
+`CLAUDE.md` → "The product hierarchy" for the evidence-based rule this is
+built on (never add a finish because a spec names it — only once a real photo
+confirms it) and the full per-series notes.
+
+## Circuit Breaker — a second, separate catalogue
+
+`/products/circuit-breaker` and `/products/circuit-breaker/[category]` (MCB,
+MCCB, Magnetic Contactor) distribute third-party circuit-protection brands
+(Schneider Electric, ABB, Legrand, Hyundai, CHINT, CNC Breaker, CNS Circuit
+Breaker) alongside AULMO's own product line above. This is a **deliberately
+separate data model** — `src/data/circuit-breakers.ts` /
+`src/lib/circuit-breakers.ts` — not part of `product-hierarchy.ts`.
+
+Every listing is **structured mock data**, not a verified real catalog: ratings
+use common industry-standard values (16A, C-curve, 6kA, 230/400V) as
+placeholders. Product images live at
+`public/images/products/circuit-breaker/<category>/` with predictable
+filenames (`mcb-sp-placeholder.png`, etc.) specifically so real photography can
+replace them file-for-file later with no code changes. No prices, no cart —
+"View Details" links to `/contact`, same as the real product pages. See
+`CLAUDE.md` → "Circuit Breaker" for the full architecture notes.
 
 ### Adding a new product (no finish variants — K/S style)
 
@@ -150,12 +191,18 @@ via `generateStaticParams` — no route code changes needed either way.
 - Hero video: `public/video/hero-switches.mp4`. The homepage hero is approved —
   don't redesign it without asking first.
 - Top navigation (`Home · About Us · Products · Certificate · Contact`) is
-  defined in `src/components/layout/Navbar.tsx`. Changing it is a deliberate
-  content decision — confirm with the user before editing the required set in
-  `CLAUDE.md`.
+  defined in `src/components/layout/Navbar.tsx`. `About Us` and `Products` are
+  both dropdowns/mega-menus, not plain links — `Products`'s left column is a
+  `Switch & Socket` / `Circuit Breaker` category switcher. Changing any of this
+  is a deliberate content decision — confirm with the user before editing the
+  required set in `CLAUDE.md`.
+- Primary contact CTA is WhatsApp (`wa.me`), not a phone dialer — see
+  `CLAUDE.md` → "Original brand assets" for which buttons stay `tel:` links.
 
 ## Deployment
 
 The site is fully static (no environment variables, no backend). `npm run build`
-static-generates all 33 routes; deploy the result to any Next.js-compatible host
+static-generates every route (36 at last count — this will drift as content is
+added, so treat it as a snapshot, not a promise); deploy the result to any
+Next.js-compatible host
 (Vercel, or `next start` behind a Node process).

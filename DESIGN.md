@@ -38,6 +38,45 @@ redesign it** without the user explicitly asking; bug fixes are fine.
 - [x] Typography System
 - [x] Global Motion / Transitions
 
+**Navigation + Products Mega Menu, extended since those were checked off:**
+left unchecked below rather than silently re-checked, since none of this has
+been visually confirmed in a real browser at any width this session — same
+"lint/typecheck/build + code review only" caveat as everything else in this
+file.
+
+- [ ] `About Us` became a dropdown (hover on desktop, tap on mobile) with two
+      pages — About Aulmo and a new Workshop page (see Pages below) — instead
+      of a plain link straight to the old `/about` page. Desktop's dropdown
+      panel sits directly under the trigger with no dead zone between them
+      (a real bug hit and fixed: an earlier version used `mt-3` margin
+      *outside* the panel to create the visual gap, which meant the cursor
+      crossed empty space — outside both the button and the panel — on the
+      way down, firing `onMouseLeave` before a visitor could reach it; fixed
+      by moving the gap to `pt-3` padding *inside* the panel's own hoverable
+      box instead, so the descendant relationship keeps the hover state
+      alive across it).
+- [ ] `PRODUCTS`'s own left column changed from a flat SERIES list to a
+      two-item category switcher — `Switch & Socket` / `Circuit Breaker` —
+      that swaps what the other columns show (`MegaMenu` in `Navbar.tsx`,
+      `activeCategory` state, default `Switch & Socket`). The
+      `Switch & Socket` path's content (Series / Featured Products /
+      Flagship) is untouched, the exact same JSX as the original mega menu —
+      just behind the switcher now instead of always visible, so this is
+      additive, not a rebuild. `Circuit Breaker` shows MCB/MCCB/Magnetic
+      Contactor (image + title + description + chevron) and a hardcoded
+      "MCB Quick Select" SP/DP/TP shortcut row, matching a client-supplied
+      reference screenshot. Grid went from 3 columns to 4
+      (`md:grid-cols-[0.8fr_1fr_1fr_1.2fr]`) to fit the new always-visible
+      category column without shrinking the existing three.
+- [ ] Mobile's own `Products` tab changed from a direct `<Link href="/products">`
+      to a tap-to-expand accordion — the same pattern already proven for
+      `About Us` — now a genuine two-level drill-down: tap once for the
+      category picker (`Switch & Socket` / `Circuit Breaker` cards), tap a
+      category to drill into its series list or circuit-breaker types list.
+      The previously-always-visible SERIES/FEATURED/FLAGSHIP grid is now
+      `hidden md:grid` (desktop only) since mobile has its own dedicated
+      accordion content instead of showing everything unconditionally.
+
 ## Homepage
 
 Rebuilt below the hero **three times** now.
@@ -203,6 +242,21 @@ patterns, so all stay unchecked.
       ambiguous-glyph typeface as everywhere else in this discrepancy, and
       asked for it back (repositioned/enlarged in the closing band, not
       replaced). Reverted; `/brand/aulmo-logo.png` isn't used on this page.
+      **Since then:** this page moved from `/about` to `/about-us` (its
+      content/design untouched) to become the first child of a new `About Us`
+      parent section — see the next entry.
+- [ ] Workshop (`/about-us/workshop`, new) — a first pass built entirely from
+      real photography the client uploaded to `public/workshop/` (renamed
+      from spaced/mixed-case names to kebab-case): a banner hero
+      (`workshop-banner.jpg`), a "Manufacturing Floor" feature
+      (`factory-floor.jpg`), a 2×2 grid of the four same-aspect-ratio
+      (686×876) portrait shots — assembly line, injection molding, mold
+      storage, warehouse — mirroring the About page's own "Our Story" grid
+      pattern, and a closing band with `aulmo-wordmark-white.png`. Copy stays
+      generic/honest (real 1996 founding date, 86mm module, 5 export
+      regions, Intertek/IECEE certification — all already established
+      elsewhere on the site) rather than inventing manufacturing statistics
+      the photography doesn't back. Not yet visually confirmed in a browser.
 - [ ] Products Overview — **pass 2**: the client asked to bring the same
       premium card language here as the per-series pages below, using the
       real marketing copy already sitting unused in
@@ -371,6 +425,46 @@ patterns, so all stay unchecked.
       the code level (mobile-first stacking, chip stagger scoped to `md:` and
       up, `min-w-0`/`break-words` fix for the Facebook chip's long URL on
       narrow widths); not yet confirmed with live screenshots at every width.
+- [ ] Circuit Breaker — a whole new, deliberately separate catalogue built to
+      an explicit client spec (with two reference screenshots): a landing page
+      (`/products/circuit-breaker`, dark banner hero, "Browse by Type" grid of
+      the three categories via the existing `SeriesSubCard`, a "Shop by Brand"
+      chip row), a category listing page
+      (`/products/circuit-breaker/[category]`), and a full pole/filter/sort
+      UX for MCB/MCCB (Magnetic Contactor has no poles). Data model
+      (`src/data/circuit-breakers.ts` / `src/lib/circuit-breakers.ts`) is
+      **intentionally separate** from `product-hierarchy.ts` — not merged into
+      the switches/sockets hierarchy. Per the client's own explicit written
+      spec (not the reference screenshots, which showed prices/a cart): no
+      pricing, no Add to Cart anywhere — every card's CTA is "View Details" →
+      `/contact`, matching the real product pages. All product data is
+      **structured mock data** (real, publicly-known industry line names —
+      Acti9 iC60N, S200, DX³, etc., already visible in the client's own
+      reference screenshot — paired with generic/illustrative ratings), an
+      explicit one-time, client-authorized exception to the project's
+      no-fabricated-data rule; brand chips are text-only, no logos, since
+      using a real company's logo with none on file would risk implying an
+      unverified partnership. Placeholder photography lives at predictable
+      `public/images/products/circuit-breaker/<category>/*-placeholder.png`
+      paths specifically so real product photos can replace them file-for-file
+      later with zero code changes.
+      Mobile listing UX went through a second pass after the client flagged
+      the first as "so static" against a reference screenshot: `PoleSelector`
+      now renders a joined segmented control on mobile (card grid kept on
+      desktop/tablet), and the always-open filter sidebar became a slide-up
+      bottom-sheet drawer (`flex flex-col` with a `flex-none` header, a
+      `flex-1 overflow-y-auto` scrollable filter list, and a `flex-none`
+      footer) so the "Show N Results" action button and the Close button stay
+      pinned in view while only the filter checkboxes themselves scroll — a
+      genuine bug from the first pass this fixes: the whole drawer used to
+      scroll as one block, pushing the results button off-screen on longer
+      filter lists. The Close button is a solid `bg-signal-red` pill
+      (reusing the site's existing Lightbox close-button pattern) rather than
+      a low-contrast icon-only control, after the client reported it was
+      hard to see. Mega menu and mobile nav both extended to reach this
+      catalogue (see `## Global` above) without touching the existing
+      Switch & Socket paths' JSX. Not yet visually confirmed in a browser at
+      any width this session.
 
 ## Responsive Polish
 

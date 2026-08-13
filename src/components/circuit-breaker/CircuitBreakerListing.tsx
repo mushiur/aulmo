@@ -3,6 +3,7 @@
 import { useCallback, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import PoleSelector from "@/components/circuit-breaker/PoleSelector";
+import BrandSelector from "@/components/circuit-breaker/BrandSelector";
 import CircuitBreakerFilters, { type FilterGroup } from "@/components/circuit-breaker/CircuitBreakerFilters";
 import CircuitBreakerCard from "@/components/circuit-breaker/CircuitBreakerCard";
 import { ChevronDownIcon, FilterIcon } from "@/components/ui/Icon";
@@ -53,14 +54,13 @@ export default function CircuitBreakerListing({
   const filterGroups: FilterGroup[] = useMemo(() => {
     const uniq = (values: (string | undefined)[]) => [...new Set(values.filter(Boolean) as string[])];
     return [
-      { key: "brand", label: "Brand", options: uniq(poleProducts.map((p) => brandName(p.brandSlug))) },
       { key: "ratedCurrent", label: "Rated Current", options: uniq(poleProducts.map((p) => p.ratedCurrent)) },
       { key: "curveType", label: "Curve Type", options: uniq(poleProducts.map((p) => p.curveType)) },
       { key: "breakingCapacity", label: "Breaking Capacity", options: uniq(poleProducts.map((p) => p.breakingCapacity)) },
       { key: "voltage", label: "Voltage", options: uniq(poleProducts.map((p) => p.voltage)) },
       { key: "series", label: "Series", options: uniq(poleProducts.map((p) => p.series)) },
     ];
-  }, [poleProducts, brandName]);
+  }, [poleProducts]);
 
   const filtered = useMemo(() => {
     return poleProducts.filter((p) => {
@@ -94,13 +94,22 @@ export default function CircuitBreakerListing({
     });
   };
 
+  const selectBrand = (brand: string | undefined) => {
+    setFilters((previous) => ({ ...previous, brand: brand ? [brand] : [] }));
+  };
+
   return (
     <div>
       {hasPoles && (
-        <div className="mb-6">
+        <section className="mb-7 max-w-3xl">
+          <span className="mb-3 block font-mono-label text-[10px] font-bold tracking-[0.18em] uppercase">Pole</span>
           <PoleSelector active={pole} onSelect={setPole} />
-        </div>
+        </section>
       )}
+
+      <section className="mb-7 border-y border-charcoal/10 py-5">
+        <BrandSelector brands={brands} activeBrand={filters.brand?.[0]} onSelect={selectBrand} />
+      </section>
 
       <div className="mb-4 flex items-baseline justify-between">
         <span className="font-mono-label text-[10px] tracking-[0.18em] text-signal-red">
@@ -139,7 +148,7 @@ export default function CircuitBreakerListing({
         </div>
       </div>
 
-      <div className="grid grid-cols-1 gap-10 md:grid-cols-[220px_1fr]">
+      <div className="grid max-w-[1500px] grid-cols-1 gap-8 md:grid-cols-[240px_minmax(0,1fr)]">
         <aside className="hidden md:block">
           <CircuitBreakerFilters
             groups={filterGroups}
@@ -176,32 +185,38 @@ export default function CircuitBreakerListing({
         >
           <div className="absolute inset-0 bg-ink/60" />
           <div
-            className="relative max-h-[80vh] w-full overflow-y-auto rounded-t-[20px] bg-paper-bright p-5"
+            className="relative flex max-h-[80vh] w-full flex-col rounded-t-[20px] bg-paper-bright"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="mb-5 flex items-center justify-between">
+            <div className="flex flex-none items-center justify-between border-b border-charcoal/10 px-5 py-4">
               <span className="font-mono-label text-[11px] font-bold tracking-[0.18em] uppercase">Filter</span>
               <button
                 type="button"
+                aria-label="Close"
                 onClick={() => setMobileFiltersOpen(false)}
-                className="bg-transparent font-mono-label text-[10px] tracking-[0.16em] uppercase opacity-50"
+                className="flex items-center gap-1.5 rounded-full bg-signal-red px-3.5 py-2 font-mono-label text-[10px] font-bold tracking-[0.16em] text-paper uppercase transition-transform duration-200 active:scale-95"
               >
                 Close ✕
               </button>
             </div>
-            <CircuitBreakerFilters
-              groups={filterGroups}
-              selected={filters}
-              onToggle={toggleFilter}
-              onClear={() => setFilters({})}
-            />
-            <button
-              type="button"
-              onClick={() => setMobileFiltersOpen(false)}
-              className="mt-6 w-full bg-charcoal py-3.5 font-mono-label text-[11px] font-bold tracking-[0.18em] text-paper uppercase"
-            >
-              Show {filtered.length} Results
-            </button>
+            <div className="flex-1 overflow-y-auto px-5 py-4">
+              <CircuitBreakerFilters
+                groups={filterGroups}
+                selected={filters}
+                onToggle={toggleFilter}
+                onClear={() => setFilters({})}
+                variant="mobile"
+              />
+            </div>
+            <div className="flex-none border-t border-charcoal/10 p-5">
+              <button
+                type="button"
+                onClick={() => setMobileFiltersOpen(false)}
+                className="w-full bg-charcoal py-3.5 font-mono-label text-[11px] font-bold tracking-[0.18em] text-paper uppercase"
+              >
+                Show {filtered.length} Results
+              </button>
+            </div>
           </div>
         </div>
       )}

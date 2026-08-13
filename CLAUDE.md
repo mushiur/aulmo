@@ -8,10 +8,21 @@ conventions that keep it that way.
 
 AULMO is a **static, public-facing product catalogue website** for an electrical
 switches/sockets/control-panel brand (AULMO Electric International). Visitors browse
-categories and series, view specifications, and contact the company by email.
+categories and series, view specifications, and contact the company by WhatsApp or
+phone.
 
 **It is explicitly NOT e-commerce.** There is no registration, login, cart, checkout,
-payment, or pricing anywhere on the site, and none should be added.
+payment, or pricing anywhere on the site, and none should be added. This rule applies
+equally to the Circuit Breaker section below — it lists distributed third-party
+brands, not AULMO's own product, but it must still stay a catalogue (specs + "View
+Details") with **no prices and no cart**, exactly like the switch/socket hierarchy.
+
+The site now covers **two separate product verticals**: AULMO's own manufactured
+switches/sockets/control panels (`src/data/product-hierarchy.ts`, real photography,
+real finishes — see "The product hierarchy" below), and a **Circuit Breaker**
+catalogue of distributed third-party brands (`src/data/circuit-breakers.ts`, mock
+data, placeholder imagery — see "Circuit Breaker" below). They are intentionally
+separate data models with separate lib accessors; do not merge them.
 
 ## What this project has — and does not have
 
@@ -52,35 +63,50 @@ src/
 │   │   ├── page.tsx                 Products overview (all 5 series)
 │   │   ├── [series]/page.tsx         One series' sub-series
 │   │   └── [series]/[subseries]/page.tsx   Sub-series detail (gallery + finish selector)
+│   ├── products/circuit-breaker/
+│   │   ├── page.tsx                  Circuit Breaker landing (category cards + brands)
+│   │   └── [category]/page.tsx        MCB / MCCB / Magnetic Contactor listing
 │   ├── certificate/page.tsx
 │   ├── contact/page.tsx
-│   └── sitemap.ts / robots.ts       SEO — both derived from getProductHierarchy(),
-│                                      never hand-maintained
+│   └── sitemap.ts / robots.ts       SEO — derived from getProductHierarchy() and
+│                                      getCircuitBreakerCategories(), never hand-maintained
 ├── components/
-│   ├── layout/                    Navbar (+ mega menu), Footer
+│   ├── layout/                    Navbar (+ mega menu, About Us dropdown, mobile
+│   │                                drill-down accordion), Footer
 │   ├── home/                      Homepage sections only (Hero, ProductGallery,
 │   │                                InteriorGallery, InteractiveProductView,
-│   │                                FashionEditorial, HomeClosingCta)
+│   │                                FashionEditorial, HomeClosingCta, BrandBand)
 │   ├── products/                  SeriesSubCard, FinishSelector, ProductGallery,
 │   │                                ProductVariantExperience — all reusable, all
 │   │                                driven by data, none hardcoded to one product
+│   ├── circuit-breaker/           PoleSelector, CircuitBreakerCard,
+│   │                                CircuitBreakerFilters, CircuitBreakerListing,
+│   │                                BrandGrid — see "Circuit Breaker" below
 │   └── ui/                        Generic, reusable across any page (Reveal,
 │                                    MagneticLink, Breadcrumb, Lightbox,
 │                                    ImagePlaceholder, Loader, CustomCursor,
 │                                    ChatWidget, ...)
 ├── data/                          Static content as plain TypeScript objects
-│   ├── product-hierarchy.ts        THE product hierarchy — see below
-│   ├── types.ts                    Shared content types (incl. ProductVariant)
+│   ├── product-hierarchy.ts        THE switch/socket product hierarchy — see below
+│   ├── circuit-breakers.ts         Circuit Breaker categories/brands/mock products
+│   ├── types.ts                    Shared content types (incl. ProductVariant,
+│   │                                CircuitBreakerProduct)
 │   ├── chat.ts                      Fixed Q&A for the chat widget
 │   └── hero.ts                     Homepage storytelling content
 ├── lib/
 │   ├── products.ts                Accessors for the product hierarchy
+│   ├── circuit-breakers.ts        Accessors for the Circuit Breaker catalog
 │   ├── content.ts                 Accessors for homepage storytelling content
 │   └── seo.ts                     SITE_URL / SITE_NAME — single source of truth
 public/
 ├── brand/                         Logo only
 ├── marketing/                     Homepage editorial imagery (not tied to one SKU)
 ├── products/<series>/<subseries>/<finish>/  Per-finish photography (see below)
+├── images/products/circuit-breaker/<category>/  Circuit Breaker placeholder
+│                                    imagery — deliberately a different path prefix
+│                                    (`public/images/...` not `public/products/...`)
+│                                    so mock/placeholder content never gets confused
+│                                    with AULMO's own real photography
 ├── workshop/                      Real manufacturing-floor photography, used only
 │                                    by /about-us/workshop
 └── video/                         Hero background video
@@ -100,6 +126,16 @@ opens a small dropdown (hover on desktop, tap on mobile) with two pages — Abou
 Aulmo (`/about-us`) and Workshop (`/about-us/workshop`) — it is not a page of its
 own either. Do not rename, reorder, or add to this list without the user explicitly
 asking.
+
+The `PRODUCTS` mega menu's own left column is a **category switcher**, not a flat
+series list: `Switch & Socket` and `Circuit Breaker` (hover/click on desktop swaps
+what the other columns show; `Switch & Socket`'s content — Series / Featured
+Products / Flagship — is byte-for-byte the original mega menu, untouched). On
+mobile, `PRODUCTS` is a tap-to-expand accordion (`MobileQuickNav` in
+`Navbar.tsx`, same pattern as `ABOUT US`'s own accordion): tap once for the
+category picker, tap a category to drill into its series/types list. Don't
+collapse this back into a flat list — the two-level drill-down is intentional,
+matching how `ABOUT US` already works.
 
 ## The product hierarchy — evidence-based, not assumed
 
@@ -253,6 +289,59 @@ route files picks up new entries automatically — no route code changes needed.
   marketing collages). They weren't deleted — check there before assuming a
   photo doesn't exist.
 
+## Circuit Breaker — a second product vertical
+
+Alongside AULMO's own switches/sockets/control panels, the site distributes
+third-party circuit-protection brands: **MCB, MCCB, Magnetic Contactor**, from
+Schneider Electric, ABB, Legrand, Hyundai, CHINT, CNC Breaker and CNS Circuit
+Breaker. This is a **deliberately separate data model and route tree** from the
+product hierarchy above — not a variant of it, not merged into it:
+
+- **Data**: `src/data/circuit-breakers.ts` (`circuitBreakerCategories`,
+  `circuitBreakerBrands`, `circuitBreakerProducts`) + the `CircuitBreaker*` types
+  in `src/data/types.ts`. Accessors live in `src/lib/circuit-breakers.ts`,
+  mirroring `src/lib/products.ts`'s convention — pages read through the lib
+  layer, never the data file directly.
+- **Routes**: `/products/circuit-breaker` (landing — category cards + a
+  text-only brand strip) and `/products/circuit-breaker/[category]` (MCB/MCCB
+  get a pole selector — SP/DP/TP — plus filters by brand/rated current/curve
+  type/breaking capacity/voltage/series; Magnetic Contactor skips the pole
+  selector since it doesn't have one).
+- **Every product entry is structured mock data**, not a verified real catalog
+  import. Ratings (16A, C-curve, 6kA, 230/400V, etc.) are common
+  industry-standard values used as illustrative placeholders — they are not a
+  claim that a specific brand/model/rating combination is actually in stock.
+  Replace `circuitBreakerProducts` with a real catalog before this section goes
+  live with actual inventory. This is the one deliberate, documented exception
+  to the site's usual "no fabricated data" rule (see "Photography rules" above)
+  — mock data here was an explicit part of the original request, not an
+  invented shortcut.
+- **No prices, no cart, no "Add to Cart."** `CircuitBreakerCard` uses a
+  "View Details" CTA that links to `/contact`, same as the real product pages'
+  "Request specification" pattern — there are no per-product detail pages for
+  this mock catalog yet (the `id` field on `CircuitBreakerProduct` is there to
+  extend into one later, if real catalog data and per-SKU content ever exist).
+- **No real brand logos.** `BrandGrid` renders brand names as plain text chips.
+  Do not source or fabricate Schneider/ABB/Legrand/etc. logo assets without the
+  user explicitly supplying them — an unauthorized third-party logo implies a
+  relationship that hasn't been verified.
+- **Placeholder images** live at `public/images/products/circuit-breaker/
+  <mcb|mccb|magnetic-contactor>/`, generated (not hand-drawn) to match the
+  site's dark/charcoal aesthetic. Filenames are predictable
+  (`mcb-sp-placeholder.png`, `mccb-tp-placeholder.png`,
+  `magnetic-contactor-placeholder.png`, plus `banner-placeholder.png` for the
+  landing hero) specifically so real product photography can replace them
+  file-for-file later without touching `circuit-breakers.ts` or any component.
+- **Mobile filtering** uses a slide-up drawer (`CircuitBreakerListing.tsx`),
+  not an always-open sidebar — the always-open checkbox list read as too
+  static and pushed products below the fold on narrow screens. The drawer has
+  a fixed header (with a real button-styled close action, not plain text) and
+  a fixed "Show N Results" footer, with only the filter groups scrolling in
+  between. The pole selector (SP/DP/TP) is a joined segmented control on
+  mobile and the `FinishSelector`-style card grid on desktop/tablet — two
+  different components sharing one `active`/`onSelect` API, not one component
+  awkwardly trying to look right at both sizes.
+
 ## Original brand assets
 
 - Use the original AULMO logo at `public/brand/aulmo-logo.png` everywhere a logo
@@ -270,6 +359,13 @@ route files picks up new entries automatically — no route code changes needed.
   continues to say **AULMO** throughout — that's the client's clear intent — but
   this is worth surfacing to the client rather than silently ignoring, in case
   "RULMO" is the actual OEM/factory name on manufactured hardware.
+- **Primary contact CTA is WhatsApp, not a phone dialer.** The header's
+  "Contact" pill and the chat widget's catalogue-request answer both open
+  `https://wa.me/8801720310552` with a pre-filled message, in a new tab
+  (`MagneticLink`'s `newTab` prop). Buttons explicitly labeled **"Call ___"**
+  (Footer, homepage closing CTA, the Contact page's own Call buttons) are
+  unchanged `tel:` links — don't convert those to WhatsApp too, their label
+  promises an actual phone call.
 
 ## Design preservation rules
 
