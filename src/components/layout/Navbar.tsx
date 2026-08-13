@@ -23,6 +23,7 @@ import {
 } from "@/components/ui/Icon";
 import type { CircuitBreakerCategory, ProductSeries } from "@/data/types";
 import { getCoverImage } from "@/lib/products";
+import { CATEGORY_POLES, POLE_ICONS } from "@/components/circuit-breaker/poleIcons";
 
 // useLayoutEffect runs before paint, avoiding a flash of the wrong nav theme
 // on load; it's a no-op (and warns) during SSR, so fall back to useEffect there.
@@ -451,13 +452,13 @@ function MegaMenu({
                     onClick={onClose}
                     className="group flex items-start gap-3.5"
                   >
-                    <Image
-                      src={c.image.src}
-                      alt={c.image.alt}
-                      width={56}
-                      height={56}
-                      className="h-14 w-14 flex-none bg-ink-raised object-cover"
-                    />
+                    <span className="flex h-14 w-14 flex-none items-center justify-center rounded-[10px] border border-paper/12 bg-ink-raised">
+                      {c.navIcon ? (
+                        <Image src={c.navIcon} alt="" width={40} height={40} className="h-9 w-9 object-contain" />
+                      ) : (
+                        <Image src={POLE_ICONS[CATEGORY_POLES[c.slug]]} alt="" width={40} height={40} className="h-9 w-9 object-contain brightness-0 invert" />
+                      )}
+                    </span>
                     <span className="flex-1">
                       <span className="flex items-baseline justify-between gap-2">
                         <span className="block text-[14.5px] font-bold tracking-wide group-hover:text-signal-yellow">
@@ -487,8 +488,8 @@ function MegaMenu({
                     onClick={onClose}
                     className="group flex flex-col items-center gap-2 rounded-[12px] border border-paper/14 bg-ink-raised/60 px-3 py-4 text-center transition-colors duration-300 hover:border-signal-yellow/60"
                   >
-                    <span className="flex h-9 w-9 items-center justify-center rounded-[8px] border border-paper/20 font-mono-label text-[10px] font-bold uppercase group-hover:border-signal-yellow group-hover:text-signal-yellow">
-                      {pole.toUpperCase()}
+                    <span className="flex h-10 w-10 items-center justify-center rounded-[8px] border border-paper/20 group-hover:border-signal-yellow">
+                      <Image src={POLE_ICONS[pole.toUpperCase() as keyof typeof POLE_ICONS]} alt="" width={28} height={28} className="h-6 w-6 object-contain brightness-0 invert" />
                     </span>
                     <span className="font-mono-label text-[8.5px] tracking-[0.1em] uppercase opacity-60">
                       {pole === "sp" ? "Single Pole" : pole === "dp" ? "Double Pole" : "Triple Pole"}
@@ -756,6 +757,13 @@ function MobileQuickNav({
                       active ? "bg-paper/8" : "hover:bg-paper/5",
                     )}
                   >
+                    <span className="flex h-10 w-10 flex-none items-center justify-center rounded-lg border border-paper/12 bg-ink-raised">
+                      {c.navIcon ? (
+                        <Image src={c.navIcon} alt="" width={28} height={28} className="h-6 w-6 object-contain" />
+                      ) : (
+                        <Image src={POLE_ICONS[CATEGORY_POLES[c.slug]]} alt="" width={28} height={28} className="h-6 w-6 object-contain brightness-0 invert" />
+                      )}
+                    </span>
                     <span className="min-w-0 flex-1">
                       <span className={clsx("block text-[13px] font-bold tracking-wide", active && "text-signal-yellow")}>
                         {c.name}

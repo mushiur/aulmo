@@ -3,7 +3,6 @@
 import Image from "next/image";
 import clsx from "clsx";
 import type { CircuitBreakerBrand } from "@/data/types";
-import { BRAND_LOGOS } from "@/components/circuit-breaker/brandLogos";
 import { useEffect, useRef, useState } from "react";
 import { ChevronLeftIcon, ChevronRightIcon } from "@/components/ui/Icon";
 
@@ -63,7 +62,11 @@ export default function BrandSelector({
             const active = activeBrand === brand.name;
             return (
               <button key={brand.slug} type="button" onClick={() => onSelect(active ? undefined : brand.name)} aria-pressed={active} className={clsx("flex h-11 min-w-[86px] snap-start items-center justify-center rounded-[7px] border bg-paper-bright px-2 transition-colors sm:h-[52px] sm:min-w-[96px] sm:px-3 md:min-w-0", active ? "border-signal-red ring-1 ring-signal-red" : "border-charcoal/16 hover:border-charcoal/45")}>
-                <Image src={BRAND_LOGOS[brand.slug]} alt={brand.name} width={144} height={48} unoptimized className="h-8 w-auto max-w-full object-contain mix-blend-multiply sm:h-10" />
+                {brand.logo ? (
+                  <Image src={brand.logo} alt={brand.name} width={144} height={48} unoptimized className="h-8 w-auto max-w-full object-contain mix-blend-multiply sm:h-10" />
+                ) : (
+                  <span className="font-mono-label text-[8px] font-bold tracking-[0.08em] uppercase opacity-70">{brand.name}</span>
+                )}
               </button>
             );
           })}

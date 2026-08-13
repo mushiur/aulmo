@@ -1,18 +1,82 @@
-import { circuitBreakerBrands, circuitBreakerCategories, circuitBreakerProducts } from "@/data/circuit-breakers";
-import type { CircuitBreakerPole } from "@/data/types";
+import { circuitBreakerCategories } from "@/data/circuit-breakers";
+import catalog from "@/data/circuit-breaker-catalog.json";
+import type { CircuitBreakerBrand, CircuitBreakerCategory, CircuitBreakerPole, CircuitBreakerProduct } from "@/data/types";
 
 /**
  * Accessors for the circuit breaker catalog. Components and pages should
  * read through this module rather than importing src/data/circuit-breakers.ts
- * directly — same convention as src/lib/products.ts.
+ * or circuit-breaker-catalog.json directly — same convention as
+ * src/lib/products.ts.
+ *
+ * Brands, breaker specs, brand logos and nav icons are all authored in
+ * circuit-breaker-catalog.json (a hand-editable content file, not code) —
+ * this module is just the shape that JSON gets flattened into for the rest
+ * of the app. Category structure (slug/name/description/hasPoles) still
+ * comes from src/data/circuit-breakers.ts; only its navIcon override is
+ * merged in from the JSON.
  */
 
-export async function getCircuitBreakerCategories() {
-  return circuitBreakerCategories;
+type CatalogProduct = {
+  id: string;
+  category: string;
+  pole?: CircuitBreakerPole;
+  series?: string;
+  name: string;
+  ratedCurrent: string;
+  curveType?: string;
+  breakingCapacity?: string;
+  voltage: string;
+  madeIn?: string;
+  image: string;
+};
+
+type CatalogBrand = {
+  slug: string;
+  name: string;
+  logo?: string;
+  products: CatalogProduct[];
+};
+
+type Catalog = {
+  categoryIcons?: Record<string, string>;
+  brands: CatalogBrand[];
+};
+
+const typedCatalog = catalog as Catalog;
+
+const circuitBreakerBrands: CircuitBreakerBrand[] = typedCatalog.brands.map((b) => ({
+  slug: b.slug,
+  name: b.name,
+  logo: b.logo || undefined,
+}));
+
+const circuitBreakerProducts: CircuitBreakerProduct[] = typedCatalog.brands.flatMap((brand) =>
+  brand.products.map((p) => ({
+    id: p.id,
+    categorySlug: p.category,
+    brandSlug: brand.slug,
+    pole: p.pole,
+    name: p.name,
+    series: p.series,
+    ratedCurrent: p.ratedCurrent,
+    curveType: p.curveType,
+    breakingCapacity: p.breakingCapacity,
+    voltage: p.voltage,
+    madeIn: p.madeIn,
+    image: { src: p.image, alt: `${brand.name} ${p.name}${p.pole ? `, ${p.pole}` : ""}` },
+  })),
+);
+
+export async function getCircuitBreakerCategories(): Promise<CircuitBreakerCategory[]> {
+  return circuitBreakerCategories.map((c) => ({
+    ...c,
+    navIcon: typedCatalog.categoryIcons?.[c.slug] || undefined,
+  }));
 }
 
 export async function getCircuitBreakerCategoryBySlug(slug: string) {
-  return circuitBreakerCategories.find((c) => c.slug === slug);
+  const categories = await getCircuitBreakerCategories();
+  return categories.find((c) => c.slug === slug);
 }
 
 export async function getCircuitBreakerCategoryParams() {

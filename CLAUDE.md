@@ -297,11 +297,24 @@ Schneider Electric, ABB, Legrand, Hyundai, CHINT, CNC Breaker and CNS Circuit
 Breaker. This is a **deliberately separate data model and route tree** from the
 product hierarchy above — not a variant of it, not merged into it:
 
-- **Data**: `src/data/circuit-breakers.ts` (`circuitBreakerCategories`,
-  `circuitBreakerBrands`, `circuitBreakerProducts`) + the `CircuitBreaker*` types
-  in `src/data/types.ts`. Accessors live in `src/lib/circuit-breakers.ts`,
-  mirroring `src/lib/products.ts`'s convention — pages read through the lib
-  layer, never the data file directly.
+- **Data**: `src/data/circuit-breakers.ts` holds only `circuitBreakerCategories`
+  (structural — slug/name/description/hasPoles/image, not something the client
+  edits). Brands, every breaker's specs, brand logos, and the MCB/MCCB/Magnetic
+  Contactor nav icons all live in **`src/data/circuit-breaker-catalog.json`** —
+  a deliberately plain, hand-editable content file (own `_instructions` block
+  at the top) so the client can add a brand, add a breaker, or swap in a real
+  photo/logo by editing a JSON value, with zero code changes. `src/lib/
+  circuit-breakers.ts` is what flattens that JSON into the `CircuitBreaker*`
+  shapes (`src/data/types.ts`) every component already consumes — pages and
+  components read through the lib layer, never the JSON or `circuit-
+  breakers.ts` directly, same convention as `src/lib/products.ts`.
+  **To add or update a breaker**: edit the relevant brand's `products` array
+  in `circuit-breaker-catalog.json` — add an object with a new `id`, or change
+  an existing one's `image`/ratings in place. **To add a brand**: add an
+  object to the top-level `brands` array with a new `slug`. Leave `logo` (on a
+  brand) or `image` (on a product) as `""` until a real file is uploaded to
+  `public/`; once it is, paste its site path into that field — nothing else
+  needs to change.
 - **Routes**: `/products/circuit-breaker` (landing — category cards + a
   text-only brand strip) and `/products/circuit-breaker/[category]` (MCB/MCCB
   get a pole selector — SP/DP/TP — plus filters by brand/rated current/curve
@@ -321,10 +334,26 @@ product hierarchy above — not a variant of it, not merged into it:
   "Request specification" pattern — there are no per-product detail pages for
   this mock catalog yet (the `id` field on `CircuitBreakerProduct` is there to
   extend into one later, if real catalog data and per-SKU content ever exist).
-- **No real brand logos.** `BrandGrid` renders brand names as plain text chips.
-  Do not source or fabricate Schneider/ABB/Legrand/etc. logo assets without the
-  user explicitly supplying them — an unauthorized third-party logo implies a
-  relationship that hasn't been verified.
+- **Brand logos**: the client has since supplied real logos for all 7 brands
+  (`public/images/products/circuit-breaker/Brand logo/<brand>/`), wired via
+  each brand's `logo` field in `circuit-breaker-catalog.json`. `BrandGrid` and
+  `BrandSelector` both render the real logo when `logo` is set and fall back
+  to a plain text chip when it's empty — so a brand added with no logo yet
+  never shows a broken image. Do not source or fabricate a logo for a brand
+  that hasn't supplied one; leave `logo: ""` and let the text-chip fallback
+  handle it.
+- **MCB/MCCB/Magnetic Contactor nav icons**: real per-category icons haven't
+  been uploaded yet, so `categoryIcons` in the JSON is still all `""`. Until
+  filled in, the mega menu and mobile nav fall back to showing the matching
+  SP/DP/TP pole icon as a stand-in (`CATEGORY_POLES` map in
+  `src/components/circuit-breaker/poleIcons.ts`: mcb→SP, mccb→DP,
+  magnetic-contactor→TP) — expected, not a bug. Once a real icon is uploaded
+  and its path pasted into `categoryIcons` in the JSON, the nav switches to it
+  automatically. The SP/DP/TP pole icon source files themselves
+  (`public/images/products/circuit-breaker/Pole icons/`) had large transparent
+  padding baked in (the SP glyph filled only 21% of its own canvas) — they
+  were cropped down to a consistent ~60–80% fill; the originals are kept
+  alongside as `*-original.png` rather than deleted.
 - **Placeholder images** live at `public/images/products/circuit-breaker/
   <mcb|mccb|magnetic-contactor>/`, generated (not hand-drawn) to match the
   site's dark/charcoal aesthetic. Filenames are predictable

@@ -116,6 +116,8 @@ export type CircuitBreakerPole = "SP" | "DP" | "TP";
 export type CircuitBreakerBrand = {
   slug: string;
   name: string;
+  /** Real brand logo URL, set by editing src/data/circuit-breaker-catalog.json. Empty/absent until supplied — BrandGrid stays text-only until then. */
+  logo?: string;
 };
 
 export type CircuitBreakerCategory = {
@@ -126,6 +128,8 @@ export type CircuitBreakerCategory = {
   /** Whether this category is selected by pole (MCB, MCCB) or not (Magnetic Contactor). */
   hasPoles: boolean;
   image: ImageRef;
+  /** Real nav/mega-menu icon URL, set via circuit-breaker-catalog.json. Empty/absent until supplied — nav falls back to a pole-icon stand-in. */
+  navIcon?: string;
 };
 
 /**
@@ -146,5 +150,6 @@ export type CircuitBreakerProduct = {
   curveType?: string;
   breakingCapacity?: string;
   voltage: string;
+  madeIn?: string;
   image: ImageRef;
 };

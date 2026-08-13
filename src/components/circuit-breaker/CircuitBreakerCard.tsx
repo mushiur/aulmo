@@ -50,6 +50,12 @@ export default function CircuitBreakerCard({
               <dd className="m-0 font-semibold">{product.curveType}</dd>
             </div>
           )}
+          {product.madeIn && (
+            <div>
+              <dt className="opacity-45">Made In</dt>
+              <dd className="m-0 font-semibold">{product.madeIn}</dd>
+            </div>
+          )}
         </dl>
         <MagneticLink
           href="/contact"
