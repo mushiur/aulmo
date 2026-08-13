@@ -249,3 +249,19 @@ export function DragIcon(props: IconProps) {
     </svg>
   );
 }
+
+export function MenuIcon(props: IconProps) {
+  return (
+    <svg {...strokeBase} {...props}>
+      <path d="M3 6h18M3 12h18M3 18h18" />
+    </svg>
+  );
+}
+
+export function CloseIcon(props: IconProps) {
+  return (
+    <svg {...strokeBase} {...props}>
+      <path d="M18 6 6 18M6 6l12 12" />
+    </svg>
+  );
+}
