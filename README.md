@@ -59,10 +59,10 @@ src/
 │   │                      CircuitBreakerListing, BrandGrid
 │   └── ui/                Reusable primitives (Reveal, MagneticLink, Lightbox,
 │                          Breadcrumb, ImagePlaceholder, Loader, ChatWidget, ...)
-├── data/                 Static content, plain TypeScript objects/arrays —
-│                         product-hierarchy.ts (switches/sockets) and
-│                         circuit-breakers.ts (distributed brands) are separate
-│                         data models, not merged
+├── data/                 Static content — hand-editable JSON where the client
+│                         edits it: product-hierarchy.json (switches/sockets)
+│                         and circuit-breaker-catalog.json (distributed brands)
+│                         are separate data models, not merged
 └── lib/                  Accessor functions — pages read content through here,
                           never straight from src/data/
 public/
@@ -94,13 +94,18 @@ K Series  — K30 (ink black/champagne gold/silver gray/pearl white),
             K40 (gold only so far), K50 (yellow wood grain only so far),
             K60 (bright gold/bronze/copper/rose gold)
 S Series  — S20 (black/gold/gray/white), S30 (black/gold/gray/white),
-            S50 (not built yet), S60 (black/gray/gold/white/red),
-            S70, S80 (not built yet), S90 (black/blue/orange/wine red)
+            S60 (black/gray/gold/white/red), S90 (black/blue/orange/wine red)
+            — S50 and S80 not built yet
 ```
 
-This lives in **one file**, `src/data/product-hierarchy.ts`, and drives the
-products mega-menu, the `/products` routes, the homepage series showcases, and
-related-product links. Nothing else duplicates this structure. See
+This lives in **one file**, `src/data/product-hierarchy.json` — a
+hand-editable JSON content file (see its own `_instructions` block) — and
+drives the products mega-menu, the `/products` routes, the homepage series
+showcases, and related-product links. Nothing else duplicates this structure.
+Every sub-series carries an `isDeleted` flag (default `false`); flip it to
+`true` to retire an item without losing its content — it keeps appearing
+everywhere with a "Currently Unavailable" sticker instead of disappearing,
+and is simply excluded from the homepage/mega-menu "featured" picks. See
 `CLAUDE.md` → "The product hierarchy" for the evidence-based rule this is
 built on (never add a finish because a spec names it — only once a real photo
 confirms it) and the full per-series notes.
@@ -111,8 +116,8 @@ confirms it) and the full per-series notes.
 MCCB, Magnetic Contactor) distribute third-party circuit-protection brands
 (Schneider Electric, ABB, Legrand, Hyundai, CHINT, CNC Breaker, CNS Circuit
 Breaker) alongside AULMO's own product line above. This is a **deliberately
-separate data model** — `src/data/circuit-breakers.ts` /
-`src/lib/circuit-breakers.ts` — not part of `product-hierarchy.ts`.
+separate data model** — `src/data/circuit-breaker-catalog.json` /
+`src/lib/circuit-breakers.ts` — not part of `product-hierarchy.json`.
 
 Every listing is **structured mock data**, not a verified real catalog: ratings
 use common industry-standard values (16A, C-curve, 6kA, 230/400V) as
@@ -126,18 +131,23 @@ replace them file-for-file later with no code changes. No prices, no cart —
 ### Adding a new product (no finish variants — K/S style)
 
 1. Drop its photo in `public/products/<series-slug>/<subseries-slug>/hero.jpg`.
-2. Add an entry under the right series in `src/data/product-hierarchy.ts`:
-   ```ts
+2. Add an entry under the right series in `src/data/product-hierarchy.json`:
+   ```json
    {
-     code: "K70",
-     slug: "k70",
-     name: "K70 Series",
-     description: "…",
-     image: { src: "/products/k-series/k70/hero.jpg", alt: "…" },
+     "code": "K70",
+     "slug": "k70",
+     "name": "K70 Series",
+     "description": "…",
+     "image": { "src": "/products/k-series/k70/hero.jpg", "alt": "…" },
+     "isDeleted": false
    }
    ```
 3. Done — the mega menu and all `/products` pages pick it up automatically
    (routes are statically generated from this file via `generateStaticParams`).
+
+To retire an item instead of deleting it, set its `isDeleted` to `true` — it
+keeps showing everywhere with a "Currently Unavailable" sticker instead of
+disappearing (see `CLAUDE.md` → "The product hierarchy").
 
 ### Adding a new color/finish variant (L/D/M style)
 
@@ -150,17 +160,19 @@ own gallery of supporting shots.
    (add `detail.jpg`, `lifestyle.jpg`, etc. alongside it for extra gallery shots
    of **that finish specifically** — never reuse another finish's photo).
 2. Add a `ProductVariant` entry to that sub-series's `variants` array:
-   ```ts
+   ```json
    {
-     code: "black",
-     name: "Ink Black",
-     swatch: "#17171A",              // CSS color or gradient for the swatch chip
-     hero: { src: "/products/l-series/l50/black/hero.jpg", alt: "…" },
-     gallery: [                       // optional — omit if you only have the hero shot
-       { src: "/products/l-series/l50/black/detail.jpg", alt: "…" },
-     ],
+     "code": "black",
+     "name": "Ink Black",
+     "swatch": "#17171A",
+     "hero": { "src": "/products/l-series/l50/black/hero.jpg", "alt": "…" },
+     "gallery": [
+       { "src": "/products/l-series/l50/black/detail.jpg", "alt": "…" }
+     ]
    }
    ```
+   (`swatch` is the CSS color/gradient for the finish selector's swatch chip;
+   `gallery` is optional — omit it if you only have the hero shot.)
 3. Done — the finish selector, the gallery, the mega-menu thumbnail, and (for L
    Series) the homepage showcase all update automatically. No component code
    changes needed.
@@ -174,7 +186,7 @@ clean gallery image).
 
 ### Updating an existing product or finish
 
-Edit its entry in `src/data/product-hierarchy.ts` directly — name, description,
+Edit its entry in `src/data/product-hierarchy.json` directly — name, description,
 spec, swatch color, or image paths. No other file needs to change.
 
 ### Adding a new sub-series or series

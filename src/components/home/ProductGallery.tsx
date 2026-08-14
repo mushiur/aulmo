@@ -27,8 +27,10 @@ type Slide = {
 function buildSlides(series: ProductSeries): Slide[] {
   const slides: Slide[] = [];
   for (const sub of series.subSeries) {
+    if (sub.isDeleted) continue;
     if (sub.variants && sub.variants.length > 0) {
       for (const variant of sub.variants) {
+        if (variant.isDeleted) continue;
         slides.push({
           key: `${sub.slug}-${variant.code}`,
           src: variant.hero.src,
@@ -57,7 +59,7 @@ const CARDS_PER_PAGE = 2;
 
 export default function ProductGallery({ series }: { series: ProductSeries[] }) {
   // Data-driven on purpose: adding, removing or renaming a series in
-  // product-hierarchy.ts changes what shows here automatically — no edits
+  // product-hierarchy.json changes what shows here automatically — no edits
   // needed in this file. A series only earns a filter pill once it has real
   // variant photography (buildSlides returns something for it), so K/S stay
   // out of the showcase until they get real photos, without an allow-list.

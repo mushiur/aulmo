@@ -20,6 +20,7 @@ export default function SeriesSubCard({
   image,
   featured = false,
   ctaLabel = "EXPLORE SERIES",
+  unavailable = false,
 }: {
   href: string;
   spec?: string;
@@ -28,6 +29,9 @@ export default function SeriesSubCard({
   image?: ImageRef;
   featured?: boolean;
   ctaLabel?: string;
+  /** Retired item (`isDeleted` in product-hierarchy.json) — still shown and
+   *  still navigable, just flagged, rather than removed from the grid. */
+  unavailable?: boolean;
 }) {
   return (
     <Link
@@ -40,10 +44,18 @@ export default function SeriesSubCard({
           alt={image.alt}
           fill
           sizes="(min-width: 768px) 33vw, 100vw"
-          className="object-cover transition-transform duration-[1200ms] ease-[cubic-bezier(.16,.84,.24,1)] group-hover:scale-105"
+          className={clsx(
+            "object-cover transition-transform duration-[1200ms] ease-[cubic-bezier(.16,.84,.24,1)] group-hover:scale-105",
+            unavailable && "grayscale",
+          )}
         />
       ) : (
         <ImagePlaceholder className="absolute inset-0" />
+      )}
+      {unavailable && (
+        <span className="absolute top-4 left-4 z-10 rounded-full bg-signal-red px-3 py-1.5 font-mono-label text-[9px] font-bold tracking-[0.14em] text-paper-bright uppercase">
+          Currently Unavailable
+        </span>
       )}
       <div className="absolute inset-0 bg-gradient-to-t from-ink/92 via-ink/25 to-transparent" />
       <div className={clsx("absolute inset-x-0 bottom-0 text-paper", featured ? "p-7" : "p-5")}>

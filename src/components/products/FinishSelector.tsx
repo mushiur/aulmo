@@ -36,11 +36,19 @@ export default function FinishSelector({
             )}
             <span
               aria-hidden="true"
-              className="h-10 w-10 flex-none rounded-[8px] border border-charcoal/10"
+              className={clsx("h-10 w-10 flex-none rounded-[8px] border border-charcoal/10", variant.isDeleted && "opacity-35 grayscale")}
               style={{ background: variant.swatch }}
             />
-            <span className="text-[12px] font-bold tracking-[-0.005em]">{variant.name}</span>
-            <span aria-hidden="true" className="h-[2px] w-5 rounded-full" style={{ background: variant.swatch }} />
+            <span className={clsx("text-[12px] font-bold tracking-[-0.005em]", variant.isDeleted && "opacity-45")}>
+              {variant.name}
+            </span>
+            {variant.isDeleted ? (
+              <span className="font-mono-label text-[8px] font-bold tracking-[0.1em] text-signal-red uppercase">
+                Unavailable
+              </span>
+            ) : (
+              <span aria-hidden="true" className="h-[2px] w-5 rounded-full" style={{ background: variant.swatch }} />
+            )}
           </button>
         );
       })}

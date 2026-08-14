@@ -18,10 +18,10 @@ brands, not AULMO's own product, but it must still stay a catalogue (specs + "Vi
 Details") with **no prices and no cart**, exactly like the switch/socket hierarchy.
 
 The site now covers **two separate product verticals**: AULMO's own manufactured
-switches/sockets/control panels (`src/data/product-hierarchy.ts`, real photography,
+switches/sockets/control panels (`src/data/product-hierarchy.json`, real photography,
 real finishes — see "The product hierarchy" below), and a **Circuit Breaker**
-catalogue of distributed third-party brands (`src/data/circuit-breakers.ts`, mock
-data, placeholder imagery — see "Circuit Breaker" below). They are intentionally
+catalogue of distributed third-party brands (`src/data/circuit-breaker-catalog.json`,
+mock data, placeholder imagery — see "Circuit Breaker" below). They are intentionally
 separate data models with separate lib accessors; do not merge them.
 
 ## What this project has — and does not have
@@ -86,9 +86,11 @@ src/
 │                                    MagneticLink, Breadcrumb, Lightbox,
 │                                    ImagePlaceholder, Loader, CustomCursor,
 │                                    ChatWidget, ...)
-├── data/                          Static content as plain TypeScript objects
-│   ├── product-hierarchy.ts        THE switch/socket product hierarchy — see below
-│   ├── circuit-breakers.ts         Circuit Breaker categories/brands/mock products
+├── data/                          Static content — hand-editable JSON where the
+│   │                                client edits it, plain TypeScript elsewhere
+│   ├── product-hierarchy.json      THE switch/socket product hierarchy — see below
+│   ├── circuit-breakers.ts         Circuit Breaker categories (structural only)
+│   ├── circuit-breaker-catalog.json Circuit Breaker brands/products/images
 │   ├── types.ts                    Shared content types (incl. ProductVariant,
 │   │                                CircuitBreakerProduct)
 │   ├── chat.ts                      Fixed Q&A for the chat widget
@@ -204,10 +206,45 @@ switch installed on a wall) and is now the K-series `heroStyle: "banner"` image,
 with `cardImage` set separately to K30's Ink Black studio shot so the `/products`
 overview grid is unaffected.
 
-**This structure lives in exactly one place: `src/data/product-hierarchy.ts`.**
+**This structure lives in exactly one place: `src/data/product-hierarchy.json`.**
 It is the single source of truth for the products mega-menu, `/products` routes,
 and related-product navigation. Never hardcode series or sub-series names/slugs in
-a component — always read through `src/lib/products.ts`.
+a component — always read through `src/lib/products.ts`, never the JSON directly.
+
+**The whole hierarchy is a hand-editable JSON file**, not TypeScript, mirroring
+`circuit-breaker-catalog.json`'s pattern (own `_instructions` block at the top).
+Adding a new sub-series, adding a whole new series, or updating any photo/spec is
+a JSON edit — no code change. `src/lib/products.ts` reads the JSON and casts it
+to the `ProductSeries[]` shape (`src/data/types.ts`); component-facing accessor
+signatures (`getProductHierarchy`, `getSeriesBySlug`, `getSubSeries`,
+`getCoverImage`, etc.) are unchanged from before this file was JSON, so no page
+or component needed to change for this migration.
+
+**Retiring an item — `isDeleted`, never actually deleting it.** Every sub-series
+has an `isDeleted: false` field. Flip it to `true` to retire that item: it stays
+in the JSON and keeps appearing everywhere it already does (its series' grid on
+`/products/[series]`, its own detail page, cross-links) — `SeriesSubCard` renders
+a "Currently Unavailable" sticker (signal-red pill) and grayscales its cover photo
+instead of removing the card, and the detail page shows the same sticker next to
+its `<h1>`. This preserves the content (photos, specs, copy) and makes it a single
+flag-flip to bring back, rather than losing everything by deleting the entry
+outright. The one place `isDeleted` items ARE excluded: `getFeaturedSubSeries()`
+(mega menu "FEATURED PRODUCTS" / homepage) and `ProductGallery`'s carousel slide
+list — a retired item is never actively promoted, only still browsable.
+
+**`isDeleted` also exists per-finish**, on each `ProductVariant` inside a
+sub-series' `variants` array — for the common case where only some colors of an
+item are retired (e.g. L50 still sells in black/gold but not gray/white), not
+the whole sub-series. Use sub-series-level `isDeleted` only when every finish of
+that item is gone. A deleted variant is still selectable in `FinishSelector`
+(its swatch/name dim, with a small red "Unavailable" mono-label under the name)
+and its photos stay in the gallery — `ProductGallery` grayscales the images and
+stamps a bold, rotated "Currently Unavailable" banner over the active photo
+when the selected finish is deleted (`ProductVariantExperience` passes
+`activeVariant.isDeleted` down as the `unavailable` prop). `getCoverImage`
+(`src/lib/products.ts`) prefers a non-deleted variant for card/thumbnail
+photos, so a retired finish being first in the array doesn't make it the
+thumbnail everywhere.
 
 ## The finish/variant architecture
 
@@ -247,11 +284,15 @@ K/S keep working unchanged.
 1. Add the photo(s) to `public/products/<series-slug>/<subseries-slug>/<finish-slug>/`
    (e.g. `public/products/l-series/l50/black/hero.jpg`). Extra shots for that
    finish go in the same folder (`detail.jpg`, `lifestyle.jpg`, ...).
-2. In `src/data/product-hierarchy.ts`, add a `ProductVariant` entry to that
+2. In `src/data/product-hierarchy.json`, add a `ProductVariant` entry to that
    sub-series's `variants` array with the `hero` (and `gallery`, if you added
    extra shots) pointing at the files from step 1.
 3. Done — the finish selector, gallery, mega menu thumbnail, and homepage showcase
    all pick it up automatically; nothing else needs to change.
+
+To retire an existing sub-series without losing its content, set its `isDeleted`
+to `true` in the same JSON instead of deleting the entry — see "Retiring an
+item" above.
 
 **Dimension diagrams (`architecture.png`) are one file per sub-series, not one
 per finish.** The line drawing doesn't change with color, so it belongs at

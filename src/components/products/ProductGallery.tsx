@@ -15,11 +15,16 @@ export default function ProductGallery({
   activeIndex,
   onSelect,
   priority,
+  unavailable = false,
 }: {
   images: ImageRef[];
   activeIndex: number;
   onSelect: (index: number) => void;
   priority?: boolean;
+  /** True when the finish/product currently shown (`isDeleted`) has been
+   *  retired — the photos stay visible, just stamped as unavailable rather
+   *  than hidden. */
+  unavailable?: boolean;
 }) {
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const dragStartX = useRef<number | null>(null);
@@ -70,18 +75,26 @@ export default function ProductGallery({
                   img.fit === "contain" ? "object-contain p-6" : "object-cover",
                   "pointer-events-none transition-opacity duration-500",
                   i === activeIndex ? "opacity-100" : "opacity-0",
+                  unavailable && "grayscale",
                 )}
               />
             ))}
           </motion.div>
         </AnimatePresence>
 
-        {hasMultiple && (
-          <div className="absolute top-4 left-4 flex items-center gap-2 rounded-full bg-ink/55 px-3 py-1.5 font-mono-label text-[9px] font-semibold tracking-[0.16em] text-paper uppercase backdrop-blur-sm">
-            <DragIcon className="h-3 w-3" />
-            Drag to explore
-          </div>
-        )}
+        <div className="pointer-events-none absolute top-4 left-4 z-10 flex flex-col items-start gap-2">
+          {hasMultiple && (
+            <div className="flex items-center gap-2 rounded-full bg-ink/55 px-3 py-1.5 font-mono-label text-[9px] font-semibold tracking-[0.16em] text-paper uppercase backdrop-blur-sm">
+              <DragIcon className="h-3 w-3" />
+              Drag to explore
+            </div>
+          )}
+          {unavailable && (
+            <div className="rounded-full border-2 border-signal-red bg-ink/70 px-3 py-1.5 font-mono-label text-[9px] font-bold tracking-[0.16em] text-paper uppercase backdrop-blur-sm">
+              Currently Unavailable
+            </div>
+          )}
+        </div>
 
         <button
           type="button"
@@ -149,7 +162,7 @@ export default function ProductGallery({
                   alt={img.alt}
                   fill
                   sizes="80px"
-                  className={img.fit === "contain" ? "object-contain p-1.5" : "object-cover"}
+                  className={clsx(img.fit === "contain" ? "object-contain p-1.5" : "object-cover", unavailable && "grayscale")}
                 />
               </span>
             </button>

@@ -3,7 +3,7 @@ import type { CircuitBreakerCategory } from "./types";
 /**
  * Circuit Breaker — distributed third-party brands sold alongside AULMO's
  * own switch/socket manufacturing, not part of that hierarchy (see
- * product-hierarchy.ts). Category structure only — brands, breakers/specs,
+ * product-hierarchy.json). Category structure only — brands, breakers/specs,
  * brand logos and nav icons all live in circuit-breaker-catalog.json (see
  * src/lib/circuit-breakers.ts, which merges the two), so that content can be
  * hand-edited without touching this file.

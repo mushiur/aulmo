@@ -22,7 +22,13 @@ export default function ProductVariantExperience({ variants }: { variants: Produ
 
   return (
     <div>
-      <ProductGallery images={images} activeIndex={imageIndex} onSelect={setImageIndex} priority />
+      <ProductGallery
+        images={images}
+        activeIndex={imageIndex}
+        onSelect={setImageIndex}
+        priority
+        unavailable={activeVariant.isDeleted}
+      />
       {variants.length > 1 && (
         <div className="mt-5 rounded-[16px] border border-charcoal/10 bg-bone-deep/60 p-4">
           <div className="mb-3 flex items-center gap-2.5">

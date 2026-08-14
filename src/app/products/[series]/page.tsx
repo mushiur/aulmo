@@ -208,6 +208,7 @@ export default async function SeriesPage({
                 description={sub.description}
                 image={getCoverImage(sub)}
                 featured={subSeries.length === 1}
+                unavailable={sub.isDeleted}
               />
             </Reveal>
           ))}

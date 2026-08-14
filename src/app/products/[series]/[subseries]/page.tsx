@@ -128,7 +128,12 @@ export default async function SubSeriesPage({
               { label: subSeries.name },
             ]}
           />
-          <h1 className="m-0 mt-6 text-[clamp(32px,5vw,68px)] leading-[0.94] font-extrabold tracking-[-0.04em] uppercase [font-stretch:114%]">
+          {subSeries.isDeleted && (
+            <span className="mt-6 inline-block rounded-full bg-signal-red px-3 py-1.5 font-mono-label text-[9px] font-bold tracking-[0.14em] text-paper-bright uppercase">
+              Currently Unavailable
+            </span>
+          )}
+          <h1 className={clsx("m-0 text-[clamp(32px,5vw,68px)] leading-[0.94] font-extrabold tracking-[-0.04em] uppercase [font-stretch:114%]", subSeries.isDeleted ? "mt-3" : "mt-6")}>
             {subSeries.name}
           </h1>
           <p className="m-0 mt-5 max-w-[48ch] text-pretty text-[15px] leading-[1.66] opacity-70">
@@ -158,7 +163,12 @@ export default async function SubSeriesPage({
                 { label: subSeries.name },
               ]}
             />
-            <h1 className="m-0 mt-6 text-[clamp(32px,5vw,68px)] leading-[0.94] font-extrabold tracking-[-0.04em] uppercase [font-stretch:114%]">
+            {subSeries.isDeleted && (
+              <span className="mt-6 inline-block rounded-full bg-signal-red px-3 py-1.5 font-mono-label text-[9px] font-bold tracking-[0.14em] text-paper-bright uppercase">
+                Currently Unavailable
+              </span>
+            )}
+            <h1 className={clsx("m-0 text-[clamp(32px,5vw,68px)] leading-[0.94] font-extrabold tracking-[-0.04em] uppercase [font-stretch:114%]", subSeries.isDeleted ? "mt-3" : "mt-6")}>
               {subSeries.name}
             </h1>
             <p className="m-0 mt-5 max-w-[48ch] text-pretty text-[15px] leading-[1.66] opacity-70">

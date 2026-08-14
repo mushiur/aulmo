@@ -31,12 +31,18 @@ export type ProductVariant = {
   swatch: string;
   hero: ImageRef;
   gallery?: ImageRef[];
+  /** True once this specific color/finish has been retired, independent of
+   *  its sub-series or siblings (e.g. L50 keeps selling in black/gold but not
+   *  gray/white). The finish stays selectable and its photos stay visible —
+   *  the finish selector and gallery just flag it as unavailable instead of
+   *  removing it. Defaults to false/absent (available). */
+  isDeleted?: boolean;
 };
 
 /**
  * Product hierarchy — the permanent Category -> Series -> Sub-series structure.
  * This is the single source of truth for the products mega-menu, /products
- * routes, and any related-product navigation. See src/data/product-hierarchy.ts.
+ * routes, and any related-product navigation. See src/data/product-hierarchy.json.
  *
  * A sub-series either has `variants` (multiple real color/finish options —
  * enables the finish selector + gallery on its detail page) or a plain
@@ -68,6 +74,12 @@ export type ProductSubSeries = {
    *  gallery thumbnail. One image renders full-width; two or more render
    *  side by side on desktop. */
   familyImages?: ImageRef[];
+  /** True once this item has been retired from sale. It is never removed from
+   *  product-hierarchy.json — everywhere it already appears keeps showing it,
+   *  with a "Currently Unavailable" sticker instead of the item disappearing,
+   *  so the content (and the option to bring it back) isn't lost. Defaults to
+   *  false/absent (available). */
+  isDeleted?: boolean;
 };
 
 export type ProductSeries = {
