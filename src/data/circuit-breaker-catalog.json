@@ -4,7 +4,7 @@
     "Leave 'logo', 'navIcon', or a product's 'image' as an empty string \"\" until you have a real file uploaded under public/. Once it's uploaded, paste its site path here (e.g. \"/images/products/circuit-breaker/mcb/schneider-acti9-6a.jpg\") — the site picks it up automatically on next build/refresh.",
     "While a nav icon is empty, the mega menu and mobile nav fall back to showing the matching pole icon (SP/DP/TP) as a stand-in — that's expected until you fill it in.",
     "'category' must be exactly one of: mcb, mccb, magnetic-contactor.",
-    "'pole' must be exactly one of: SP, DP, TP — omit the field entirely for Magnetic Contactor products, which don't have poles.",
+    "'pole' is only used for MCB products and must be exactly one of: SP, DP, TP. Omit the field entirely for MCCB and Magnetic Contactor products — real MCCB breakers are always 3-pole, so MCCB has no pole selector on the site at all (same as Magnetic Contactor).",
     "To add a brand: add an object to \"brands\" with a new unique 'slug' (lowercase, hyphenated) and 'name'.",
     "To add a breaker: add an object to that brand's \"products\" array with a new unique 'id'.",
     "Ratings here (rated current, breaking capacity, voltage, curve type) are illustrative placeholders per CLAUDE.md until replaced with real catalog specs — replace them the same way, by editing the value in place.",
@@ -35,12 +35,10 @@
       "name": "Schneider Electric",
       "logo": "/images/products/circuit-breaker/Brand logo/schneider/schneider-logo.png",
       "products": [
-        { "id": "mcb-schneider-electric-sp", "category": "mcb", "pole": "SP", "series": "Acti9 iC60N", "name": "Acti9 iC60N", "ratedCurrent": "16A", "curveType": "C Curve", "breakingCapacity": "6kA", "voltage": "230/400V", "madeIn": "Italy", "image": "/images/products/circuit-breaker/mcb/mcb-sp-placeholder.png" },
-        { "id": "mcb-schneider-electric-dp", "category": "mcb", "pole": "DP", "series": "Acti9 iC60N", "name": "Acti9 iC60N", "ratedCurrent": "32A", "curveType": "C Curve", "breakingCapacity": "6kA", "voltage": "230/400V", "image": "/images/products/circuit-breaker/mcb/mcb-dp-placeholder.png" },
-        { "id": "mcb-schneider-electric-tp", "category": "mcb", "pole": "TP", "series": "Acti9 iC60N", "name": "Acti9 iC60N", "ratedCurrent": "63A", "curveType": "C Curve", "breakingCapacity": "10kA", "voltage": "230/400V", "image": "/images/products/circuit-breaker/mcb/mcb-tp-placeholder.png" },
-        { "id": "mccb-schneider-electric-sp", "category": "mccb", "pole": "SP", "series": "EasyPact EZC", "name": "EasyPact EZC", "ratedCurrent": "100A", "curveType": "Thermal-Magnetic", "breakingCapacity": "25kA", "voltage": "415V", "image": "/images/products/circuit-breaker/mccb/mccb-sp-placeholder.png" },
-        { "id": "mccb-schneider-electric-dp", "category": "mccb", "pole": "DP", "series": "EasyPact EZC", "name": "EasyPact EZC", "ratedCurrent": "160A", "curveType": "Thermal-Magnetic", "breakingCapacity": "25kA", "voltage": "415V", "image": "/images/products/circuit-breaker/mccb/mccb-dp-placeholder.png" },
-        { "id": "mccb-schneider-electric-tp", "category": "mccb", "pole": "TP", "series": "EasyPact EZC", "name": "EasyPact EZC", "ratedCurrent": "250A", "curveType": "Thermal-Magnetic", "breakingCapacity": "36kA", "voltage": "415V", "image": "/images/products/circuit-breaker/mccb/mccb-tp-placeholder.png" },
+        { "id": "mcb-schneider-electric-sp", "category": "mcb", "pole": "SP", "series": "Acti9 iC60N", "name": "Acti9 iC60N", "ratedCurrent": "16A", "curveType": "C Curve", "breakingCapacity": "6kA", "voltage": "230/400V", "madeIn": "Italy", "image": "/images/products/circuit-breaker/Brand logo/schneider/schneider-sp.png" },
+        { "id": "mcb-schneider-electric-dp", "category": "mcb", "pole": "DP", "series": "Acti9 iC60N", "name": "Acti9 iC60N", "ratedCurrent": "32A", "curveType": "C Curve", "breakingCapacity": "6kA", "voltage": "230/400V", "image": "/images/products/circuit-breaker/Brand logo/schneider/schneider-dp.png" },
+        { "id": "mcb-schneider-electric-tp", "category": "mcb", "pole": "TP", "series": "Acti9 iC60N", "name": "Acti9 iC60N", "ratedCurrent": "63A", "curveType": "C Curve", "breakingCapacity": "10kA", "voltage": "230/400V","madeIn": "Japan", "image": "/images/products/circuit-breaker/Brand logo/schneider/schneider-tp.png" },
+        { "id": "mccb-schneider-electric-tp", "category": "mccb", "series": "EasyPact EZC", "name": "EasyPact EZC", "ratedCurrent": "250A", "curveType": "Thermal-Magnetic", "breakingCapacity": "36kA", "voltage": "415V", "image": "/images/products/circuit-breaker/mccb/mccb-tp-placeholder.png" },
         { "id": "magnetic-contactor-schneider-electric", "category": "magnetic-contactor", "series": "TeSys D", "name": "TeSys D", "ratedCurrent": "9A", "voltage": "230/400V coil", "image": "/images/products/circuit-breaker/magnetic-contactor/magnetic-contactor-placeholder.png" }
       ]
     },
@@ -52,9 +50,7 @@
         { "id": "mcb-abb-sp", "category": "mcb", "pole": "SP", "series": "S200", "name": "S200", "ratedCurrent": "16A", "curveType": "C Curve", "breakingCapacity": "6kA", "voltage": "230/400V", "image": "/images/products/circuit-breaker/mcb/mcb-sp-placeholder.png" },
         { "id": "mcb-abb-dp", "category": "mcb", "pole": "DP", "series": "S200", "name": "S200", "ratedCurrent": "32A", "curveType": "C Curve", "breakingCapacity": "6kA", "voltage": "230/400V", "image": "/images/products/circuit-breaker/mcb/mcb-dp-placeholder.png" },
         { "id": "mcb-abb-tp", "category": "mcb", "pole": "TP", "series": "S200", "name": "S200", "ratedCurrent": "63A", "curveType": "C Curve", "breakingCapacity": "10kA", "voltage": "230/400V", "image": "/images/products/circuit-breaker/mcb/mcb-tp-placeholder.png" },
-        { "id": "mccb-abb-sp", "category": "mccb", "pole": "SP", "series": "Tmax XT", "name": "Tmax XT", "ratedCurrent": "100A", "curveType": "Thermal-Magnetic", "breakingCapacity": "25kA", "voltage": "415V", "image": "/images/products/circuit-breaker/mccb/mccb-sp-placeholder.png" },
-        { "id": "mccb-abb-dp", "category": "mccb", "pole": "DP", "series": "Tmax XT", "name": "Tmax XT", "ratedCurrent": "160A", "curveType": "Thermal-Magnetic", "breakingCapacity": "25kA", "voltage": "415V", "image": "/images/products/circuit-breaker/mccb/mccb-dp-placeholder.png" },
-        { "id": "mccb-abb-tp", "category": "mccb", "pole": "TP", "series": "Tmax XT", "name": "Tmax XT", "ratedCurrent": "250A", "curveType": "Thermal-Magnetic", "breakingCapacity": "36kA", "voltage": "415V", "image": "/images/products/circuit-breaker/mccb/mccb-tp-placeholder.png" },
+        { "id": "mccb-abb-tp", "category": "mccb", "series": "Tmax XT", "name": "Tmax XT", "ratedCurrent": "250A", "curveType": "Thermal-Magnetic", "breakingCapacity": "36kA", "voltage": "415V", "image": "/images/products/circuit-breaker/mccb/mccb-tp-placeholder.png" },
         { "id": "magnetic-contactor-abb", "category": "magnetic-contactor", "series": "AF Series", "name": "AF Series", "ratedCurrent": "12A", "voltage": "230/400V coil", "image": "/images/products/circuit-breaker/magnetic-contactor/magnetic-contactor-placeholder.png" }
       ]
     },
@@ -84,9 +80,7 @@
       "name": "CHINT",
       "logo": "/images/products/circuit-breaker/Brand logo/chint/chint-logo.png",
       "products": [
-        { "id": "mccb-chint-sp", "category": "mccb", "pole": "SP", "series": "NM8", "name": "NM8", "ratedCurrent": "100A", "curveType": "Thermal-Magnetic", "breakingCapacity": "25kA", "voltage": "415V", "image": "/images/products/circuit-breaker/mccb/mccb-sp-placeholder.png" },
-        { "id": "mccb-chint-dp", "category": "mccb", "pole": "DP", "series": "NM8", "name": "NM8", "ratedCurrent": "160A", "curveType": "Thermal-Magnetic", "breakingCapacity": "25kA", "voltage": "415V", "image": "/images/products/circuit-breaker/mccb/mccb-dp-placeholder.png" },
-        { "id": "mccb-chint-tp", "category": "mccb", "pole": "TP", "series": "NM8", "name": "NM8", "ratedCurrent": "250A", "curveType": "Thermal-Magnetic", "breakingCapacity": "36kA", "voltage": "415V", "image": "/images/products/circuit-breaker/mccb/mccb-tp-placeholder.png" },
+        { "id": "mccb-chint-tp", "category": "mccb", "series": "NM8", "name": "NM8", "ratedCurrent": "250A", "curveType": "Thermal-Magnetic", "breakingCapacity": "36kA", "voltage": "415V", "image": "/images/products/circuit-breaker/mccb/mccb-tp-placeholder.png" },
         { "id": "magnetic-contactor-chint", "category": "magnetic-contactor", "series": "NC1", "name": "NC1", "ratedCurrent": "9A", "voltage": "230/400V coil", "image": "/images/products/circuit-breaker/magnetic-contactor/magnetic-contactor-placeholder.png" }
       ]
     },

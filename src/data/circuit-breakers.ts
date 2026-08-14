@@ -26,9 +26,12 @@ export const circuitBreakerCategories: CircuitBreakerCategory[] = [
     name: "MCCB",
     fullName: "Molded Case Circuit Breaker",
     description: "Higher-current protection for distribution boards and industrial feeders.",
-    hasPoles: true,
+    // Real MCCBs are always 3-pole devices — unlike MCB, there's no genuine
+    // SP/DP/TP choice to offer, so this category skips the pole selector
+    // entirely, same as Magnetic Contactor.
+    hasPoles: false,
     image: {
-      src: "/images/products/circuit-breaker/mccb/mccb-sp-placeholder.png",
+      src: "/images/products/circuit-breaker/mccb/mccb-tp-placeholder.png",
       alt: "MCCB — Molded Case Circuit Breaker",
     },
   },

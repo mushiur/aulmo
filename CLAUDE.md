@@ -362,10 +362,12 @@ product hierarchy above — not a variant of it, not merged into it:
   until a real file is uploaded to `public/`; once it is, paste its site path
   into that field — nothing else needs to change.
 - **Routes**: `/products/circuit-breaker` (landing — category cards + a
-  text-only brand strip) and `/products/circuit-breaker/[category]` (MCB/MCCB
-  get a pole selector — SP/DP/TP — plus filters by brand/rated current/curve
-  type/breaking capacity/voltage/series; Magnetic Contactor skips the pole
-  selector since it doesn't have one).
+  text-only brand strip) and `/products/circuit-breaker/[category]` (MCB gets
+  a pole selector — SP/DP/TP — plus filters by brand/rated current/curve
+  type/breaking capacity/voltage/series; MCCB and Magnetic Contactor both skip
+  the pole selector, since real MCCBs are always 3-pole and Magnetic
+  Contactors have no pole concept at all — `hasPoles: false` on both
+  categories in `src/data/circuit-breakers.ts`).
 - **Every product entry is structured mock data**, not a verified real catalog
   import. Ratings (16A, C-curve, 6kA, 230/400V, etc.) are common
   industry-standard values used as illustrative placeholders — they are not a

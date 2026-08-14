@@ -60,7 +60,7 @@ export default async function CircuitBreakerCategoryPage({ params }: { params: P
             </Reveal>
           </div>
           <div className="relative min-h-48 md:min-h-0">
-            <Image src={category.image.src} alt={category.image.alt} fill priority sizes="(min-width: 768px) 48vw, 100vw" className="object-contain object-center md:object-bottom" />
+            <Image src={category.image.src} alt={category.image.alt} fill priority sizes="(min-width: 768px) 48vw, 100vw" className="object-cover object-center md:object-bottom" />
           </div>
         </div>
       </section>

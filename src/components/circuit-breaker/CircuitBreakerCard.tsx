@@ -13,13 +13,13 @@ export default function CircuitBreakerCard({
 }) {
   return (
     <div className="group flex flex-row overflow-hidden rounded-[16px] border border-charcoal/12 bg-paper-bright transition-colors duration-300 hover:border-charcoal/30 sm:flex-col">
-      <div className="relative aspect-square w-28 flex-none bg-ink-raised sm:w-full">
+      <div className="relative aspect-square w-28 flex-none bg-white sm:w-full">
         <Image
           src={product.image.src}
           alt={product.image.alt}
           fill
           sizes="(min-width: 1024px) 22vw, (min-width: 640px) 40vw, 112px"
-          className="object-contain p-3 transition-transform duration-500 group-hover:scale-105 sm:p-6"
+          className="object-contain p-1.5 transition-transform duration-500 group-hover:scale-105 sm:p-4"
         />
       </div>
       <div className="flex flex-1 flex-col p-3.5 sm:p-4">

@@ -8,6 +8,8 @@ export const POLE_ICONS: Record<CircuitBreakerPole, string> = {
 
 export const CATEGORY_POLES: Record<string, CircuitBreakerPole> = {
   mcb: "SP",
-  mccb: "DP",
+  // MCCB is a real 3-pole-only device — TP is its actual configuration, not
+  // an arbitrary stand-in, even though the category has no pole selector.
+  mccb: "TP",
   "magnetic-contactor": "TP",
 };
