@@ -28,8 +28,8 @@ export default async function CircuitBreakerPage() {
           src="/images/products/circuit-breaker/banner-placeholder.png"
           alt="Circuit breaker protection — MCB, MCCB and Magnetic Contactor"
           fill
-          sizes="100vw"
-          className="object-cover"
+          sizes="100vw" 
+          className="object-cover object-[78%_center]"
           priority
         />
         <div className="absolute inset-0 bg-gradient-to-t from-ink/92 via-ink/45 to-ink/10" />

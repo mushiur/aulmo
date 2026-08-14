@@ -8,12 +8,12 @@ import type { CircuitBreakerBrand, CircuitBreakerCategory, CircuitBreakerPole, C
  * or circuit-breaker-catalog.json directly — same convention as
  * src/lib/products.ts.
  *
- * Brands, breaker specs, brand logos and nav icons are all authored in
- * circuit-breaker-catalog.json (a hand-editable content file, not code) —
- * this module is just the shape that JSON gets flattened into for the rest
- * of the app. Category structure (slug/name/description/hasPoles) still
- * comes from src/data/circuit-breakers.ts; only its navIcon override is
- * merged in from the JSON.
+ * Brands, breaker specs, brand logos, category card photos and nav icons are
+ * all authored in circuit-breaker-catalog.json (a hand-editable content file,
+ * not code) — this module is just the shape that JSON gets flattened into
+ * for the rest of the app. Category structure (slug/name/description/
+ * hasPoles) still comes from src/data/circuit-breakers.ts; its `image` and
+ * `navIcon` are overridden from the JSON's `categories.<slug>` entry.
  */
 
 type CatalogProduct = {
@@ -37,8 +37,13 @@ type CatalogBrand = {
   products: CatalogProduct[];
 };
 
+type CatalogCategory = {
+  navIcon?: string;
+  cardImage?: string;
+};
+
 type Catalog = {
-  categoryIcons?: Record<string, string>;
+  categories?: Record<string, CatalogCategory>;
   brands: CatalogBrand[];
 };
 
@@ -68,10 +73,14 @@ const circuitBreakerProducts: CircuitBreakerProduct[] = typedCatalog.brands.flat
 );
 
 export async function getCircuitBreakerCategories(): Promise<CircuitBreakerCategory[]> {
-  return circuitBreakerCategories.map((c) => ({
-    ...c,
-    navIcon: typedCatalog.categoryIcons?.[c.slug] || undefined,
-  }));
+  return circuitBreakerCategories.map((c) => {
+    const override = typedCatalog.categories?.[c.slug];
+    return {
+      ...c,
+      image: override?.cardImage ? { ...c.image, src: override.cardImage } : c.image,
+      navIcon: override?.navIcon || undefined,
+    };
+  });
 }
 
 export async function getCircuitBreakerCategoryBySlug(slug: string) {

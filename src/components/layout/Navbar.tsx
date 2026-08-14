@@ -511,7 +511,7 @@ function MegaMenu({
                   alt="Circuit breaker protection"
                   width={480}
                   height={230}
-                  className="h-[230px] w-full bg-ink-raised object-cover"
+                  className="h-[230px] w-full bg-ink-raised object-cover object-[78%_center]"
                 />
                 <div className="mt-3.5 flex items-baseline justify-between">
                   <div>

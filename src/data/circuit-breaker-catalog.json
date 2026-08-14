@@ -9,13 +9,24 @@
     "To add a breaker: add an object to that brand's \"products\" array with a new unique 'id'.",
     "Ratings here (rated current, breaking capacity, voltage, curve type) are illustrative placeholders per CLAUDE.md until replaced with real catalog specs — replace them the same way, by editing the value in place.",
     "'madeIn' (country of manufacture) is optional — add it to a product if you know it, or leave it out; it only shows on the card when present.",
-    "Fields not already listed here (e.g. adding a brand-new spec beyond madeIn) won't show up on the site just by adding them to a product — they still need a matching field wired into src/lib/circuit-breakers.ts and the card component. Ask for that to be added once, then every product can use it."
+    "Fields not already listed here (e.g. adding a brand-new spec beyond madeIn) won't show up on the site just by adding them to a product — they still need a matching field wired into src/lib/circuit-breakers.ts and the card component. Ask for that to be added once, then every product can use it.",
+    "'categories.<slug>.cardImage' is the photo shown on the /products/circuit-breaker landing page's 'Browse by Type' cards (MCB / MCCB / Magnetic Contactor) — already pointing at the generated placeholder files; replace the path the same way once you have a real photo.",
+    "'categories.<slug>.navIcon' is a separate, smaller icon used only in the mega menu / mobile nav — leave it empty until you have a dedicated icon graphic; until then the nav falls back to showing the matching SP/DP/TP pole icon."
   ],
 
-  "categoryIcons": {
-    "mcb": "",
-    "mccb": "",
-    "magnetic-contactor": ""
+  "categories": {
+    "mcb": {
+      "navIcon": "",
+      "cardImage": "/images/products/circuit-breaker/mcb/mcb-catalog-image.png"
+    },
+    "mccb": {
+      "navIcon": "",
+      "cardImage": "/images/products/circuit-breaker/mccb/mccb-catalog-image.png"
+    },
+    "magnetic-contactor": {
+      "navIcon": "",
+      "cardImage": "/images/products/circuit-breaker/magnetic-contactor/magnetic_contactor-catalog-image.png"
+    }
   },
 
   "brands": [
