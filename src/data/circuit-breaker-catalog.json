@@ -90,8 +90,10 @@
           "category": "magnetic-contactor",
           "series": "TeSys D",
           "name": "TeSys D",
-          "ratedCurrent": "9A",
-          "voltage": "230/400V coil",
+          "ratedCurrent": "9A (AC-3) / 25A (AC-1)",
+          "breakingCapacity": "250A @ 440V - 690V AC",
+          "voltage": "230V AC",
+          "madeIn": "France / Indonesia",
           "image": "/images/products/circuit-breaker/Brand logo/schneider/magnetic-contactor-placeholder.png"
         }
       ]
@@ -160,9 +162,11 @@
           "category": "magnetic-contactor",
           "series": "AF Series",
           "name": "AF Series",
-          "ratedCurrent": "12A",
-          "voltage": "230/400V coil",
-          "image": "/images/products/circuit-breaker/magnetic-contactor/magnetic-contactor-placeholder.png"
+          "ratedCurrent": "12A (AC-3) / 28A (AC-1)",
+          "voltage": "100V-250V AC/DC - 690V AC",
+          "breakingCapacity": "250A @ 440V",
+          "madeIn": "Germany / Italy /  India",
+          "image": "/images/products/circuit-breaker/Brand logo/ABB/abb-magnetic.png"
         }
       ]
     },
@@ -226,10 +230,12 @@
           "id": "magnetic-contactor-legrand",
           "category": "magnetic-contactor",
           "series": "CTX³",
-          "name": "CTX³",
-          "ratedCurrent": "11A",
-          "voltage": "230/400V coil",
-          "image": "/images/products/circuit-breaker/magnetic-contactor/magnetic-contactor-placeholder.png"
+          "name": "CTX³ Contactor",
+          "ratedCurrent": "12A (AC-3) / 20A (AC-1)",
+          "voltage": "230V AC - 690V AC",
+          "breakingCapacity": "250A @ 440V",
+          "madeIn": "France / South Korea",
+          "image": "/images/products/circuit-breaker/Brand logo/legrand/legrand-magnetic-contactor.png"
         }
       ]
     },
@@ -294,8 +300,9 @@
           "category": "magnetic-contactor",
           "series": "HGD63N",
           "name": "HGD63N",
-          "ratedCurrent": "9A",
-          "voltage": "230/400V coil",
+          "ratedCurrent": "9A (AC-3) / 25A (AC-1",
+          "voltage": "230V AC - 690V AC",
+          "breakingCapacity": "250A @ 440V",
           "madeIn": "South korea / India",
           "image": "/images/products/circuit-breaker/Brand logo/Hyundai/hyundai-magnetic-contactor.png"
         }
@@ -359,10 +366,10 @@
           "category": "magnetic-contactor",
           "series": "NC1",
           "name": "NC1",
-          "ratedCurrent": "9A",
-          "voltage": "230/400V coil",
+          "ratedCurrent": "9A (AC-3) / 20A (AC-1)",
+          "voltage": "230V AC - 690V AC",
           "madeIn": "China",
-          "image": "/images/products/circuit-breaker/magnetic-contactor/magnetic-contactor-placeholder.png"
+          "image": "/images/products/circuit-breaker/Brand logo/chint/chint-magnetic-conactor.png"
         }
       ]
     },
@@ -427,10 +434,12 @@
           "category": "magnetic-contactor",
           "series": "HGD63N",
           "name": "YCB7-63N",
-          "ratedCurrent": "9A",
+          "ratedCurrent": "6A - 63A",
+          "curveType": "C Curve / B Curve",
+          "breakingCapacity": "6kA - 10kA",
           "voltage": "230/400V coil",
           "madeIn": "China",
-          "image": "/images/products/circuit-breaker/magnetic-contactor/magnetic-contactor-placeholder.png"
+          "image": "/images/products/circuit-breaker/Brand logo/cnc/cnc-magnetic.png"
         }
       ]
     },
@@ -495,10 +504,11 @@
           "category": "magnetic-contactor",
           "series": "HGD63N",
           "name": "WiNtrip",
-          "ratedCurrent": "9A",
-          "voltage": "230/400V coil",
+          "ratedCurrent": "9A - 80A",
+          "breakingCapacity": "250A",
+          "voltage": "230/440V coil",
           "madeIn": "India",
-          "image": "/images/products/circuit-breaker/magnetic-contactor/magnetic-contactor-placeholder.png"
+          "image": "/images/products/circuit-breaker/Brand logo/cns/cns-magnetic-contactor.png"
         }
       ]
     }
