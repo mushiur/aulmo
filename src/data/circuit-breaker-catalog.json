@@ -14,7 +14,6 @@
     "'categories.<slug>.cardImage' is the photo shown on the /products/circuit-breaker landing page's 'Browse by Type' cards (MCB / MCCB / Magnetic Contactor) — already pointing at the generated placeholder files; replace the path the same way once you have a real photo.",
     "'categories.<slug>.navIcon' is a separate, smaller icon used only in the mega menu / mobile nav — leave it empty until you have a dedicated icon graphic; until then the nav falls back to showing the matching SP/DP/TP pole icon."
   ],
-
   "categories": {
     "mcb": {
       "navIcon": "",
@@ -29,18 +28,72 @@
       "cardImage": "/images/products/circuit-breaker/magnetic-contactor/magnetic_contactor-catalog-image.png"
     }
   },
-
   "brands": [
     {
       "slug": "schneider-electric",
       "name": "Schneider Electric",
       "logo": "/images/products/circuit-breaker/Brand logo/schneider/schneider-logo.png",
       "products": [
-        { "id": "mcb-schneider-electric-sp", "category": "mcb", "pole": "SP", "series": "Acti9 iC60N", "name": "Acti9 iC60N", "ratedCurrent": "6A- 63A", "curveType": "C Curve", "breakingCapacity": "6kA - 10kA", "voltage": "230/400V", "madeIn": "India / France", "image": "/images/products/circuit-breaker/Brand logo/schneider/schneider-sp.png" },
-        { "id": "mcb-schneider-electric-dp", "category": "mcb", "pole": "DP", "series": "Acti9 iC60N", "name": "Acti9 iC60N", "ratedCurrent": "6A- 63A", "curveType": "C Curve", "breakingCapacity": "6kA - 10kA", "voltage": "230/400V", "madeIn": "India / France", "image": "/images/products/circuit-breaker/Brand logo/schneider/schneider-dp.png" },
-        { "id": "mcb-schneider-electric-tp", "category": "mcb", "pole": "TP", "series": "Acti9 iC60N", "name": "Acti9 iC60N", "ratedCurrent": "6A- 63A", "curveType": "C Curve", "breakingCapacity": "6kA - 10kA", "voltage": "230/400V", "madeIn": "India / France", "image": "/images/products/circuit-breaker/Brand logo/schneider/schneider-tp.png" },
-        { "id": "mccb-schneider-electric-tp", "category": "mccb", "series": "EasyPact EZC", "name": "EasyPact EZC", "ratedCurrent": "250A", "curveType": "Thermal-Magnetic", "breakingCapacity": "36kA", "voltage": "440V", "madeIn": "India / France", "image": "/images/products/circuit-breaker/Brand logo/schneider/mccb-tp-placeholder.png" },
-        { "id": "magnetic-contactor-schneider-electric", "category": "magnetic-contactor", "series": "TeSys D", "name": "TeSys D", "ratedCurrent": "9A", "voltage": "230/400V coil", "image": "/images/products/circuit-breaker/Brand logo/schneider/magnetic-contactor-placeholder.png" }
+        {
+          "id": "mcb-schneider-electric-sp",
+          "category": "mcb",
+          "pole": "SP",
+          "series": "Acti9 iC60N",
+          "name": "Acti9 iC60N",
+          "ratedCurrent": "6A- 63A",
+          "curveType": "C Curve",
+          "breakingCapacity": "6kA - 10kA",
+          "voltage": "230/400V",
+          "madeIn": "India / France",
+          "image": "/images/products/circuit-breaker/Brand logo/schneider/schneider-sp.png"
+        },
+        {
+          "id": "mcb-schneider-electric-dp",
+          "category": "mcb",
+          "pole": "DP",
+          "series": "Acti9 iC60N",
+          "name": "Acti9 iC60N",
+          "ratedCurrent": "6A- 63A",
+          "curveType": "C Curve",
+          "breakingCapacity": "6kA - 10kA",
+          "voltage": "230/400V",
+          "madeIn": "India / France",
+          "image": "/images/products/circuit-breaker/Brand logo/schneider/schneider-dp.png"
+        },
+        {
+          "id": "mcb-schneider-electric-tp",
+          "category": "mcb",
+          "pole": "TP",
+          "series": "Acti9 iC60N",
+          "name": "Acti9 iC60N",
+          "ratedCurrent": "6A- 63A",
+          "curveType": "C Curve",
+          "breakingCapacity": "6kA - 10kA",
+          "voltage": "230/400V",
+          "madeIn": "India / France",
+          "image": "/images/products/circuit-breaker/Brand logo/schneider/schneider-tp.png"
+        },
+        {
+          "id": "mccb-schneider-electric-tp",
+          "category": "mccb",
+          "series": "EasyPact EZC",
+          "name": "EasyPact EZC",
+          "ratedCurrent": "250A",
+          "curveType": "Thermal-Magnetic",
+          "breakingCapacity": "36kA",
+          "voltage": "440V",
+          "madeIn": "India / France",
+          "image": "/images/products/circuit-breaker/Brand logo/schneider/mccb-tp-placeholder.png"
+        },
+        {
+          "id": "magnetic-contactor-schneider-electric",
+          "category": "magnetic-contactor",
+          "series": "TeSys D",
+          "name": "TeSys D",
+          "ratedCurrent": "9A",
+          "voltage": "230/400V coil",
+          "image": "/images/products/circuit-breaker/Brand logo/schneider/magnetic-contactor-placeholder.png"
+        }
       ]
     },
     {
@@ -48,14 +101,69 @@
       "name": "ABB",
       "logo": "/images/products/circuit-breaker/Brand logo/ABB/abb-logo.png",
       "products": [
-        { "id": "mcb-abb-sp", "category": "mcb", "pole": "SP", "series": "S200", "name": "SH200", 
-        "model": "SH201", "ratedCurrent": "6A - 63A", "curveType": "C Curve", "breakingCapacity": "3kA -10kA", "voltage": "230/400V","madeIn": "Germany / Italy /  India", "image": "/images/products/circuit-breaker/Brand logo/ABB/abb-mcb-sp.png" },
-        { "id": "mcb-abb-dp", "category": "mcb", "pole": "DP", "series": "S200", "name": "SH200", 
-        "model": "SH202", "ratedCurrent": "6A - 63A", "curveType": "C Curve", "breakingCapacity": "3kA -10kA", "voltage": "230/400V","madeIn": "Germany / Italy /  India", "image": "/images/products/circuit-breaker/Brand logo/ABB/abb-mcb-dp.png" },
-        { "id": "mcb-abb-tp", "category": "mcb", "pole": "TP", "series": "S200", "name": "SH200", 
-        "model": "SH203", "ratedCurrent": "6A - 63A", "curveType": "C Curve", "breakingCapacity": "3kA -10kA", "voltage": "230/400V","madeIn": "Germany / Italy /  India", "image": "/images/products/circuit-breaker/Brand logo/ABB/abb-mcb-tp.png" },
-        { "id": "mccb-abb-tp", "category": "mccb", "series": "Tmax XT", "name": "Tmax XT", "ratedCurrent": "250A", "curveType": "Thermal-Magnetic", "breakingCapacity": "36kA", "voltage": "415V", "image": "/images/products/circuit-breaker/mccb/mccb-tp-placeholder.png" },
-        { "id": "magnetic-contactor-abb", "category": "magnetic-contactor", "series": "AF Series", "name": "AF Series", "ratedCurrent": "12A", "voltage": "230/400V coil", "image": "/images/products/circuit-breaker/magnetic-contactor/magnetic-contactor-placeholder.png" }
+        {
+          "id": "mcb-abb-sp",
+          "category": "mcb",
+          "pole": "SP",
+          "series": "S200",
+          "name": "SH200",
+          "model": "SH201",
+          "ratedCurrent": "6A - 63A",
+          "curveType": "C Curve",
+          "breakingCapacity": "3kA -10kA",
+          "voltage": "230/400V",
+          "madeIn": "Germany / Italy /  India",
+          "image": "/images/products/circuit-breaker/Brand logo/ABB/abb-mcb-sp.png"
+        },
+        {
+          "id": "mcb-abb-dp",
+          "category": "mcb",
+          "pole": "DP",
+          "series": "S200",
+          "name": "SH200",
+          "model": "SH202",
+          "ratedCurrent": "6A - 63A",
+          "curveType": "C Curve",
+          "breakingCapacity": "3kA -10kA",
+          "voltage": "230/400V",
+          "madeIn": "Germany / Italy /  India",
+          "image": "/images/products/circuit-breaker/Brand logo/ABB/abb-mcb-dp.png"
+        },
+        {
+          "id": "mcb-abb-tp",
+          "category": "mcb",
+          "pole": "TP",
+          "series": "S200",
+          "name": "SH200",
+          "model": "SH203",
+          "ratedCurrent": "6A - 63A",
+          "curveType": "C Curve",
+          "breakingCapacity": "3kA -10kA",
+          "voltage": "230/400V",
+          "madeIn": "Germany / Italy /  India",
+          "image": "/images/products/circuit-breaker/Brand logo/ABB/abb-mcb-tp.png"
+        },
+        {
+          "id": "mccb-abb-tp",
+          "category": "mccb",
+          "series": "Tmax XT",
+          "name": "Tmax XT",
+          "ratedCurrent": "1600A",
+          "curveType": "Thermal-Magnetic",
+          "breakingCapacity": "70kA",
+          "voltage": "1000V / 1500V",
+          "madeIn": "Germany / Italy /  India",
+          "image": "/images/products/circuit-breaker/Brand logo/ABB/abb-mccb.png"
+        },
+        {
+          "id": "magnetic-contactor-abb",
+          "category": "magnetic-contactor",
+          "series": "AF Series",
+          "name": "AF Series",
+          "ratedCurrent": "12A",
+          "voltage": "230/400V coil",
+          "image": "/images/products/circuit-breaker/magnetic-contactor/magnetic-contactor-placeholder.png"
+        }
       ]
     },
     {
@@ -63,10 +171,66 @@
       "name": "Legrand",
       "logo": "/images/products/circuit-breaker/Brand logo/legrand/legrand-logo.png",
       "products": [
-        { "id": "mcb-legrand-sp", "category": "mcb", "pole": "SP", "series": "DX³", "name": "DX³", "ratedCurrent": "6A - 63A", "curveType": "C Curve", "breakingCapacity": "6kA - 10kA", "voltage": "60V - 90V", "madeIn":"India / France", "image": "/images/products/circuit-breaker/Brand logo/ABB/abb-mcb-sp.png" },
-        { "id": "mcb-legrand-dp", "category": "mcb", "pole": "DP", "series": "DX³", "name": "DX³", "ratedCurrent": "6A - 63A", "curveType": "C Curve", "breakingCapacity": "6kA - 10kA", "voltage": "110V - 150V", "madeIn":"India / France", "image": "/images/products/circuit-breaker/Brand logo/legrand/legrand-mcb-dp.png" },
-        { "id": "mcb-legrand-tp", "category": "mcb", "pole": "TP", "series": "DX³", "name": "DX³", "ratedCurrent": "6A - 63A", "curveType": "C Curve", "breakingCapacity": "6kA - 10kA", "voltage": "150V - 200V","madeIn":"India / France", "image": "/images/products/circuit-breaker/Brand logo/legrand/legrand-mcb-tp.png" },
-        { "id": "magnetic-contactor-legrand", "category": "magnetic-contactor", "series": "CTX³", "name": "CTX³", "ratedCurrent": "11A", "voltage": "230/400V coil", "image": "/images/products/circuit-breaker/magnetic-contactor/magnetic-contactor-placeholder.png" }
+        {
+          "id": "mcb-legrand-sp",
+          "category": "mcb",
+          "pole": "SP",
+          "series": "DX³",
+          "name": "DX³",
+          "ratedCurrent": "6A - 63A",
+          "curveType": "C Curve",
+          "breakingCapacity": "6kA - 10kA",
+          "voltage": "60V - 90V",
+          "madeIn": "India / France",
+          "image": "/images/products/circuit-breaker/Brand logo/ABB/abb-mcb-sp.png"
+        },
+        {
+          "id": "mcb-legrand-dp",
+          "category": "mcb",
+          "pole": "DP",
+          "series": "DX³",
+          "name": "DX³",
+          "ratedCurrent": "6A - 63A",
+          "curveType": "C Curve",
+          "breakingCapacity": "6kA - 10kA",
+          "voltage": "110V - 150V",
+          "madeIn": "India / France",
+          "image": "/images/products/circuit-breaker/Brand logo/legrand/legrand-mcb-dp.png"
+        },
+        {
+          "id": "mcb-legrand-tp",
+          "category": "mcb",
+          "pole": "TP",
+          "series": "DX³",
+          "name": "DX³",
+          "ratedCurrent": "6A - 63A",
+          "curveType": "C Curve",
+          "breakingCapacity": "6kA - 10kA",
+          "voltage": "150V - 200V",
+          "madeIn": "India / France",
+          "image": "/images/products/circuit-breaker/Brand logo/legrand/legrand-mcb-tp.png"
+        },
+        {
+          "id": "mccb-legrand-tp",
+          "category": "mccb",
+          "series": "DX³",
+          "name": "DPX3",
+          "ratedCurrent": "16A - 1000A",
+          "curveType": "Thermal-Magnetic",
+          "breakingCapacity": "16kA - 70kA",
+          "voltage": "1000V / 1500V",
+          "madeIn": "India / France",
+          "image": "/images/products/circuit-breaker/Brand logo/legrand/legrand-mccb.png"
+        },
+        {
+          "id": "magnetic-contactor-legrand",
+          "category": "magnetic-contactor",
+          "series": "CTX³",
+          "name": "CTX³",
+          "ratedCurrent": "11A",
+          "voltage": "230/400V coil",
+          "image": "/images/products/circuit-breaker/magnetic-contactor/magnetic-contactor-placeholder.png"
+        }
       ]
     },
     {
@@ -74,9 +238,67 @@
       "name": "Hyundai",
       "logo": "/images/products/circuit-breaker/Brand logo/Hyundai/hyundai-logo.png",
       "products": [
-        { "id": "mcb-hyundai-sp", "category": "mcb", "pole": "SP", "series": "HGD63N", "name": "HGD63N", "ratedCurrent": "16A - 63A", "curveType": "C Curve", "breakingCapacity": "6kA - 10kA", "voltage": "230/400V", "madeIn":"South korea / India", "image": "/images/products/circuit-breaker/Brand logo/Hyundai/hyundai-mcb-sp.png" },
-        { "id": "mcb-hyundai-dp", "category": "mcb", "pole": "DP", "series": "HGD63N", "name": "HGD63N", "ratedCurrent": "6A - 63A", "curveType": "C Curve", "breakingCapacity": "6kA - 10kA", "voltage": "230/400V", "madeIn":"South korea / India", "image": "/images/products/circuit-breaker/Brand logo/Hyundai/hyundai-mcb-dp.png" },
-        { "id": "mcb-hyundai-tp", "category": "mcb", "pole": "TP", "series": "HGD63N", "name": "HGD63N", "ratedCurrent": "6A - 63A", "curveType": "C Curve", "breakingCapacity": "6kA - 10kA", "voltage": "230/400V", "madeIn":"South korea / India", "image": "/images/products/circuit-breaker/Brand logo/Hyundai/hyundai-mcb-tp.png" }
+        {
+          "id": "mcb-hyundai-sp",
+          "category": "mcb",
+          "pole": "SP",
+          "series": "HGD63N",
+          "name": "HGD63N",
+          "ratedCurrent": "16A - 63A",
+          "curveType": "C Curve",
+          "breakingCapacity": "6kA - 10kA",
+          "voltage": "230/400V",
+          "madeIn": "South korea / India",
+          "image": "/images/products/circuit-breaker/Brand logo/Hyundai/hyundai-mcb-sp.png"
+        },
+        {
+          "id": "mcb-hyundai-dp",
+          "category": "mcb",
+          "pole": "DP",
+          "series": "HGD63N",
+          "name": "HGD63N",
+          "ratedCurrent": "6A - 63A",
+          "curveType": "C Curve",
+          "breakingCapacity": "6kA - 10kA",
+          "voltage": "230/400V",
+          "madeIn": "South korea / India",
+          "image": "/images/products/circuit-breaker/Brand logo/Hyundai/hyundai-mcb-dp.png"
+        },
+        {
+          "id": "mcb-hyundai-tp",
+          "category": "mcb",
+          "pole": "TP",
+          "series": "HGD63N",
+          "name": "HGD63N",
+          "ratedCurrent": "6A - 63A",
+          "curveType": "C Curve",
+          "breakingCapacity": "6kA - 10kA",
+          "voltage": "230/400V",
+          "madeIn": "South korea / India",
+          "image": "/images/products/circuit-breaker/Brand logo/Hyundai/hyundai-mcb-tp.png"
+        },
+        {
+          "id": "mccb-hyundai-tp",
+          "category": "mccb",
+          "series": "HGD63N",
+          "name": "HGM250H",
+          "ratedCurrent": "150A - 250A",
+          "curveType": "Thermal-Magnetic",
+          "breakingCapacity": "15kA - 36.5kA",
+          "voltage": "800V - 1140V",
+          "madeIn": "South korea / India",
+          "image": "/images/products/circuit-breaker/Brand logo/hyundai/hyundai-mccb.png"
+        },
+        {
+          "id": "magnetic-contactor-hyundai",
+          "category": "magnetic-contactor",
+          "series": "HGD63N",
+          "name": "HGD63N",
+          "ratedCurrent": "9A",
+          "voltage": "230/400V coil",
+          "madeIn": "South korea / India",
+          "image": "/images/products/circuit-breaker/magnetic-contactor/magnetic-contactor-placeholder.png"
+        }
       ]
     },
     {
@@ -84,11 +306,64 @@
       "name": "CHINT",
       "logo": "/images/products/circuit-breaker/Brand logo/chint/chint-logo.png",
       "products": [
-        { "id": "mcb-chint-sp", "category": "mcb", "series": "NM8n", "name": "NXB", "ratedCurrent": "6A - 63A", "curveType": "C Curve", "breakingCapacity": "4.5kA", "voltage": "230V-415V", "madeIn": "China", "image": "/images/products/circuit-breaker/Brand logo/chint/chint-mcb-sp.png" },
-        { "id": "mcb-chint-dp", "category": "mcb", "series": "NM8", "name": "NXB", "ratedCurrent": "6A - 63A", "curveType": "C Curve", "breakingCapacity": "4.5kA", "voltage": "230V-415V", "madeIn": "China", "image": "/images/products/circuit-breaker/Brand logo/chint/chint-mcb-dp.png" },
-        { "id": "mcb-chint-tp", "category": "mcb", "series": "NM8", "name": "NXB", "ratedCurrent": "6A - 63A", "curveType": "C Curve", "breakingCapacity": "4.5kA", "voltage": "230V-415V", "madeIn": "China", "image": "/images/products/circuit-breaker/Brand logo/chint/chint-mcb-tp.png" },
-        { "id": "mccb-chint-tp", "category": "mccb", "series": "NM8", "name": "NM8", "ratedCurrent": "250A", "curveType": "Thermal-Magnetic", "breakingCapacity": "36kA", "voltage": "415V", "madeIn": "China", "image": "/images/products/circuit-breaker/mccb/mccb-tp-placeholder.png" },
-        { "id": "magnetic-contactor-chint", "category": "magnetic-contactor", "series": "NC1", "name": "NC1", "ratedCurrent": "9A", "voltage": "230/400V coil", "madeIn": "China", "image": "/images/products/circuit-breaker/magnetic-contactor/magnetic-contactor-placeholder.png" }
+        {
+          "id": "mcb-chint-sp",
+          "category": "mcb",
+          "series": "NM8n",
+          "name": "NXB",
+          "ratedCurrent": "6A - 63A",
+          "curveType": "C Curve",
+          "breakingCapacity": "4.5kA",
+          "voltage": "230V-415V",
+          "madeIn": "China",
+          "image": "/images/products/circuit-breaker/Brand logo/chint/chint-mcb-sp.png"
+        },
+        {
+          "id": "mcb-chint-dp",
+          "category": "mcb",
+          "series": "NM8",
+          "name": "NXB",
+          "ratedCurrent": "6A - 63A",
+          "curveType": "C Curve",
+          "breakingCapacity": "4.5kA",
+          "voltage": "230V-415V",
+          "madeIn": "China",
+          "image": "/images/products/circuit-breaker/Brand logo/chint/chint-mcb-dp.png"
+        },
+        {
+          "id": "mcb-chint-tp",
+          "category": "mcb",
+          "series": "NM8",
+          "name": "NXB",
+          "ratedCurrent": "6A - 63A",
+          "curveType": "C Curve",
+          "breakingCapacity": "4.5kA",
+          "voltage": "230V-415V",
+          "madeIn": "China",
+          "image": "/images/products/circuit-breaker/Brand logo/chint/chint-mcb-tp.png"
+        },
+        {
+          "id": "mccb-chint-tp",
+          "category": "mccb",
+          "series": "NM8",
+          "name": "NXB-63",
+          "ratedCurrent": "6A - 63A",
+          "curveType": "C Curve",
+          "breakingCapacity": "4.5kA - 36kA",
+          "voltage": "230V - 415V",
+          "madeIn": "China",
+          "image": "/images/products/circuit-breaker/Brand logo/chint/chint-mccb.png"
+        },
+        {
+          "id": "magnetic-contactor-chint",
+          "category": "magnetic-contactor",
+          "series": "NC1",
+          "name": "NC1",
+          "ratedCurrent": "9A",
+          "voltage": "230/400V coil",
+          "madeIn": "China",
+          "image": "/images/products/circuit-breaker/magnetic-contactor/magnetic-contactor-placeholder.png"
+        }
       ]
     },
     {
@@ -96,9 +371,67 @@
       "name": "CNC Breaker",
       "logo": "/images/products/circuit-breaker/Brand logo/cnc/cnc-logo.png",
       "products": [
-        { "id": "mcb-cnc-sp", "category": "mcb", "pole": "SP", "series": "HGD63N", "name": "YCB7-63N", "ratedCurrent": "6A - 63A", "curveType": "C Curve", "breakingCapacity": "6kA - 10kA", "voltage": "230/400V", "madeIn":"China", "image": "/images/products/circuit-breaker/Brand logo/cnc/cnc-mcb-sp.png" },
-        { "id": "mcb-cnc-dp", "category": "mcb", "pole": "DP", "series": "HGD63N", "name": "YCB7-63N", "ratedCurrent": "6A - 63A", "curveType": "C Curve", "breakingCapacity": "6kA - 10kA", "voltage": "230/400V", "madeIn":"China", "image": "/images/products/circuit-breaker/Brand logo/cnc/cnc-mcb-dp.png" },
-        { "id": "mcb-cnc-tp", "category": "mcb", "pole": "TP", "series": "HGD63N", "name": "YCB7-63N", "ratedCurrent": "6A - 63A", "curveType": "C Curve", "breakingCapacity": "6kA - 10kA", "voltage": "230/400V", "madeIn":"China", "image": "/images/products/circuit-breaker/Brand logo/cnc/cnc-mcb-tp.png" }
+        {
+          "id": "mcb-cnc-sp",
+          "category": "mcb",
+          "pole": "SP",
+          "series": "HGD63N",
+          "name": "YCB7-63N",
+          "ratedCurrent": "6A - 63A",
+          "curveType": "C Curve",
+          "breakingCapacity": "6kA - 10kA",
+          "voltage": "230/400V",
+          "madeIn": "China",
+          "image": "/images/products/circuit-breaker/Brand logo/cnc/cnc-mcb-sp.png"
+        },
+        {
+          "id": "mcb-cnc-dp",
+          "category": "mcb",
+          "pole": "DP",
+          "series": "HGD63N",
+          "name": "YCB7-63N",
+          "ratedCurrent": "6A - 63A",
+          "curveType": "C Curve",
+          "breakingCapacity": "6kA - 10kA",
+          "voltage": "230/400V",
+          "madeIn": "China",
+          "image": "/images/products/circuit-breaker/Brand logo/cnc/cnc-mcb-dp.png"
+        },
+        {
+          "id": "mcb-cnc-tp",
+          "category": "mcb",
+          "pole": "TP",
+          "series": "HGD63N",
+          "name": "YCB7-63N",
+          "ratedCurrent": "6A - 63A",
+          "curveType": "C Curve",
+          "breakingCapacity": "6kA - 10kA",
+          "voltage": "230/400V",
+          "madeIn": "China",
+          "image": "/images/products/circuit-breaker/Brand logo/cnc/cnc-mcb-tp.png"
+        },
+        {
+          "id": "mccb-cnc-tp-150a-250a",
+          "category": "mccb",
+          "series": "YCM8N",
+          "name": "YCM8N-250S",
+          "ratedCurrent": "150A - 250A",
+          "curveType": "Thermal-Magnetic",
+          "breakingCapacity": "35kA - 50kA",
+          "voltage": "400V - 690V",
+          "madeIn": "China",
+          "image": "/images/products/circuit-breaker/Brand logo/cnc/cnc-mccb.png"
+        },
+        {
+          "id": "magnetic-contactor-cnc",
+          "category": "magnetic-contactor",
+          "series": "HGD63N",
+          "name": "YCB7-63N",
+          "ratedCurrent": "9A",
+          "voltage": "230/400V coil",
+          "madeIn": "China",
+          "image": "/images/products/circuit-breaker/magnetic-contactor/magnetic-contactor-placeholder.png"
+        }
       ]
     },
     {
@@ -106,9 +439,67 @@
       "name": "CNS Circuit Breaker",
       "logo": "/images/products/circuit-breaker/Brand logo/cns/cns-brand-logo.png",
       "products": [
-        { "id": "mcb-cns-sp", "category": "mcb", "pole": "SP", "series": "HGD63N", "name": "WiNtrip", "ratedCurrent": "16A - 63A", "curveType": "B, C & D Curves", "breakingCapacity": "10kA", "voltage": "230/400V", "madeIn":"India", "image": "/images/products/circuit-breaker/Brand logo/cns/cns-mcb-sp.png" },
-        { "id": "mcb-cns-dp", "category": "mcb", "pole": "DP", "series": "HGD63N", "name": "WiNtrip", "ratedCurrent": "6A - 63A", "curveType": "B, C & D Curves", "breakingCapacity": "10kA", "voltage": "230/400V", "madeIn":"India", "image": "/images/products/circuit-breaker/Brand logo/cns/cns-mcb-dp.png" },
-        { "id": "mcb-cns-tp", "category": "mcb", "pole": "TP", "series": "HGD63N", "name": "WiNtrip", "ratedCurrent": "6A - 63A", "curveType": "B, C & D Curves", "breakingCapacity": "10kA", "voltage": "230/400V", "madeIn":"India", "image": "/images/products/circuit-breaker/Brand logo/cns/cns-mcb-tp.png" }
+        {
+          "id": "mcb-cns-sp",
+          "category": "mcb",
+          "pole": "SP",
+          "series": "HGD63N",
+          "name": "WiNtrip",
+          "ratedCurrent": "16A - 63A",
+          "curveType": "B, C & D Curves",
+          "breakingCapacity": "10kA",
+          "voltage": "230/400V",
+          "madeIn": "India",
+          "image": "/images/products/circuit-breaker/Brand logo/cns/cns-mcb-sp.png"
+        },
+        {
+          "id": "mcb-cns-dp",
+          "category": "mcb",
+          "pole": "DP",
+          "series": "HGD63N",
+          "name": "WiNtrip",
+          "ratedCurrent": "6A - 63A",
+          "curveType": "B, C & D Curves",
+          "breakingCapacity": "10kA",
+          "voltage": "230/400V",
+          "madeIn": "India",
+          "image": "/images/products/circuit-breaker/Brand logo/cns/cns-mcb-dp.png"
+        },
+        {
+          "id": "mcb-cns-tp",
+          "category": "mcb",
+          "pole": "TP",
+          "series": "HGD63N",
+          "name": "WiNtrip",
+          "ratedCurrent": "6A - 63A",
+          "curveType": "B, C & D Curves",
+          "breakingCapacity": "10kA",
+          "voltage": "230/400V",
+          "madeIn": "India",
+          "image": "/images/products/circuit-breaker/Brand logo/cns/cns-mcb-tp.png"
+        },
+        {
+          "id": "mccb-cns-tp-150a-250a",
+          "category": "mccb",
+          "series": "HGD63N",
+          "name": "WiNbreak1",
+          "ratedCurrent": "150A - 250A",
+          "curveType": "Thermal-Magnetic",
+          "breakingCapacity": "25kA - 50kA",
+          "voltage": "415V",
+          "madeIn": "India",
+          "image": "/images/products/circuit-breaker/Brand logo/cns/cns-mccb.png"
+        },
+        {
+          "id": "magnetic-contactor-cns",
+          "category": "magnetic-contactor",
+          "series": "HGD63N",
+          "name": "WiNtrip",
+          "ratedCurrent": "9A",
+          "voltage": "230/400V coil",
+          "madeIn": "India",
+          "image": "/images/products/circuit-breaker/magnetic-contactor/magnetic-contactor-placeholder.png"
+        }
       ]
     }
   ]
