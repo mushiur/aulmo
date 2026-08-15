@@ -1,5 +1,10 @@
+"use client";
+
+import { useState } from "react";
 import Image from "next/image";
-import MagneticLink from "@/components/ui/MagneticLink";
+//import MagneticLink from "@/components/ui/MagneticLink";
+import Lightbox from "@/components/ui/Lightbox";
+import { ExpandIcon } from "@/components/ui/Icon";
 import type { CircuitBreakerProduct } from "@/data/types";
 
 export default function CircuitBreakerCard({
@@ -11,17 +16,27 @@ export default function CircuitBreakerCard({
   brandName: string;
   categoryName: string;
 }) {
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+
   return (
     <div className="group flex flex-row overflow-hidden rounded-[16px] border border-charcoal/12 bg-paper-bright transition-colors duration-300 hover:border-charcoal/30 sm:flex-col">
-      <div className="relative aspect-square w-28 flex-none bg-white sm:w-full">
+      <button
+        type="button"
+        aria-label={`View larger image of ${product.name}`}
+        onClick={() => setLightboxOpen(true)}
+        className="relative aspect-square w-40 flex-none bg-white sm:w-full"
+      >
         <Image
           src={product.image.src}
           alt={product.image.alt}
           fill
-          sizes="(min-width: 1024px) 22vw, (min-width: 640px) 40vw, 112px"
+          sizes="(min-width: 1024px) 22vw, (min-width: 640px) 40vw, 160px"
           className="object-contain p-1.5 transition-transform duration-500 group-hover:scale-105 sm:p-4"
         />
-      </div>
+        <span className="absolute top-2 right-2 flex h-7 w-7 items-center justify-center rounded-full bg-ink/55 text-paper backdrop-blur-sm transition-colors group-hover:bg-ink/75">
+          <ExpandIcon className="h-3.5 w-3.5" />
+        </span>
+      </button>
       <div className="flex flex-1 flex-col p-3.5 sm:p-4">
         <div className="font-mono-label text-[9px] tracking-[0.16em] text-signal-red">{brandName}</div>
         <div className="mt-1 text-[14px] font-bold tracking-[-0.01em] sm:text-[15px]">{product.name}</div>
@@ -71,6 +86,24 @@ export default function CircuitBreakerCard({
           View Details
         </MagneticLink> */}
       </div>
+
+      {lightboxOpen && (
+        <Lightbox
+          count={1}
+          activeIndex={0}
+          onNext={() => {}}
+          onPrev={() => {}}
+          onClose={() => setLightboxOpen(false)}
+          caption={product.name}
+        >
+          <div
+            className="relative h-[80vh] w-full max-w-[900px]"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <Image src={product.image.src} alt={product.image.alt} fill sizes="90vw" className="object-contain" />
+          </div>
+        </Lightbox>
+      )}
     </div>
   );
 }
