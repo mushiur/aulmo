@@ -63,7 +63,7 @@
       "name": "Legrand",
       "logo": "/images/products/circuit-breaker/Brand logo/legrand/legrand-logo.png",
       "products": [
-        { "id": "mcb-legrand-sp", "category": "mcb", "pole": "SP", "series": "DX³", "name": "DX³", "ratedCurrent": "6A - 63A", "curveType": "C Curve", "breakingCapacity": "6kA - 10kA", "voltage": "60V - 90V", "madeIn":"India / France", "image": "/images/products/circuit-breaker/brand logo/legrand/legrand-mcb-sp.png" },
+        { "id": "mcb-legrand-sp", "category": "mcb", "pole": "SP", "series": "DX³", "name": "DX³", "ratedCurrent": "6A - 63A", "curveType": "C Curve", "breakingCapacity": "6kA - 10kA", "voltage": "60V - 90V", "madeIn":"India / France", "image": "/images/products/circuit-breaker/brand logo/legrand/legrand-mcb-sp1.png" },
         { "id": "mcb-legrand-dp", "category": "mcb", "pole": "DP", "series": "DX³", "name": "DX³", "ratedCurrent": "6A - 63A", "curveType": "C Curve", "breakingCapacity": "6kA - 10kA", "voltage": "110V - 150V", "madeIn":"India / France", "image": "/images/products/circuit-breaker/brand logo/legrand/legrand-mcb-dp.png" },
         { "id": "mcb-legrand-tp", "category": "mcb", "pole": "TP", "series": "DX³", "name": "DX³", "ratedCurrent": "6A - 63A", "curveType": "C Curve", "breakingCapacity": "6kA - 10kA", "voltage": "150V - 200V","madeIn":"India / France", "image": "/images/products/circuit-breaker/brand logo/legrand/legrand-mcb-tp.png" },
         { "id": "magnetic-contactor-legrand", "category": "magnetic-contactor", "series": "CTX³", "name": "CTX³", "ratedCurrent": "11A", "voltage": "230/400V coil", "image": "/images/products/circuit-breaker/magnetic-contactor/magnetic-contactor-placeholder.png" }
