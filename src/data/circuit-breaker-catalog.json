@@ -36,10 +36,10 @@
       "name": "Schneider Electric",
       "logo": "/images/products/circuit-breaker/Brand logo/schneider/schneider-logo.png",
       "products": [
-        { "id": "mcb-schneider-electric-sp", "category": "mcb", "pole": "SP", "series": "Acti9 iC60N", "name": "Acti9 iC60N", "ratedCurrent": "16A", "curveType": "C Curve", "breakingCapacity": "6kA", "voltage": "230/400V", "madeIn": "Italy", "image": "/images/products/circuit-breaker/Brand logo/schneider/schneider-sp.png" },
-        { "id": "mcb-schneider-electric-dp", "category": "mcb", "pole": "DP", "series": "Acti9 iC60N", "name": "Acti9 iC60N", "ratedCurrent": "32A", "curveType": "C Curve", "breakingCapacity": "6kA", "voltage": "230/400V", "image": "/images/products/circuit-breaker/Brand logo/schneider/schneider-dp.png" },
-        { "id": "mcb-schneider-electric-tp", "category": "mcb", "pole": "TP", "series": "Acti9 iC60N", "name": "Acti9 iC60N", "ratedCurrent": "63A", "curveType": "C Curve", "breakingCapacity": "10kA", "voltage": "230/400V","madeIn": "Japan", "image": "/images/products/circuit-breaker/Brand logo/schneider/schneider-tp.png" },
-        { "id": "mccb-schneider-electric-tp", "category": "mccb", "series": "EasyPact EZC", "name": "EasyPact EZC", "ratedCurrent": "250A", "curveType": "Thermal-Magnetic", "breakingCapacity": "36kA", "voltage": "415V", "image": "/images/products/circuit-breaker/Brand logo/schneider/mccb-tp-placeholder.png" },
+        { "id": "mcb-schneider-electric-sp", "category": "mcb", "pole": "SP", "series": "Acti9 iC60N", "name": "Acti9 iC60N", "ratedCurrent": "6A- 63A", "curveType": "C Curve", "breakingCapacity": "6kA - 10kA", "voltage": "230/400V", "madeIn": "India / France", "image": "/images/products/circuit-breaker/Brand logo/schneider/schneider-sp.png" },
+        { "id": "mcb-schneider-electric-dp", "category": "mcb", "pole": "DP", "series": "Acti9 iC60N", "name": "Acti9 iC60N", "ratedCurrent": "6A- 63A", "curveType": "C Curve", "breakingCapacity": "6kA - 10kA", "voltage": "230/400V", "madeIn": "India / France", "image": "/images/products/circuit-breaker/Brand logo/schneider/schneider-dp.png" },
+        { "id": "mcb-schneider-electric-tp", "category": "mcb", "pole": "TP", "series": "Acti9 iC60N", "name": "Acti9 iC60N", "ratedCurrent": "6A- 63A", "curveType": "C Curve", "breakingCapacity": "6kA - 10kA", "voltage": "230/400V", "madeIn": "India / France", "image": "/images/products/circuit-breaker/Brand logo/schneider/schneider-tp.png" },
+        { "id": "mccb-schneider-electric-tp", "category": "mccb", "series": "EasyPact EZC", "name": "EasyPact EZC", "ratedCurrent": "250A", "curveType": "Thermal-Magnetic", "breakingCapacity": "36kA", "voltage": "440V", "madeIn": "India / France", "image": "/images/products/circuit-breaker/Brand logo/schneider/mccb-tp-placeholder.png" },
         { "id": "magnetic-contactor-schneider-electric", "category": "magnetic-contactor", "series": "TeSys D", "name": "TeSys D", "ratedCurrent": "9A", "voltage": "230/400V coil", "image": "/images/products/circuit-breaker/Brand logo/schneider/magnetic-contactor-placeholder.png" }
       ]
     },
@@ -48,10 +48,12 @@
       "name": "ABB",
       "logo": "/images/products/circuit-breaker/Brand logo/ABB/abb-logo.png",
       "products": [
-        { "id": "mcb-abb-sp", "category": "mcb", "pole": "SP", "series": "S200", "name": "Compact Home SH200", 
-        "model": "SH201-C40", "ratedCurrent": "40A", "curveType": "C Curve", "breakingCapacity": "6kA", "voltage": "230/400V","madeIn": "Germany", "image": "/images/products/circuit-breaker/Brand logo/ABB/abb-mcb-sp.png" },
-        { "id": "mcb-abb-dp", "category": "mcb", "pole": "DP", "series": "S200", "name": "S200", "ratedCurrent": "32A", "curveType": "C Curve", "breakingCapacity": "6kA", "voltage": "230/400V", "image": "/images/products/circuit-breaker/Brand logo/ABB/abb-mcb-dp.png" },
-        { "id": "mcb-abb-tp", "category": "mcb", "pole": "TP", "series": "S200", "name": "S200", "ratedCurrent": "63A", "curveType": "C Curve", "breakingCapacity": "10kA", "voltage": "230/400V", "image": "/images/products/circuit-breaker/Brand logo/ABB/abb-mcb-tp.png" },
+        { "id": "mcb-abb-sp", "category": "mcb", "pole": "SP", "series": "S200", "name": "SH200", 
+        "model": "SH201", "ratedCurrent": "6A - 63A", "curveType": "C Curve", "breakingCapacity": "3kA -10kA", "voltage": "230/400V","madeIn": "Germany / Italy /  India", "image": "/images/products/circuit-breaker/Brand logo/ABB/abb-mcb-sp.png" },
+        { "id": "mcb-abb-dp", "category": "mcb", "pole": "DP", "series": "S200", "name": "SH200", 
+        "model": "SH202", "ratedCurrent": "6A - 63A", "curveType": "C Curve", "breakingCapacity": "3kA -10kA", "voltage": "230/400V","madeIn": "Germany / Italy /  India", "image": "/images/products/circuit-breaker/Brand logo/ABB/abb-mcb-dp.png" },
+        { "id": "mcb-abb-tp", "category": "mcb", "pole": "TP", "series": "S200", "name": "SH200", 
+        "model": "SH203", "ratedCurrent": "6A - 63A", "curveType": "C Curve", "breakingCapacity": "3kA -10kA", "voltage": "230/400V","madeIn": "Germany / Italy /  India", "image": "/images/products/circuit-breaker/Brand logo/ABB/abb-mcb-tp.png" },
         { "id": "mccb-abb-tp", "category": "mccb", "series": "Tmax XT", "name": "Tmax XT", "ratedCurrent": "250A", "curveType": "Thermal-Magnetic", "breakingCapacity": "36kA", "voltage": "415V", "image": "/images/products/circuit-breaker/mccb/mccb-tp-placeholder.png" },
         { "id": "magnetic-contactor-abb", "category": "magnetic-contactor", "series": "AF Series", "name": "AF Series", "ratedCurrent": "12A", "voltage": "230/400V coil", "image": "/images/products/circuit-breaker/magnetic-contactor/magnetic-contactor-placeholder.png" }
       ]
@@ -61,9 +63,9 @@
       "name": "Legrand",
       "logo": "/images/products/circuit-breaker/Brand logo/legrand/legrand-logo.png",
       "products": [
-        { "id": "mcb-legrand-sp", "category": "mcb", "pole": "SP", "series": "DX³", "name": "DX³", "ratedCurrent": "16A", "curveType": "C Curve", "breakingCapacity": "6kA", "voltage": "230/400V", "image": "/images/products/circuit-breaker/mcb/mcb-sp-placeholder.png" },
-        { "id": "mcb-legrand-dp", "category": "mcb", "pole": "DP", "series": "DX³", "name": "DX³", "ratedCurrent": "32A", "curveType": "C Curve", "breakingCapacity": "6kA", "voltage": "230/400V", "image": "/images/products/circuit-breaker/mcb/mcb-dp-placeholder.png" },
-        { "id": "mcb-legrand-tp", "category": "mcb", "pole": "TP", "series": "DX³", "name": "DX³", "ratedCurrent": "63A", "curveType": "C Curve", "breakingCapacity": "10kA", "voltage": "230/400V", "image": "/images/products/circuit-breaker/mcb/mcb-tp-placeholder.png" },
+        { "id": "mcb-legrand-sp", "category": "mcb", "pole": "SP", "series": "DX³", "name": "DX³", "ratedCurrent": "6A - 63A", "curveType": "C Curve", "breakingCapacity": "6kA - 10kA", "voltage": "60V - 90V", "madeIn":"India / France", "image": "/images/products/circuit-breaker/brand logo/legrand/legrand-mcb-sp.png" },
+        { "id": "mcb-legrand-dp", "category": "mcb", "pole": "DP", "series": "DX³", "name": "DX³", "ratedCurrent": "6A - 63A", "curveType": "C Curve", "breakingCapacity": "6kA - 10kA", "voltage": "110V - 150V", "madeIn":"India / France", "image": "/images/products/circuit-breaker/brand logo/legrand/legrand-mcb-dp.png" },
+        { "id": "mcb-legrand-tp", "category": "mcb", "pole": "TP", "series": "DX³", "name": "DX³", "ratedCurrent": "6A - 63A", "curveType": "C Curve", "breakingCapacity": "6kA - 10kA", "voltage": "150V - 200V","madeIn":"India / France", "image": "/images/products/circuit-breaker/brand logo/legrand/legrand-mcb-tp.png" },
         { "id": "magnetic-contactor-legrand", "category": "magnetic-contactor", "series": "CTX³", "name": "CTX³", "ratedCurrent": "11A", "voltage": "230/400V coil", "image": "/images/products/circuit-breaker/magnetic-contactor/magnetic-contactor-placeholder.png" }
       ]
     },
@@ -72,9 +74,9 @@
       "name": "Hyundai",
       "logo": "/images/products/circuit-breaker/Brand logo/Hyundai/hyundai-logo.png",
       "products": [
-        { "id": "mcb-hyundai-sp", "category": "mcb", "pole": "SP", "series": "HGD63N", "name": "HGD63N", "ratedCurrent": "16A", "curveType": "C Curve", "breakingCapacity": "6kA", "voltage": "230/400V", "image": "/images/products/circuit-breaker/mcb/mcb-sp-placeholder.png" },
-        { "id": "mcb-hyundai-dp", "category": "mcb", "pole": "DP", "series": "HGD63N", "name": "HGD63N", "ratedCurrent": "32A", "curveType": "C Curve", "breakingCapacity": "6kA", "voltage": "230/400V", "image": "/images/products/circuit-breaker/mcb/mcb-dp-placeholder.png" },
-        { "id": "mcb-hyundai-tp", "category": "mcb", "pole": "TP", "series": "HGD63N", "name": "HGD63N", "ratedCurrent": "63A", "curveType": "C Curve", "breakingCapacity": "10kA", "voltage": "230/400V", "image": "/images/products/circuit-breaker/mcb/mcb-tp-placeholder.png" }
+        { "id": "mcb-hyundai-sp", "category": "mcb", "pole": "SP", "series": "HGD63N", "name": "HGD63N", "ratedCurrent": "16A - 63A", "curveType": "C Curve", "breakingCapacity": "6kA - 10kA", "voltage": "230/400V", "madeIn":"South korea / India", "image": "/images/products/circuit-breaker/Brand logo/Hyundai/hyundai-mcb-sp.png" },
+        { "id": "mcb-hyundai-dp", "category": "mcb", "pole": "DP", "series": "HGD63N", "name": "HGD63N", "ratedCurrent": "6A - 63A", "curveType": "C Curve", "breakingCapacity": "6kA - 10kA", "voltage": "230/400V", "madeIn":"South korea / India", "image": "/images/products/circuit-breaker/Brand logo/Hyundai/hyundai-mcb-dp.png" },
+        { "id": "mcb-hyundai-tp", "category": "mcb", "pole": "TP", "series": "HGD63N", "name": "HGD63N", "ratedCurrent": "6A - 63A", "curveType": "C Curve", "breakingCapacity": "6kA - 10kA", "voltage": "230/400V", "madeIn":"South korea / India", "image": "/images/products/circuit-breaker/Brand logo/Hyundai/hyundai-mcb-tp.png" }
       ]
     },
     {
@@ -82,8 +84,11 @@
       "name": "CHINT",
       "logo": "/images/products/circuit-breaker/Brand logo/chint/chint-logo.png",
       "products": [
-        { "id": "mccb-chint-tp", "category": "mccb", "series": "NM8", "name": "NM8", "ratedCurrent": "250A", "curveType": "Thermal-Magnetic", "breakingCapacity": "36kA", "voltage": "415V", "image": "/images/products/circuit-breaker/mccb/mccb-tp-placeholder.png" },
-        { "id": "magnetic-contactor-chint", "category": "magnetic-contactor", "series": "NC1", "name": "NC1", "ratedCurrent": "9A", "voltage": "230/400V coil", "image": "/images/products/circuit-breaker/magnetic-contactor/magnetic-contactor-placeholder.png" }
+        { "id": "mcb-chint-sp", "category": "mcb", "series": "NM8n", "name": "NXB", "ratedCurrent": "6A - 63A", "curveType": "C Curve", "breakingCapacity": "4.5kA", "voltage": "230V-415V", "madeIn": "China", "image": "/images/products/circuit-breaker/Brand logo/chint/chint-mcb-sp.png" },
+        { "id": "mcb-chint-dp", "category": "mcb", "series": "NM8", "name": "NXB", "ratedCurrent": "6A - 63A", "curveType": "C Curve", "breakingCapacity": "4.5kA", "voltage": "230V-415V", "madeIn": "China", "image": "/images/products/circuit-breaker/Brand logo/chint/chint-mcb-dp.png" },
+        { "id": "mcb-chint-tp", "category": "mcb", "series": "NM8", "name": "NXB", "ratedCurrent": "6A - 63A", "curveType": "C Curve", "breakingCapacity": "4.5kA", "voltage": "230V-415V", "madeIn": "China", "image": "/images/products/circuit-breaker/Brand logo/chint/chint-mcb-tp.png" },
+        { "id": "mccb-chint-tp", "category": "mccb", "series": "NM8", "name": "NM8", "ratedCurrent": "250A", "curveType": "Thermal-Magnetic", "breakingCapacity": "36kA", "voltage": "415V", "madeIn": "China", "image": "/images/products/circuit-breaker/mccb/mccb-tp-placeholder.png" },
+        { "id": "magnetic-contactor-chint", "category": "magnetic-contactor", "series": "NC1", "name": "NC1", "ratedCurrent": "9A", "voltage": "230/400V coil", "madeIn": "China", "image": "/images/products/circuit-breaker/magnetic-contactor/magnetic-contactor-placeholder.png" }
       ]
     },
     {
