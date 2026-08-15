@@ -2,12 +2,12 @@
 
 import { useCallback, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import PoleSelector from "@/components/circuit-breaker/PoleSelector";
+import PoleSelector, { type PoleFilter } from "@/components/circuit-breaker/PoleSelector";
 import BrandSelector from "@/components/circuit-breaker/BrandSelector";
 import CircuitBreakerFilters, { type FilterGroup } from "@/components/circuit-breaker/CircuitBreakerFilters";
 import CircuitBreakerCard from "@/components/circuit-breaker/CircuitBreakerCard";
 import { ChevronDownIcon, FilterIcon } from "@/components/ui/Icon";
-import type { CircuitBreakerBrand, CircuitBreakerPole, CircuitBreakerProduct } from "@/data/types";
+import type { CircuitBreakerBrand, CircuitBreakerProduct } from "@/data/types";
 
 type FilterState = Record<string, string[]>;
 type SortBy = "featured" | "name" | "current";
@@ -35,8 +35,8 @@ export default function CircuitBreakerListing({
   brands: CircuitBreakerBrand[];
 }) {
   const searchParams = useSearchParams();
-  const initialPole = (searchParams.get("pole")?.toUpperCase() as CircuitBreakerPole) || "SP";
-  const [pole, setPole] = useState<CircuitBreakerPole>(hasPoles ? initialPole : "SP");
+  const initialPole = (searchParams.get("pole")?.toUpperCase() as PoleFilter) || "ALL";
+  const [pole, setPole] = useState<PoleFilter>(hasPoles ? initialPole : "ALL");
   const [filters, setFilters] = useState<FilterState>({});
   const [sortBy, setSortBy] = useState<SortBy>("featured");
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
@@ -47,7 +47,7 @@ export default function CircuitBreakerListing({
   );
 
   const poleProducts = useMemo(
-    () => (hasPoles ? products.filter((p) => p.pole === pole) : products),
+    () => (hasPoles && pole !== "ALL" ? products.filter((p) => p.pole === pole) : products),
     [products, hasPoles, pole],
   );
 

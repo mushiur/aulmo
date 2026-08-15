@@ -50,8 +50,8 @@
       "products": [
         { "id": "mcb-abb-sp", "category": "mcb", "pole": "SP", "series": "S200", "name": "Compact Home SH200", 
         "model": "SH201-C40", "ratedCurrent": "40A", "curveType": "C Curve", "breakingCapacity": "6kA", "voltage": "230/400V","madeIn": "Germany", "image": "/images/products/circuit-breaker/Brand logo/ABB/abb-mcb-sp.png" },
-        { "id": "mcb-abb-dp", "category": "mcb", "pole": "DP", "series": "S200", "name": "S200", "ratedCurrent": "32A", "curveType": "C Curve", "breakingCapacity": "6kA", "voltage": "230/400V", "image": "/images/products/circuit-breaker/mcb/mcb-dp-placeholder.png" },
-        { "id": "mcb-abb-tp", "category": "mcb", "pole": "TP", "series": "S200", "name": "S200", "ratedCurrent": "63A", "curveType": "C Curve", "breakingCapacity": "10kA", "voltage": "230/400V", "image": "/images/products/circuit-breaker/mcb/mcb-tp-placeholder.png" },
+        { "id": "mcb-abb-dp", "category": "mcb", "pole": "DP", "series": "S200", "name": "S200", "ratedCurrent": "32A", "curveType": "C Curve", "breakingCapacity": "6kA", "voltage": "230/400V", "image": "/images/products/circuit-breaker/Brand logo/ABB/abb-mcb-dp.png" },
+        { "id": "mcb-abb-tp", "category": "mcb", "pole": "TP", "series": "S200", "name": "S200", "ratedCurrent": "63A", "curveType": "C Curve", "breakingCapacity": "10kA", "voltage": "230/400V", "image": "/images/products/circuit-breaker/Brand logo/ABB/abb-mcb-tp.png" },
         { "id": "mccb-abb-tp", "category": "mccb", "series": "Tmax XT", "name": "Tmax XT", "ratedCurrent": "250A", "curveType": "Thermal-Magnetic", "breakingCapacity": "36kA", "voltage": "415V", "image": "/images/products/circuit-breaker/mccb/mccb-tp-placeholder.png" },
         { "id": "magnetic-contactor-abb", "category": "magnetic-contactor", "series": "AF Series", "name": "AF Series", "ratedCurrent": "12A", "voltage": "230/400V coil", "image": "/images/products/circuit-breaker/magnetic-contactor/magnetic-contactor-placeholder.png" }
       ]
