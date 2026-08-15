@@ -287,7 +287,7 @@
           "breakingCapacity": "15kA - 36.5kA",
           "voltage": "800V - 1140V",
           "madeIn": "South korea / India",
-          "image": "/images/products/circuit-breaker/Brand logo/hyundai/hyundai-mccb.png"
+          "image": "/images/products/circuit-breaker/Brand logo/Hyundai/hyundai-mccb.png"
         },
         {
           "id": "magnetic-contactor-hyundai",
@@ -297,7 +297,7 @@
           "ratedCurrent": "9A",
           "voltage": "230/400V coil",
           "madeIn": "South korea / India",
-          "image": "/images/products/circuit-breaker/magnetic-contactor/magnetic-contactor-placeholder.png"
+          "image": "/images/products/circuit-breaker/Brand logo/Hyundai/hyundai-magnetic-contactor.png"
         }
       ]
     },
