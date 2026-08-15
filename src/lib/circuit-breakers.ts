@@ -28,6 +28,7 @@ type CatalogProduct = {
   voltage: string;
   madeIn?: string;
   image: string;
+  model?: string;
 };
 
 type CatalogBrand = {
@@ -68,6 +69,7 @@ const circuitBreakerProducts: CircuitBreakerProduct[] = typedCatalog.brands.flat
     breakingCapacity: p.breakingCapacity,
     voltage: p.voltage,
     madeIn: p.madeIn,
+    model: p.model,
     image: { src: p.image, alt: `${brand.name} ${p.name}${p.pole ? `, ${p.pole}` : ""}` },
   })),
 );
@@ -112,6 +114,7 @@ export async function getCircuitBreakerFilterOptions(categorySlug: string) {
   const uniq = (values: (string | undefined)[]) => [...new Set(values.filter(Boolean) as string[])];
   return {
     brands: uniq(products.map((p) => p.brandSlug)),
+    models: uniq(products.map((p) => p.model)),
     ratedCurrents: uniq(products.map((p) => p.ratedCurrent)),
     curveTypes: uniq(products.map((p) => p.curveType)),
     breakingCapacities: uniq(products.map((p) => p.breakingCapacity)),

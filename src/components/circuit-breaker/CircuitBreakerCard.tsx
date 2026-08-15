@@ -25,6 +25,11 @@ export default function CircuitBreakerCard({
       <div className="flex flex-1 flex-col p-3.5 sm:p-4">
         <div className="font-mono-label text-[9px] tracking-[0.16em] text-signal-red">{brandName}</div>
         <div className="mt-1 text-[14px] font-bold tracking-[-0.01em] sm:text-[15px]">{product.name}</div>
+        {product.model && (
+          <div>
+            <dd className="m-0 font-bold ">Model: {product.model}</dd>
+          </div>
+        )}
         <div className="mt-0.5 text-[11px] opacity-55 sm:text-[11.5px]">
           {categoryName}
           {product.pole && ` — ${product.pole}`}
@@ -50,6 +55,7 @@ export default function CircuitBreakerCard({
               <dd className="m-0 font-semibold">{product.curveType}</dd>
             </div>
           )}
+          
           {product.madeIn && (
             <div>
               <dt className="opacity-45">Made In</dt>
@@ -57,13 +63,13 @@ export default function CircuitBreakerCard({
             </div>
           )}
         </dl>
-        <MagneticLink
+        {/* <MagneticLink
           href="/contact"
           arrow
           className="mt-3 inline-flex items-center gap-2 font-mono-label text-[10px] font-bold tracking-[0.16em] text-charcoal uppercase transition-colors duration-300 group-hover:text-signal-red sm:mt-4"
         >
           View Details
-        </MagneticLink>
+        </MagneticLink> */}
       </div>
     </div>
   );

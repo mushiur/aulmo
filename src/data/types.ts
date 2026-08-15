@@ -158,6 +158,7 @@ export type CircuitBreakerProduct = {
   pole?: CircuitBreakerPole;
   name: string;
   series?: string;
+  model?: string;
   ratedCurrent: string;
   curveType?: string;
   breakingCapacity?: string;
