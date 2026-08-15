@@ -95,13 +95,21 @@
       "slug": "cnc-breaker",
       "name": "CNC Breaker",
       "logo": "/images/products/circuit-breaker/Brand logo/cnc/cnc-logo.png",
-      "products": []
+      "products": [
+        { "id": "mcb-cnc-sp", "category": "mcb", "pole": "SP", "series": "HGD63N", "name": "YCB7-63N", "ratedCurrent": "6A - 63A", "curveType": "C Curve", "breakingCapacity": "6kA - 10kA", "voltage": "230/400V", "madeIn":"China", "image": "/images/products/circuit-breaker/Brand logo/cnc/cnc-mcb-sp.png" },
+        { "id": "mcb-cnc-dp", "category": "mcb", "pole": "DP", "series": "HGD63N", "name": "YCB7-63N", "ratedCurrent": "6A - 63A", "curveType": "C Curve", "breakingCapacity": "6kA - 10kA", "voltage": "230/400V", "madeIn":"China", "image": "/images/products/circuit-breaker/Brand logo/cnc/cnc-mcb-dp.png" },
+        { "id": "mcb-cnc-tp", "category": "mcb", "pole": "TP", "series": "HGD63N", "name": "YCB7-63N", "ratedCurrent": "6A - 63A", "curveType": "C Curve", "breakingCapacity": "6kA - 10kA", "voltage": "230/400V", "madeIn":"China", "image": "/images/products/circuit-breaker/Brand logo/cnc/cnc-mcb-tp.png" }
+      ]
     },
     {
       "slug": "cns-circuit-breaker",
       "name": "CNS Circuit Breaker",
       "logo": "/images/products/circuit-breaker/Brand logo/cns/cns-brand-logo.png",
-      "products": []
+      "products": [
+        { "id": "mcb-cns-sp", "category": "mcb", "pole": "SP", "series": "HGD63N", "name": "WiNtrip", "ratedCurrent": "16A - 63A", "curveType": "B, C & D Curves", "breakingCapacity": "10kA", "voltage": "230/400V", "madeIn":"India", "image": "/images/products/circuit-breaker/Brand logo/cns/cns-mcb-sp.png" },
+        { "id": "mcb-cns-dp", "category": "mcb", "pole": "DP", "series": "HGD63N", "name": "WiNtrip", "ratedCurrent": "6A - 63A", "curveType": "B, C & D Curves", "breakingCapacity": "10kA", "voltage": "230/400V", "madeIn":"India", "image": "/images/products/circuit-breaker/Brand logo/cns/cns-mcb-dp.png" },
+        { "id": "mcb-cns-tp", "category": "mcb", "pole": "TP", "series": "HGD63N", "name": "WiNtrip", "ratedCurrent": "6A - 63A", "curveType": "B, C & D Curves", "breakingCapacity": "10kA", "voltage": "230/400V", "madeIn":"India", "image": "/images/products/circuit-breaker/Brand logo/cns/cns-mcb-tp.png" }
+      ]
     }
   ]
 }

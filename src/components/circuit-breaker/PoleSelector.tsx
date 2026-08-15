@@ -67,31 +67,31 @@ export default function PoleSelector({
       </div>
 
       {/* Desktop/tablet — the FinishSelector-style card grid, unchanged. */}
-      <div className="hidden sm:grid sm:grid-cols-4 sm:gap-2" role="radiogroup" aria-label="Pole">
+      <div className="hidden sm:grid sm:grid-cols-4 sm:gap-1.5" role="radiogroup" aria-label="Pole">
         <button
           type="button"
           role="radio"
           aria-checked={active === "ALL"}
           onClick={() => onSelect("ALL")}
           className={clsx(
-            "group relative flex flex-col items-center gap-2 rounded-[12px] border p-2.5 text-center transition-colors duration-300",
+            "group relative flex flex-col items-center gap-1.5 rounded-[10px] border p-2 text-center transition-colors duration-300",
             active === "ALL" ? "border-signal-red bg-signal-red text-paper-bright" : "border-charcoal/14 bg-paper-bright hover:border-charcoal/40",
           )}
         >
           {active === "ALL" && (
-            <span className="absolute top-1.5 right-1.5 flex h-4 w-4 flex-none items-center justify-center rounded-full bg-paper-bright text-signal-red">
-              <CheckIcon className="h-2.5 w-2.5" />
+            <span className="absolute top-1 right-1 flex h-3.5 w-3.5 flex-none items-center justify-center rounded-full bg-paper-bright text-signal-red">
+              <CheckIcon className="h-2 w-2" />
             </span>
           )}
           <span
             className={clsx(
-              "flex h-11 w-11 flex-none items-center justify-center rounded-[8px] border font-mono-label text-[13px] font-bold",
+              "flex h-9 w-9 flex-none items-center justify-center rounded-[7px] border font-mono-label text-[11px] font-bold",
               active === "ALL" ? "border-paper-bright/50 bg-paper-bright/10" : "border-charcoal/14",
             )}
           >
             All
           </span>
-          <span className="text-[12px] font-bold tracking-[-0.005em]">All Poles</span>
+          <span className="text-[11px] font-bold tracking-[-0.005em]">All Poles</span>
         </button>
         {POLES.map((pole) => {
           const isActive = pole.code === active;
@@ -103,19 +103,19 @@ export default function PoleSelector({
               aria-checked={isActive}
               onClick={() => onSelect(pole.code)}
               className={clsx(
-                "group relative flex flex-col items-center gap-2 rounded-[12px] border p-2.5 text-center transition-colors duration-300",
+                "group relative flex flex-col items-center gap-1.5 rounded-[10px] border p-2 text-center transition-colors duration-300",
                 isActive ? "border-signal-red bg-signal-red text-paper-bright" : "border-charcoal/14 bg-paper-bright hover:border-charcoal/40",
               )}
             >
               {isActive && (
-                <span className="absolute top-1.5 right-1.5 flex h-4 w-4 flex-none items-center justify-center rounded-full bg-paper-bright text-signal-red">
-                  <CheckIcon className="h-2.5 w-2.5" />
+                <span className="absolute top-1 right-1 flex h-3.5 w-3.5 flex-none items-center justify-center rounded-full bg-paper-bright text-signal-red">
+                  <CheckIcon className="h-2 w-2" />
                 </span>
               )}
-              <span className={clsx("flex h-11 w-11 flex-none items-center justify-center rounded-[8px] border", isActive ? "border-paper-bright/50 bg-paper-bright/10" : "border-charcoal/14")}>
-                <Image src={POLE_ICONS[pole.code]} alt="" width={32} height={32} className={clsx("h-7 w-7 object-contain", isActive && "brightness-0 invert")} />
+              <span className={clsx("flex h-9 w-9 flex-none items-center justify-center rounded-[7px] border", isActive ? "border-paper-bright/50 bg-paper-bright/10" : "border-charcoal/14")}>
+                <Image src={POLE_ICONS[pole.code]} alt="" width={24} height={24} className={clsx("h-5 w-5 object-contain", isActive && "brightness-0 invert")} />
               </span>
-              <span className="text-[12px] font-bold tracking-[-0.005em]">{pole.label}</span>
+              <span className="text-[11px] font-bold tracking-[-0.005em]">{pole.label}</span>
             </button>
           );
         })}

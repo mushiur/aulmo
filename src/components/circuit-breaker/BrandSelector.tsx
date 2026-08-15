@@ -55,15 +55,15 @@ export default function BrandSelector({
       </div>
       <div className="relative">
         <div ref={scrollRef} className="flex snap-x gap-2 overflow-x-auto pb-2 pr-8 md:grid md:grid-cols-4 md:overflow-visible md:pr-0 lg:grid-cols-7">
-          <button type="button" onClick={() => onSelect(undefined)} className={clsx("flex h-11 min-w-[52px] snap-start items-center justify-center rounded-[7px] border px-3 font-mono-label text-[8px] font-bold tracking-[0.1em] uppercase transition-colors sm:h-[52px] sm:min-w-[58px] md:min-w-0", !activeBrand ? "border-charcoal bg-charcoal text-paper-bright" : "border-charcoal/16 bg-paper-bright text-charcoal/65 hover:border-charcoal/45")}>
+          <button type="button" onClick={() => onSelect(undefined)} className={clsx("flex h-11 min-w-[52px] snap-start items-center justify-center rounded-[7px] border px-3 font-mono-label text-[8px] font-bold tracking-[0.1em] uppercase transition-colors sm:h-10 sm:min-w-[48px] md:min-w-0", !activeBrand ? "border-charcoal bg-charcoal text-paper-bright" : "border-charcoal/16 bg-paper-bright text-charcoal/65 hover:border-charcoal/45")}>
             All
           </button>
           {brands.map((brand) => {
             const active = activeBrand === brand.name;
             return (
-              <button key={brand.slug} type="button" onClick={() => onSelect(active ? undefined : brand.name)} aria-pressed={active} className={clsx("flex h-11 min-w-[86px] snap-start items-center justify-center rounded-[7px] border bg-paper-bright px-2 transition-colors sm:h-[52px] sm:min-w-[96px] sm:px-3 md:min-w-0", active ? "border-signal-red ring-1 ring-signal-red" : "border-charcoal/16 hover:border-charcoal/45")}>
+              <button key={brand.slug} type="button" onClick={() => onSelect(active ? undefined : brand.name)} aria-pressed={active} className={clsx("flex h-11 min-w-[86px] snap-start items-center justify-center rounded-[7px] border bg-paper-bright px-2 transition-colors sm:h-10 sm:min-w-[80px] sm:px-2.5 md:min-w-0", active ? "border-signal-red ring-1 ring-signal-red" : "border-charcoal/16 hover:border-charcoal/45")}>
                 {brand.logo ? (
-                  <Image src={brand.logo} alt={brand.name} width={144} height={48} unoptimized className="h-8 w-auto max-w-full object-contain mix-blend-multiply sm:h-10" />
+                  <Image src={brand.logo} alt={brand.name} width={144} height={48} unoptimized className="h-8 w-auto max-w-full object-contain mix-blend-multiply sm:h-7" />
                 ) : (
                   <span className="font-mono-label text-[8px] font-bold tracking-[0.08em] uppercase opacity-70">{brand.name}</span>
                 )}
